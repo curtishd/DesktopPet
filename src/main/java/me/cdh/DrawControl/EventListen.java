@@ -1,5 +1,7 @@
 package me.cdh.DrawControl;
 
+import me.cdh.CustomMouseEvent;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -24,11 +26,8 @@ public class EventListen {
         public static final int EXIT_NOT_CLOSE = JFrame.DISPOSE_ON_CLOSE;
         //窗口关闭类型选择
 
-        public static void AddWindowsExit(NewFrame frame, final int EXIT_OPTION) {
-            if (EXIT_OPTION == 0) {
-                return;
-            }//为空无任何操纵
-            else {
+        public static void AddWindowsExit(MyFrame frame, final int EXIT_OPTION) {
+            if (EXIT_OPTION != 0) {
                 frame.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {   //windowClosing方法对应的就是窗口关闭事件
@@ -53,7 +52,9 @@ public class EventListen {
                     }
                     //窗口被我们成功关闭之后被调用
                 });
-            }
+            }  //为空无任何操纵
+
+
         }
         //添加窗口关闭监听
     }
@@ -64,9 +65,6 @@ public class EventListen {
     public static class MouseEventListener {
         //私有化构造器
 
-        public interface FunPoint_MouseEvent {
-            void Objective_Fun(MouseEvent e);
-        }
         //定义函数指针：定义规则(类型：FunPoint函数指针，作用事件：MouseEvent，功能：略)
 
         //定义函数指针：定义规则(类型：FunPoint函数指针，作用事件：MouseWheelEvent，功能：略)
@@ -74,39 +72,39 @@ public class EventListen {
 
         //--------------------------------函数指针--------------------------------------
 
-        public static MouseListener AddMouseClick(FunPoint_MouseEvent Fun_Point_Click){
+        public static MouseListener AddMouseClick(CustomMouseEvent click){
             return new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
-                    if(Fun_Point_Click != null){
-                        Fun_Point_Click.Objective_Fun(e);
+                    if(click != null){
+                        click.event(e);
                     }
                 }
             };
         }
         //鼠标点击事件
 
-        public static MouseListener AddMousePress(FunPoint_MouseEvent Fun_Point_Press){
+        public static MouseListener AddMousePress(CustomMouseEvent press){
             return new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     super.mouseClicked(e);
-                    if(Fun_Point_Press != null){
-                        Fun_Point_Press.Objective_Fun(e);
+                    if(press != null){
+                        press.event(e);
                     }
                 }
             };
         }
         //鼠标按下事件
 
-        public static MouseListener AddMouseReleased(FunPoint_MouseEvent Fun_Point_Released){
+        public static MouseListener AddMouseReleased(CustomMouseEvent released){
             return new MouseAdapter() {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     super.mouseClicked(e);
-                    if(Fun_Point_Released != null){
-                        Fun_Point_Released.Objective_Fun(e);
+                    if(released != null){
+                        released.event(e);
                     }
                 }
             };
@@ -117,20 +115,20 @@ public class EventListen {
 
         //鼠标进入事件
 
-        public static MouseMotionListener AddMouseDraggedAndMoved(FunPoint_MouseEvent Fun_Point_Dragged,
-        FunPoint_MouseEvent Fun_Point_Moved){
+        public static MouseMotionListener AddMouseDraggedAndMoved(CustomMouseEvent dragged,
+                                                                  CustomMouseEvent moved){
             return new MouseMotionListener() {
                 @Override
                 public void mouseDragged(MouseEvent e) {
-                    if(Fun_Point_Dragged != null){
-                        Fun_Point_Dragged.Objective_Fun(e);
+                    if(dragged != null){
+                        dragged.event(e);
                     }
                 }
 
                 @Override
                 public void mouseMoved(MouseEvent e) {
-                    if(Fun_Point_Moved != null){
-                        Fun_Point_Moved.Objective_Fun(e);
+                    if(moved != null){
+                        moved.event(e);
                     }
                 }
             };

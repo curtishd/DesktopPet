@@ -1,10 +1,11 @@
 package me.cdh.DestopPet;
 
+import me.cdh.Control.RobotSize;
 import me.cdh.Control.ThreadControl;
 import me.cdh.Control.UserData;
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
 import me.cdh.Main.MainAWT;
 
 import java.awt.*;
@@ -61,7 +62,7 @@ public class Robot {
     public Picture Helmet;
     //头盔
 
-    ;
+
     //--------------------------------属性（图片对象）--------------------------------------
 
     public double BasicSize;
@@ -87,12 +88,12 @@ public class Robot {
     public final int Ears_StartTargetDegree = 38;
     public final int Foots_StartTargetDegree = 42;
     //加载属性
-    final int Judge_BasicBody_x = 1600, Judge_BasicBody_y = Judge_BasicBody_x, Judge_BasicBody_w = 785 + 2 * Judge_BasicBody_x, Judge_BasicBody_h = Judge_BasicBody_w;
+    final int Judge_BasicBody_x = 1600, Judge_BasicBody_y = 1600, Judge_BasicBody_w = 785 + 2 * Judge_BasicBody_x, Judge_BasicBody_h = Judge_BasicBody_w;
     //True
     public int Judge_Ears1_x, Judge_Ears1_y, Judge_Ears1_w, Judge_Ears1_h, Judge_Ears2_x, Judge_Ears2_y, Judge_Ears2_w, Judge_Ears2_h,
             Judge_Foots1_x, Judge_Foots1_y, Judge_Foots1_w, Judge_Foots1_h, Judge_Foots2_x, Judge_Foots2_y, Judge_Foots2_w, Judge_Foots2_h;
     //Exp
-    final int Judge_Eye_x = 50, Judge_Eye_y = Judge_Eye_x, Judge_Eye_w = 260 + 100, Judge_Eye_h = 155 + 100;
+    final int Judge_Eye_x = 50, Judge_Eye_y = 50, Judge_Eye_w = 260 + 100, Judge_Eye_h = 155 + 100;
     //判断图片的Rect
 
     public int PictureNum_Blink = 1;
@@ -102,7 +103,7 @@ public class Robot {
     public static long Time_Blink_Lower = 8L * 1000, Time_Blink_Upper = 15 * 1000;
     public static long Time_Shake_Static = 15 * 1000;
     //随机时间设置
-    ;
+
     //--------------------------------final常量--------------------------------------
 
     public void Init() {//这个类暂时就创造一个对象，所以暂时多有都为一个对象服务，不需要实现封装
@@ -365,7 +366,6 @@ public class Robot {
         Basic_Zoom = BasicSize / this.BasicBody.Image_B.getWidth();
         //UserData数据BasicSize
 
-        final int HighLight_Relative_X = 250, HighLight_Relative_Y = 165;
         final int Body_StartTargetDegree = 0, HighLight_StartTargetDegree = 0, EyesStartTargetDegree = 0;
         //基础数据加载
 
@@ -373,25 +373,11 @@ public class Robot {
         this.BasicBody.SrcCentre = new Point(this.BasicBody.Image_B.getWidth() / 2, this.BasicBody.Image_B.getHeight() / 2);
         this.BasicBody.GetNewDst_AppointSrc_In_AppointDstBufferedImage(this.BasicBody.Src,
                 this.BasicBody.SrcCentre,
-                new Point((int) NewFrame.GetScreenWH()[0] / 2, (int) NewFrame.GetScreenWH()[1] / 2),
+                new Point((int) MyFrame.GetScreenWH()[0] / 2, (int) MyFrame.GetScreenWH()[1] / 2),
                 (int) BasicSize, (int) BasicSize);
-/*        if(MainAWT.userData.clothes.ClothesType == UserData.Clothes.ClothesType_Basic ||
-                MainAWT.userData.clothes.ClothesType == UserData.Clothes.ClothesType_Fat ||
-                MainAWT.userData.clothes.ClothesType == UserData.Clothes.ClothesType_Null){
-            this.BasicBody.GetNewDst_AppointSrc_In_AppointDstBufferedImage(this.BasicBody.Src,
-                    this.BasicBody.SrcCentre,
-                    new Point((int)NewFrame.GetScreenWH()[0]/2,(int)NewFrame.GetScreenWH()[1]/2),
-                    (int) BasicSize, (int) BasicSize);
-        }
-        else{
-            this.BasicBody.GetNewDst_AppointSrc_In_AppointDstBufferedImage(this.BasicBody.Src,
-                    this.BasicBody.SrcCentre,
-                    new Point((int)NewFrame.GetScreenWH()[0]/2,(int)NewFrame.GetScreenWH()[1]/2),
-                    (int) BasicSize, (int) (this.BasicBody.Image_B.getHeight() * Basic_Zoom));
-        }*/
         this.BasicBody.CurrentDegree = Body_StartTargetDegree;
         //Robot的基础身体图片数据
-        ;
+
         //----------------BasicBody数据----------------
         if (MainAWT.userData.clothes.ClothesType != UserData.Clothes.ClothesType_Basic &&
                 MainAWT.userData.clothes.ClothesType != UserData.Clothes.ClothesType_Fat &&
@@ -855,22 +841,22 @@ public class Robot {
         Interface_Button.Global_FoodSystem_Interface.EventJudgeRect = Interface_Button.Global_FoodSystem_Interface.Dst;
         Interface_Button.Global_Exit_Interface.EventJudgeRect = Interface_Button.Global_Exit_Interface.Dst;
         Interface_Button.Global_Clothes_Interface.EventJudgeRect = Interface_Button.Global_Clothes_Interface.Dst;
-        if (Interface_Button.Global_SetUp_Interface.List_Button != null && Interface_Button.Global_SetUp_Interface.List_Button.size() > 0) {
+        if (Interface_Button.Global_SetUp_Interface.List_Button != null && !Interface_Button.Global_SetUp_Interface.List_Button.isEmpty()) {
             for (Interface_Button.Button button : Interface_Button.Global_SetUp_Interface.List_Button) {
                 button.EventJudgeRect = button.Dst;
             }
         }
-        if (Interface_Button.Global_FoodSystem_Interface.List_Button != null && Interface_Button.Global_FoodSystem_Interface.List_Button.size() > 0) {
+        if (Interface_Button.Global_FoodSystem_Interface.List_Button != null && !Interface_Button.Global_FoodSystem_Interface.List_Button.isEmpty()) {
             for (Interface_Button.Button button : Interface_Button.Global_FoodSystem_Interface.List_Button) {
                 button.EventJudgeRect = button.Dst;
             }
         }
-        if (Interface_Button.Global_Exit_Interface.List_Button != null && Interface_Button.Global_Exit_Interface.List_Button.size() > 0) {
+        if (Interface_Button.Global_Exit_Interface.List_Button != null && !Interface_Button.Global_Exit_Interface.List_Button.isEmpty()) {
             for (Interface_Button.Button button : Interface_Button.Global_Exit_Interface.List_Button) {
                 button.EventJudgeRect = button.Dst;
             }
         }
-        if (Interface_Button.Global_Clothes_Interface.List_Button != null && Interface_Button.Global_Clothes_Interface.List_Button.size() > 0) {
+        if (Interface_Button.Global_Clothes_Interface.List_Button != null && !Interface_Button.Global_Clothes_Interface.List_Button.isEmpty()) {
             for (Interface_Button.Button button : Interface_Button.Global_Clothes_Interface.List_Button) {
                 button.EventJudgeRect = button.Dst;
             }
@@ -925,7 +911,7 @@ public class Robot {
     //行为函数+数据变换
     public void Refresh_TextContext() {
         UserData.Mood.Refresh_MoodBar_Text(Interface_Button.Global_MoodBar[1], Interface_Button.Global_MoodBar[0],
-                Interface_Button.Global_MoodSystem_Interface.List_Texts.get(0));
+                Interface_Button.Global_MoodSystem_Interface.List_Texts.getFirst());
         for (int i = 0; i < Interface_Button.Food_Picture_Num; i++) {
             Interface_Button.Global_Food_SelectButton[i].text.Content = "剩余:" + Interface_Button.Global_Food[i].FoodNumber;
         }
@@ -1388,38 +1374,38 @@ public class Robot {
 
         Interface_Button.Global_SetUpSwitch.Dst = this.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_SetUpSwitch.Src,
                 Interface_Button.Global_SetUpSwitch.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width / 2, (int) (Interface_Button.Button.Switch_Relative_Y * Basic_Zoom)),
+                new Point(MainAWT.robot.BasicBody.Dst.width / 2, (int) (Interface_Button.Button.Switch_Relative_Y * Basic_Zoom)),
                 (int) (Interface_Button.Global_SetUpSwitch.Src.width * Basic_Zoom),
                 (int) (Interface_Button.Global_SetUpSwitch.Src.height * Basic_Zoom));
         ;
-        Interface_Button.Global_SetUpButton.Dst = MainAWT.FishRoe.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_SetUpButton.Src,
+        Interface_Button.Global_SetUpButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_SetUpButton.Src,
                 Interface_Button.Global_SetUpButton.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width + Interface_Button.SetUpButton_X,
-                        (int) (MainAWT.FishRoe.BasicBody.Dst.height / 2.0)),
+                new Point(MainAWT.robot.BasicBody.Dst.width + Interface_Button.SetUpButton_X,
+                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Interface_Button.Global_SetUpButton.Src.width * Interface_Button.Zoom_Buttons),
                 (int) (Interface_Button.Global_SetUpButton.Src.height * Interface_Button.Zoom_Buttons));
-        Interface_Button.Global_BatteryButton.Dst = MainAWT.FishRoe.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_BatteryButton.Src,
+        Interface_Button.Global_BatteryButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_BatteryButton.Src,
                 Interface_Button.Global_BatteryButton.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width + Interface_Button.BatteryButton_X,
-                        (int) (MainAWT.FishRoe.BasicBody.Dst.height / 2.0)),
+                new Point(MainAWT.robot.BasicBody.Dst.width + Interface_Button.BatteryButton_X,
+                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Interface_Button.Global_BatteryButton.Src.width * Interface_Button.Zoom_Buttons),
                 (int) (Interface_Button.Global_BatteryButton.Src.height * Interface_Button.Zoom_Buttons));
-        Interface_Button.Global_LoveButton.Dst = MainAWT.FishRoe.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_LoveButton.Src,
+        Interface_Button.Global_LoveButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_LoveButton.Src,
                 Interface_Button.Global_LoveButton.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width + Interface_Button.LoveButton_X,
-                        (int) (MainAWT.FishRoe.BasicBody.Dst.height / 2.0)),
+                new Point(MainAWT.robot.BasicBody.Dst.width + Interface_Button.LoveButton_X,
+                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Interface_Button.Global_LoveButton.Src.width * Interface_Button.Zoom_Buttons),
                 (int) (Interface_Button.Global_LoveButton.Src.height * Interface_Button.Zoom_Buttons));
-        Interface_Button.Global_ExitButton.Dst = MainAWT.FishRoe.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_ExitButton.Src,
+        Interface_Button.Global_ExitButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_ExitButton.Src,
                 Interface_Button.Global_ExitButton.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width + Interface_Button.ExitButton_X,
-                        (int) (MainAWT.FishRoe.BasicBody.Dst.height / 2.0)),
+                new Point(MainAWT.robot.BasicBody.Dst.width + Interface_Button.ExitButton_X,
+                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Interface_Button.Global_ExitButton.Src.width * Interface_Button.Zoom_Buttons),
                 (int) (Interface_Button.Global_ExitButton.Src.height * Interface_Button.Zoom_Buttons));
-        Interface_Button.Global_ClothesButton.Dst = MainAWT.FishRoe.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_ClothesButton.Src,
+        Interface_Button.Global_ClothesButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Interface_Button.Global_ClothesButton.Src,
                 Interface_Button.Global_ClothesButton.SrcCentre,
-                new Point(MainAWT.FishRoe.BasicBody.Dst.width + Interface_Button.ClothesButton_X,
-                        (int) (MainAWT.FishRoe.BasicBody.Dst.height / 2.0)),
+                new Point(MainAWT.robot.BasicBody.Dst.width + Interface_Button.ClothesButton_X,
+                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Interface_Button.Global_ClothesButton.Src.width * Interface_Button.Zoom_Buttons),
                 (int) (Interface_Button.Global_ClothesButton.Src.height * Interface_Button.Zoom_Buttons));
         //Button数据
@@ -1427,7 +1413,7 @@ public class Robot {
 
     //鱼籽移动
     public boolean Check_IsInScreenCentre() {
-        double[] ScreenCentre = NewFrame.GetScreenWH();
+        double[] ScreenCentre = MyFrame.GetScreenWH();
         int BodyLeft = this.BasicBody.Dst.x;
         int BodyRight = this.BasicBody.Dst.x + this.BasicBody.Dst.width;
         int BodyUp = this.BasicBody.Dst.y;
@@ -1487,7 +1473,6 @@ public class Robot {
         }
         //获取被锁定的图像
 
-        //删除锁定的图像
 
         public void Lock_AddLockText(Display.Text text) {
             if (List_LockedTexts != null) {
@@ -1505,7 +1490,7 @@ public class Robot {
             ThreadControl.PaintSleepController.eventAwake = true;
             int current_x = e.getX();
             int current_y = e.getY();
-            MainAWT.FishRoe.Judge_BasicBodyEventRectChange = true;
+            MainAWT.robot.Judge_BasicBodyEventRectChange = true;
             Dst.x = Dst.x + (current_x - beforeX);
             Dst.y = Dst.y + (current_y - beforeY);
             for (Picture picture_object : List_LockedPicture) {
@@ -1526,13 +1511,13 @@ public class Robot {
             Dst.x = Dst.x + (current_x - beforeX);
             Dst.y = Dst.y + (current_y - beforeY);
             if (List_LockedPicture != null && !List_LockedPicture.isEmpty()) {
-                for (Picture picture_object : List_LockedPicture) {
+                for (var picture_object : List_LockedPicture) {
                     Lock_OnBody(picture_object, current_x, current_y);
                 }
                 //Lock
             }
             if (List_LockedTexts != null && !List_LockedTexts.isEmpty()) {
-                for (Display.Text text : List_LockedTexts) {
+                for (var text : List_LockedTexts) {
                     Lock_OnBody_Text(text, current_x, current_y);
                 }
             }
@@ -1572,10 +1557,6 @@ public class Robot {
                 }
             }
         }
-        //鼠标按下
-
-        //鼠标按下
-        ;
         //--------------------------------锁定Body事件方法--------------------------------------
 
         public void EarsFoots_MouseDragged(Picture picture, int current_x, int current_y, Direction direction) {
@@ -1606,8 +1587,6 @@ public class Robot {
                 } else if (gap_x == 0) {
                     if (gap_y > 0) {
                         TargetDegree = -180;
-                    } else {
-                        TargetDegree = 0;
                     }
                 }
             } else if (direction == Direction.Left_Down || direction == Direction.Right_Down) {
@@ -1722,7 +1701,7 @@ public class Robot {
         for (int i = 0; i < Interface_Button.Food_Picture_Num; i++) {
             Interface_Button.Global_Food[i].picture.eventLock.setMouse_Dragged(false);
         }
-        MainAWT.FishRoe.Judge_BasicBodyEventRectChange = false;
+        MainAWT.robot.Judge_BasicBodyEventRectChange = false;
         //拖拽锁
         if (Interface_Button.Global_Food != null) {
             for (int i = 0; i < Interface_Button.Food_Picture_Num; i++) {
@@ -1734,16 +1713,16 @@ public class Robot {
     //放开所有的锁
 
     public static void MouseReleased_BeginEat(MouseEvent e) {//1.把食物托给Roe    2.把Roe拖到食物旁边
-        if (MainAWT.FishRoe.BasicBody != null && !ActionTool.Global_Lock_FoodEaten) {
+        if (MainAWT.robot.BasicBody != null && !ActionTool.Global_Lock_FoodEaten) {
             ThreadControl.PaintSleepController.eventAwake = true;
             //没有吃到才能吃
             double ratio = 7;
-            Display.Rect tempRect = new Display.Rect(MainAWT.FishRoe.BasicBody.Dst.x, MainAWT.FishRoe.BasicBody.Dst.y,
-                    MainAWT.FishRoe.BasicBody.Dst.width, MainAWT.FishRoe.BasicBody.Dst.height);
-            tempRect.x += (int) (MainAWT.FishRoe.BasicBody.Dst.width / ratio);
-            tempRect.y += (int) (MainAWT.FishRoe.BasicBody.Dst.height / ratio);
-            tempRect.width = (int) (MainAWT.FishRoe.BasicBody.Dst.width * (ratio - 2) / ratio);
-            tempRect.height = (int) (MainAWT.FishRoe.BasicBody.Dst.height * (ratio - 2) / ratio);
+            Display.Rect tempRect = new Display.Rect(MainAWT.robot.BasicBody.Dst.x, MainAWT.robot.BasicBody.Dst.y,
+                    MainAWT.robot.BasicBody.Dst.width, MainAWT.robot.BasicBody.Dst.height);
+            tempRect.x += (int) (MainAWT.robot.BasicBody.Dst.width / ratio);
+            tempRect.y += (int) (MainAWT.robot.BasicBody.Dst.height / ratio);
+            tempRect.width = (int) (MainAWT.robot.BasicBody.Dst.width * (ratio - 2) / ratio);
+            tempRect.height = (int) (MainAWT.robot.BasicBody.Dst.height * (ratio - 2) / ratio);
             if (tempRect.Judge_PointInRect(e.getX(), e.getY())) {
                 //1.松开的区域在BasicBody的Dst
                 if (Interface_Button.Global_Food != null && Interface_Button.Global_Food.length > 0) {
@@ -1776,12 +1755,11 @@ public class Robot {
                         }
                     }
                 }
-                //2.判断是哪个食物
             }
         }
     }
     //松开食物，开始吃:注意，此处用到了判断锁，在AllUnlock中解锁，所以此函数必须在AllUnlock之前
-    ;
+
 
     public static void MouseClick_BeginBodyMove(MouseEvent e) {
         int order = ActionTool.Random.Get_Int_SetRange(0, 12);
@@ -2071,7 +2049,7 @@ public class Robot {
             picture.eventLock.setMouse_Dragged(false);//拖拽
             picture.eventLock.setMouse_Pressed(false);//按下
             picture.eventLock.setMove_Angle(false);//角度跟随锁
-            picture.FollowSpeed = MainAWT.FishRoe.FollowSpeed_Final;
+            picture.FollowSpeed = MainAWT.robot.FollowSpeed_Final;
         }
         //解锁
 
@@ -2123,8 +2101,8 @@ public class Robot {
             super.reset_init();
             this.direction = Direction.Left;
             this.Before_direction = this.direction;
-            this.Speed_Dst_x = (float) (-Speed_final * MainAWT.FishRoe.Basic_Zoom);
-            this.Bound_x = (float) (-Bound_x_final * MainAWT.FishRoe.Basic_Zoom);
+            this.Speed_Dst_x = (float) (-Speed_final * MainAWT.robot.Basic_Zoom);
+            this.Bound_x = (float) (-Bound_x_final * MainAWT.robot.Basic_Zoom);
             //根据比例变换
             this.Lock_MouseDragged = false;
             this.Temp_Dst_x = 0;//初始的距离差距未0
@@ -2408,7 +2386,7 @@ public class Robot {
             super.Lock();
             picture.eventLock.setDisplay_Conventional(true);
             picture.eventLock.setMouse_Click(true);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
         }
         //上锁
 
@@ -2417,7 +2395,7 @@ public class Robot {
             super.Unlock();
             picture.eventLock.setDisplay_Conventional(false);
             picture.eventLock.setMouse_Click(false);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
         }
         //解锁：特殊：根据Lock重置与退出
     }
@@ -2539,7 +2517,7 @@ public class Robot {
             picture.eventLock.setMouse_Pressed(true);//按下
             picture.eventLock.setMove_Angle(true);//角度跟随锁
             picture.eventLock.setMouse_Released(true);//不准释放
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制上锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制上锁
             picture.FollowSpeed = 1;
         }
         //上锁
@@ -2554,7 +2532,7 @@ public class Robot {
             picture.eventLock.setMove_Angle(false);//角度跟随锁
             picture.eventLock.setMouse_Released(false);
             //MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
-            picture.FollowSpeed = MainAWT.FishRoe.FollowSpeed_Final;
+            picture.FollowSpeed = MainAWT.robot.FollowSpeed_Final;
         }
         //解锁
 
@@ -2716,6 +2694,7 @@ public class Robot {
                     this.Speed_Dst_w = 2 * speed;
                     this.Speed_Dst_h = 2 * speed;
                 }
+                float zoom = 1.5F;
                 if (this.TempDst.hf >= this.picture.Dst.height * zoom) {//到头了
                     this.CurrentState = State_Back;
                 }
@@ -2741,8 +2720,7 @@ public class Robot {
             //刷新数据
         }
 
-        private final float speed = (float) (15 * MainAWT.FishRoe.Basic_Zoom);
-        private final float zoom = 1.5F;
+        private final float speed = (float) (15 * MainAWT.robot.Basic_Zoom);
 
         @Override
         protected void reset_init() {
@@ -2773,7 +2751,7 @@ public class Robot {
             super.Lock();
             picture.eventLock.setDisplay_Conventional(true);
             picture.eventLock.setMouse_Click(true);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
         }
 
         @Override
@@ -2941,7 +2919,7 @@ public class Robot {
             picture.eventLock.setMouse_Pressed(false);//按下
             picture.eventLock.setMove_Angle(false);//角度跟随锁
             picture.eventLock.setMouse_Released(false);
-            picture.FollowSpeed = MainAWT.FishRoe.FollowSpeed_Final;
+            picture.FollowSpeed = MainAWT.robot.FollowSpeed_Final;
         }
         //解锁
 
@@ -3014,17 +2992,17 @@ public class Robot {
         }
 
         public void Follow(int x, int y) {
-            int BodyCentre_x = MainAWT.FishRoe.BasicBody.Dst.x + MainAWT.FishRoe.BasicBody.Dst.width / 2;
-            int BodyCentre_y = (int) (MainAWT.FishRoe.BasicBody.Dst.y + MainAWT.FishRoe.Eyes_Relative_Y * MainAWT.FishRoe.Basic_Zoom);
+            int BodyCentre_x = MainAWT.robot.BasicBody.Dst.x + MainAWT.robot.BasicBody.Dst.width / 2;
+            int BodyCentre_y = (int) (MainAWT.robot.BasicBody.Dst.y + MainAWT.robot.Eyes_Relative_Y * MainAWT.robot.Basic_Zoom);
             int Ratio = 5;
             int Gap_x = x - BodyCentre_x;
             int Gap_y = y - BodyCentre_y;
             int Gap_x_Ratio = Gap_x / Ratio;
             int Gap_y_Ratio = Gap_y / Ratio;
-            int Boundary_Left = (int) (MainAWT.FishRoe.BasicBody.Dst.x + FollowEyes_Relative_X * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Right = (int) (MainAWT.FishRoe.BasicBody.Dst.x + (FollowEyes_Relative_X + FollowEyes_Relative_W) * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Up = (int) (MainAWT.FishRoe.BasicBody.Dst.y + FollowEyes_Relative_Y * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Down = (int) (MainAWT.FishRoe.BasicBody.Dst.y + (FollowEyes_Relative_Y + FollowEyes_Relative_H) * MainAWT.FishRoe.Basic_Zoom);
+            int Boundary_Left = (int) (MainAWT.robot.BasicBody.Dst.x + FollowEyes_Relative_X * MainAWT.robot.Basic_Zoom);
+            int Boundary_Right = (int) (MainAWT.robot.BasicBody.Dst.x + (FollowEyes_Relative_X + FollowEyes_Relative_W) * MainAWT.robot.Basic_Zoom);
+            int Boundary_Up = (int) (MainAWT.robot.BasicBody.Dst.y + FollowEyes_Relative_Y * MainAWT.robot.Basic_Zoom);
+            int Boundary_Down = (int) (MainAWT.robot.BasicBody.Dst.y + (FollowEyes_Relative_Y + FollowEyes_Relative_H) * MainAWT.robot.Basic_Zoom);
             int Offset_x, Offset_y;//偏移量
             if (Gap_x_Ratio >= 0) {
                 Offset_x = Math.min(Gap_x_Ratio, Boundary_Right - BodyCentre_x);
@@ -3107,7 +3085,7 @@ public class Robot {
             super.Lock();
             picture.eventLock.setDisplay_Conventional(true);
             picture.eventLock.setMouse_Click(true);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
         }
 
         @Override
@@ -3115,7 +3093,7 @@ public class Robot {
             super.Unlock();
             picture.eventLock.setDisplay_Conventional(false);
             picture.eventLock.setMouse_Click(false);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
         }
 
     }
@@ -3174,8 +3152,8 @@ public class Robot {
             super.reset_init();
             this.direction = Direction.Left;
             this.Before_direction = this.direction;
-            this.Speed_Dst_x = (float) (-Speed_final * MainAWT.FishRoe.Basic_Zoom);
-            this.Bound_x = (float) (-Bound_x_final * MainAWT.FishRoe.Basic_Zoom);
+            this.Speed_Dst_x = (float) (-Speed_final * MainAWT.robot.Basic_Zoom);
+            this.Bound_x = (float) (-Bound_x_final * MainAWT.robot.Basic_Zoom);
             //根据比例变换
             this.Lock_MouseDragged = false;
             this.Temp_Dst_x = 0;//初始的距离差距未0
@@ -3409,7 +3387,7 @@ public class Robot {
             picture.eventLock.setMouse_Pressed(false);//按下
             picture.eventLock.setMove_Angle(false);//角度跟随锁
             picture.eventLock.setMouse_Released(false);
-            picture.FollowSpeed = MainAWT.FishRoe.FollowSpeed_Final;
+            picture.FollowSpeed = MainAWT.robot.FollowSpeed_Final;
         }
         //解锁
 
@@ -3495,7 +3473,7 @@ public class Robot {
         @Override
         public void Lock() {
             super.Lock();
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
         }
         //上锁
 
@@ -3503,7 +3481,7 @@ public class Robot {
         public void Unlock() {
             super.Unlock();
             this.Reset();
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
             this.CurrentState = ActionObject_Operation.State_Sleep;//状态为退出
         }
         //解锁：特殊：根据Lock重置与退出
@@ -3744,7 +3722,7 @@ public class Robot {
             picture.eventLock.setMouse_Pressed(false);//按下
             picture.eventLock.setMove_Angle(false);//角度跟随锁
             picture.eventLock.setMouse_Released(false);
-            picture.FollowSpeed = MainAWT.FishRoe.FollowSpeed_Final;
+            picture.FollowSpeed = MainAWT.robot.FollowSpeed_Final;
         }
         //解锁
 
@@ -3814,10 +3792,6 @@ public class Robot {
 
 
         //------------------final常量------------------
-
-        public void Eaten_FoodFollow() {
-
-        }
 
 
         //------------------特殊功能------------------
@@ -3931,15 +3905,14 @@ public class Robot {
             //刷新数据
         }
 
-        private final float ratio = 6;
-
         private void Follow() {
-            int Centre_x = MainAWT.FishRoe.BasicHatch[1].Dst.x + MainAWT.FishRoe.BasicHatch[1].Dst.width / 2;
-            int Centre_y = MainAWT.FishRoe.BasicHatch[1].Dst.y + MainAWT.FishRoe.BasicHatch[1].Dst.height / 2;
+            int Centre_x = MainAWT.robot.BasicHatch[1].Dst.x + MainAWT.robot.BasicHatch[1].Dst.width / 2;
+            int Centre_y = MainAWT.robot.BasicHatch[1].Dst.y + MainAWT.robot.BasicHatch[1].Dst.height / 2;
             this.Temp_Centre_x = (int) (this.TempDst.xf + this.TempDst.wf / 2);
             this.Temp_Centre_y = (int) (this.TempDst.yf + this.TempDst.hf / 2);
             int Gap_x = this.Temp_Centre_x - Centre_x;
             int Gap_y = this.Temp_Centre_y - Centre_y;
+            float ratio = 6;
             this.Speed_Dst_x = -(float) Gap_x / ratio;
             this.Speed_Dst_y = -(float) Gap_y / ratio;
             this.Move_Dst_x();
@@ -3976,7 +3949,7 @@ public class Robot {
             super.Lock();
             picture.eventLock.setDisplay_Conventional(true);
             picture.eventLock.setMouse_Click(true);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
             for (Interface_Button.Food f : Interface_Button.Global_Food) {
                 f.picture.eventLock.setOnce_Display(true);//绘制过一次
                 f.picture.eventLock.setDisplay_Conventional(true);//常规绘制上锁
@@ -4010,7 +3983,7 @@ public class Robot {
     }
 
     public static void Eaten_End_UnlockALL() {
-        MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
+        MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
         Global_EatenHappy_Operation[0].FoodFollow = false;
         for (Interface_Button.Food f : Interface_Button.Global_Food) {
             f.picture.eventLock.setOnce_Display(false);//绘制过一次
@@ -4025,8 +3998,8 @@ public class Robot {
             f.Eaten = false;
             f.Judge_EventRectChange = false;
         }
-        int Current_x = MainAWT.FishRoe.BasicBody.Dst.x;
-        int Current_y = MainAWT.FishRoe.BasicBody.Dst.y;
+        int Current_x = MainAWT.robot.BasicBody.Dst.x;
+        int Current_y = MainAWT.robot.BasicBody.Dst.y;
 
         Interface_Button.Global_Food = new Interface_Button.Food[Interface_Button.Food_Picture_Num];
         for (int i = 0; i < Interface_Button.Food_Picture_Num; i++) {
@@ -4040,8 +4013,8 @@ public class Robot {
         Global_FishRoeAction_Tool = new ActionTool();//申请ActionTool
         //ActionTool.Global_ActionTool_Init();
         //初始化动作对象管理工具
-        MainAWT.FishRoe = new Robot();
-        MainAWT.FishRoe.Init_AfterSetUp2(Current_x, Current_y);
+        MainAWT.robot = new Robot();
+        MainAWT.robot.Init_AfterSetUp2(Current_x, Current_y);
         //鱼籽对象初始化
         Interface_Button.Global_Interface_Button_Data_Init();
         //界面，按钮对象初始化
@@ -4171,7 +4144,7 @@ public class Robot {
 
         @Override
         public void Move() {
-            MainAWT.FishRoe.Move_BasicBody((int) this.Speed_Dst_x, (int) this.Speed_Dst_y);
+            MainAWT.robot.Move_BasicBody((int) this.Speed_Dst_x, (int) this.Speed_Dst_y);
         }
 
         @Override
@@ -4205,13 +4178,13 @@ public class Robot {
         @Override
         public void Lock() {
             super.Lock();
-            MainAWT.FishRoe.AngleMoveRate = 2000.0;
+            MainAWT.robot.AngleMoveRate = 2000.0;
         }
 
         @Override
         public void Unlock() {
             super.Unlock();
-            MainAWT.FishRoe.AngleMoveRate = 2.0;
+            MainAWT.robot.AngleMoveRate = 2.0;
         }
 
     }
@@ -4279,8 +4252,8 @@ public class Robot {
                 //正负号
                 int Random_x = ActionTool.Random.Get_Int_SetRange(0, range);
                 int Random_y = ActionTool.Random.Get_Int_SetRange(0, range);
-                centre_x = (int) (NewFrame.GetScreenWH()[0] / 2.0 + (point_x * Random_x));
-                centre_y = (int) (NewFrame.GetScreenWH()[1] / 2.0 + (point_y * Random_y));
+                centre_x = (int) (MyFrame.GetScreenWH()[0] / 2.0 + (point_x * Random_x));
+                centre_y = (int) (MyFrame.GetScreenWH()[1] / 2.0 + (point_y * Random_y));
                 //偏移量
             }
 
@@ -4292,17 +4265,17 @@ public class Robot {
         }
 
         public void Follow(int x, int y) {
-            int BodyCentre_x = MainAWT.FishRoe.BasicBody.Dst.x + MainAWT.FishRoe.BasicBody.Dst.width / 2;
-            int BodyCentre_y = (int) (MainAWT.FishRoe.BasicBody.Dst.y + MainAWT.FishRoe.Eyes_Relative_Y * MainAWT.FishRoe.Basic_Zoom);
+            int BodyCentre_x = MainAWT.robot.BasicBody.Dst.x + MainAWT.robot.BasicBody.Dst.width / 2;
+            int BodyCentre_y = (int) (MainAWT.robot.BasicBody.Dst.y + MainAWT.robot.Eyes_Relative_Y * MainAWT.robot.Basic_Zoom);
             int Ratio = 5;
             int Gap_x = x - BodyCentre_x;
             int Gap_y = y - BodyCentre_y;
             int Gap_x_Ratio = Gap_x / Ratio;
             int Gap_y_Ratio = Gap_y / Ratio;
-            int Boundary_Left = (int) (MainAWT.FishRoe.BasicBody.Dst.x + FollowEyes_Relative_X * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Right = (int) (MainAWT.FishRoe.BasicBody.Dst.x + (FollowEyes_Relative_X + FollowEyes_Relative_W) * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Up = (int) (MainAWT.FishRoe.BasicBody.Dst.y + FollowEyes_Relative_Y * MainAWT.FishRoe.Basic_Zoom);
-            int Boundary_Down = (int) (MainAWT.FishRoe.BasicBody.Dst.y + (FollowEyes_Relative_Y + FollowEyes_Relative_H) * MainAWT.FishRoe.Basic_Zoom);
+            int Boundary_Left = (int) (MainAWT.robot.BasicBody.Dst.x + FollowEyes_Relative_X * MainAWT.robot.Basic_Zoom);
+            int Boundary_Right = (int) (MainAWT.robot.BasicBody.Dst.x + (FollowEyes_Relative_X + FollowEyes_Relative_W) * MainAWT.robot.Basic_Zoom);
+            int Boundary_Up = (int) (MainAWT.robot.BasicBody.Dst.y + FollowEyes_Relative_Y * MainAWT.robot.Basic_Zoom);
+            int Boundary_Down = (int) (MainAWT.robot.BasicBody.Dst.y + (FollowEyes_Relative_Y + FollowEyes_Relative_H) * MainAWT.robot.Basic_Zoom);
             int Offset_x, Offset_y;//偏移量
             if (Gap_x_Ratio >= 0) {
                 Offset_x = Math.min(Gap_x_Ratio, Boundary_Right - BodyCentre_x);
@@ -4385,7 +4358,7 @@ public class Robot {
             super.Lock();
             picture.eventLock.setDisplay_Conventional(true);
             picture.eventLock.setMouse_Click(true);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(true);//通用绘制解锁
         }
 
         @Override
@@ -4393,7 +4366,7 @@ public class Robot {
             super.Unlock();
             picture.eventLock.setDisplay_Conventional(false);
             picture.eventLock.setMouse_Click(false);
-            MainAWT.FishRoe.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
+            MainAWT.robot.BasicEyes.eventLock.setDisplay_Conventional(false);//通用绘制解锁
         }
 
     }
@@ -4439,14 +4412,14 @@ public class Robot {
             Interface_Button.Global_Food[i] = new Interface_Button.Food(new Picture());
         }
         //初始化Food，以便读取数据
-        MainAWT.userData = new UserData(UserData.SetUp.RobotSize.SIZE_200, 100, "target/classes/me/cdh/UserData/SetUp.data");
+        MainAWT.userData = new UserData(RobotSize.SIZE_200, 100, "target/classes/me/cdh/UserData/SetUp.data");
         MainAWT.userData.Get_readData(MainAWT.userData.ReadData());//数据获取
         //用户数据
         ThreadControl.Global_ThreadInit();
         //线程初始化
         Global_FishRoeAction_Tool = new ActionTool();//申请ActionTool
         //初始化动作对象管理工具
-        MainAWT.FishRoe = new Robot();
+        MainAWT.robot = new Robot();
         //鱼籽对象初始化
         Interface_Button.Button.Global_Init_Button_Interface();//Button图片初始化
         //图片初始化
@@ -4457,42 +4430,42 @@ public class Robot {
 
     public static void Global_Init_ActionOperation() {
 
-        Global_Blink_Operation = new Action_Blink[MainAWT.FishRoe.PictureNum_Blink];//初始化ActionPicture数组
-        Global_Blink_Operation[0] = new Action_Blink(MainAWT.FishRoe.BasicEyes);//申请ActionPicture
+        Global_Blink_Operation = new Action_Blink[MainAWT.robot.PictureNum_Blink];//初始化ActionPicture数组
+        Global_Blink_Operation[0] = new Action_Blink(MainAWT.robot.BasicEyes);//申请ActionPicture
 
         //------------------Blink------------------
-        Global_BlinkSad_Operation = new Action_Blink[MainAWT.FishRoe.PictureNum_Blink];//初始化ActionPicture数组
-        Global_BlinkSad_Operation[0] = new Action_Blink(MainAWT.FishRoe.SadEye);//申请ActionPicture
+        Global_BlinkSad_Operation = new Action_Blink[MainAWT.robot.PictureNum_Blink];//初始化ActionPicture数组
+        Global_BlinkSad_Operation[0] = new Action_Blink(MainAWT.robot.SadEye);//申请ActionPicture
 
         //------------------Blink------------------
-        Global_BlinkGrievanceSad_Operation = new Action_Blink[MainAWT.FishRoe.PictureNum_Blink];//初始化ActionPicture数组
-        Global_BlinkGrievanceSad_Operation[0] = new Action_Blink(MainAWT.FishRoe.Grievance_Sad);//申请ActionPicture
+        Global_BlinkGrievanceSad_Operation = new Action_Blink[MainAWT.robot.PictureNum_Blink];//初始化ActionPicture数组
+        Global_BlinkGrievanceSad_Operation[0] = new Action_Blink(MainAWT.robot.Grievance_Sad);//申请ActionPicture
 
         //------------------Blink------------------
 
-        Global_Shake_Operation = new Action_ShakeEarsFoots[MainAWT.FishRoe.PictureNum_Shake];
-        Global_Shake_Operation[0] = new Action_ShakeEarsFoots(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_Shake_Operation[1] = new Action_ShakeEarsFoots(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_Shake_Operation[2] = new Action_ShakeEarsFoots(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_Shake_Operation[3] = new Action_ShakeEarsFoots(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
+        Global_Shake_Operation = new Action_ShakeEarsFoots[MainAWT.robot.PictureNum_Shake];
+        Global_Shake_Operation[0] = new Action_ShakeEarsFoots(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_Shake_Operation[1] = new Action_ShakeEarsFoots(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_Shake_Operation[2] = new Action_ShakeEarsFoots(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_Shake_Operation[3] = new Action_ShakeEarsFoots(MainAWT.robot.Foots[1], Direction.Right_Down);
 
         //------------------Shake------------------
 
         Global_Squint_Operation = new Action_Squint[1];
-        Global_Squint_Operation[0] = new Action_Squint(MainAWT.FishRoe.Squint);
+        Global_Squint_Operation[0] = new Action_Squint(MainAWT.robot.Squint);
         Global_Squint_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
 
         //------------------Squint------------------
 
         Global_Doubt_Operation = new Action_Doubt[1];
-        Global_Doubt_Operation[0] = new Action_Doubt(MainAWT.FishRoe.Doubt);
+        Global_Doubt_Operation[0] = new Action_Doubt(MainAWT.robot.Doubt);
         Global_Doubt_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
 
         //------------------Doubt------------------
 
         Global_Dizzy_Operation = new Action_Dizzy[2];
-        Global_Dizzy_Operation[0] = new Action_Dizzy(MainAWT.FishRoe.Dizzy[0], Direction.Left);
-        Global_Dizzy_Operation[1] = new Action_Dizzy(MainAWT.FishRoe.Dizzy[1], Direction.Right);
+        Global_Dizzy_Operation[0] = new Action_Dizzy(MainAWT.robot.Dizzy[0], Direction.Left);
+        Global_Dizzy_Operation[1] = new Action_Dizzy(MainAWT.robot.Dizzy[1], Direction.Right);
         for (int i = 0; i < 2; i++) {
             Global_Dizzy_Operation[i].Time_EndTime = Global_ActionDuration_Dizzy;
             Global_Dizzy_Operation[i].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4502,14 +4475,14 @@ public class Robot {
         //------------------Dizzy------------------
 
         Global_WonderEye_Operation = new Action_WonderEyes[1];
-        Global_WonderEye_Operation[0] = new Action_WonderEyes(MainAWT.FishRoe.Surprised);
+        Global_WonderEye_Operation[0] = new Action_WonderEyes(MainAWT.robot.Surprised);
         Global_WonderEye_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
-        Global_WonderEar_Operation = new Action_ShakeEar_Wonder[MainAWT.FishRoe.PictureNum_Shake];
-        Global_WonderEar_Operation[0] = new Action_ShakeEar_Wonder(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_WonderEar_Operation[1] = new Action_ShakeEar_Wonder(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_WonderEar_Operation[2] = new Action_ShakeEar_Wonder(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_WonderEar_Operation[3] = new Action_ShakeEar_Wonder(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_WonderEar_Operation = new Action_ShakeEar_Wonder[MainAWT.robot.PictureNum_Shake];
+        Global_WonderEar_Operation[0] = new Action_ShakeEar_Wonder(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_WonderEar_Operation[1] = new Action_ShakeEar_Wonder(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_WonderEar_Operation[2] = new Action_ShakeEar_Wonder(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_WonderEar_Operation[3] = new Action_ShakeEar_Wonder(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_WonderEar_Operation[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         }//结束条件+定时结束
 
@@ -4517,16 +4490,16 @@ public class Robot {
 
         Global_StarEyes_Operation = new Action_StarEyes[2];
         for (int i = 0; i < 2; i++) {
-            Global_StarEyes_Operation[i] = new Action_StarEyes(MainAWT.FishRoe.StarEyes[i]);
+            Global_StarEyes_Operation[i] = new Action_StarEyes(MainAWT.robot.StarEyes[i]);
             Global_StarEyes_Operation[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_StarEyes_Operation[i].Time_EndTime = Global_ActionDuration_StarHappy;//结束时间设置
         }
-        Global_ShakeEarHappy_Operation = new Action_ShakeEar_Happy[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEarHappy_Operation[0] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEarHappy_Operation[1] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEarHappy_Operation[2] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEarHappy_Operation[3] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEarHappy_Operation = new Action_ShakeEar_Happy[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEarHappy_Operation[0] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEarHappy_Operation[1] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEarHappy_Operation[2] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEarHappy_Operation[3] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEarHappy_Operation[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_ShakeEarHappy_Operation[i].Time_EndTime = Global_ActionDuration_StarHappy;//结束时间设置
         }//结束条件+定时结束
@@ -4534,42 +4507,42 @@ public class Robot {
         //------------------StarEyes+Happy------------------
 
         Global_EyesFollow_Operation = new Action_EyesFollow[1];
-        Global_EyesFollow_Operation[0] = new Action_EyesFollow(MainAWT.FishRoe.BasicEyes);//申请ActionPicture
+        Global_EyesFollow_Operation[0] = new Action_EyesFollow(MainAWT.robot.BasicEyes);//申请ActionPicture
         Global_EyesFollow_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_EyesFollow_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow;//结束时间设置
 
         //------------------EyesFollow------------------
 
         Global_DoubtBeforeFollow_Operation = new Action_Doubt[1];
-        Global_DoubtBeforeFollow_Operation[0] = new Action_Doubt(MainAWT.FishRoe.Doubt);
+        Global_DoubtBeforeFollow_Operation[0] = new Action_Doubt(MainAWT.robot.Doubt);
         Global_DoubtBeforeFollow_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
 
         //------------------DoubtBeforeFollow------------------
 
         Global_SquintStruggle_Operation = new Action_SquintStruggle[1];
-        Global_SquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.FishRoe.Squint);
+        Global_SquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.robot.Squint);
         Global_SquintStruggle_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_SquintStruggle_Operation[0].Time_EndTime = Global_ActionDuration_Struggle;
-        Global_ShakeEar_Struggle_Operation = new Action_ShakeEar_Struggle[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEar_Struggle_Operation[0] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEar_Struggle_Operation[1] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEar_Struggle_Operation[2] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEar_Struggle_Operation[3] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEar_Struggle_Operation = new Action_ShakeEar_Struggle[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEar_Struggle_Operation[0] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEar_Struggle_Operation[1] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEar_Struggle_Operation[2] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEar_Struggle_Operation[3] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEar_Struggle_Operation[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_ShakeEar_Struggle_Operation[i].Time_EndTime = Global_ActionDuration_Struggle;
         }
 
         Global_SquintStruggle_Operation1 = new Action_SquintStruggle[1];
-        Global_SquintStruggle_Operation1[0] = new Action_SquintStruggle(MainAWT.FishRoe.Squint);
+        Global_SquintStruggle_Operation1[0] = new Action_SquintStruggle(MainAWT.robot.Squint);
         Global_SquintStruggle_Operation1[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_SquintStruggle_Operation1[0].Time_EndTime = Global_ActionDuration_Struggle;
-        Global_ShakeEar_Struggle_Operation1 = new Action_ShakeEar_Struggle[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEar_Struggle_Operation1[0] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEar_Struggle_Operation1[1] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEar_Struggle_Operation1[2] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEar_Struggle_Operation1[3] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEar_Struggle_Operation1 = new Action_ShakeEar_Struggle[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEar_Struggle_Operation1[0] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEar_Struggle_Operation1[1] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEar_Struggle_Operation1[2] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEar_Struggle_Operation1[3] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEar_Struggle_Operation1[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_ShakeEar_Struggle_Operation1[i].Time_EndTime = Global_ActionDuration_Struggle;
         }
@@ -4577,23 +4550,23 @@ public class Robot {
         //------------------Struggle------------------
 
         Global_Angry_Operation = new Action_Angry[1];
-        Global_Angry_Operation[0] = new Action_Angry(MainAWT.FishRoe.AngryEye);
+        Global_Angry_Operation[0] = new Action_Angry(MainAWT.robot.AngryEye);
         Global_Angry_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_Angry_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
 
         //------------------Angry------------------
 
         Global_Sad_Operation = new Action_Sad[1];
-        Global_Sad_Operation[0] = new Action_Sad(MainAWT.FishRoe.SadEye);
+        Global_Sad_Operation[0] = new Action_Sad(MainAWT.robot.SadEye);
         Global_Sad_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_Sad_Operation[0].Time_EndTime = Global_ActionDuration_Sad;
 
-        Global_SadEar_Operation = new Action_SadEar[MainAWT.FishRoe.PictureNum_Shake];
-        Global_SadEar_Operation[0] = new Action_SadEar(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_SadEar_Operation[1] = new Action_SadEar(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_SadEar_Operation[2] = new Action_SadEar(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_SadEar_Operation[3] = new Action_SadEar(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_SadEar_Operation = new Action_SadEar[MainAWT.robot.PictureNum_Shake];
+        Global_SadEar_Operation[0] = new Action_SadEar(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_SadEar_Operation[1] = new Action_SadEar(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_SadEar_Operation[2] = new Action_SadEar(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_SadEar_Operation[3] = new Action_SadEar(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_SadEar_Operation[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_SadEar_Operation[i].Time_EndTime = Global_ActionDuration_Sad;
         }
@@ -4601,54 +4574,54 @@ public class Robot {
         //------------------Sad------------------
 
         Global_GrievanceSquint_Operation = new Action_SquintStruggle[1];
-        Global_GrievanceSquint_Operation[0] = new Action_SquintStruggle(MainAWT.FishRoe.Grievance_Squint);
+        Global_GrievanceSquint_Operation[0] = new Action_SquintStruggle(MainAWT.robot.Grievance_Squint);
         Global_GrievanceSquint_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_GrievanceSquint_Operation[0].Time_EndTime = Global_ActionDuration_Struggle;
 
-        Global_ShakeEar_Struggle_Operation2 = new Action_ShakeEar_Struggle[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEar_Struggle_Operation2[0] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEar_Struggle_Operation2[1] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEar_Struggle_Operation2[2] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEar_Struggle_Operation2[3] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEar_Struggle_Operation2 = new Action_ShakeEar_Struggle[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEar_Struggle_Operation2[0] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEar_Struggle_Operation2[1] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEar_Struggle_Operation2[2] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEar_Struggle_Operation2[3] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEar_Struggle_Operation2[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_ShakeEar_Struggle_Operation2[i].Time_EndTime = Global_ActionDuration_Struggle;
         }
         //Squint
 
         Global_GrievanceAngry_Operation = new Action_Angry[1];
-        Global_GrievanceAngry_Operation[0] = new Action_Angry(MainAWT.FishRoe.Grievance_Angry);
+        Global_GrievanceAngry_Operation[0] = new Action_Angry(MainAWT.robot.Grievance_Angry);
         Global_GrievanceAngry_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_GrievanceAngry_Operation[0].Time_EndTime = Global_ActionDuration_GrievanceAngry;
         //Angry
 
         Global_GrievanceSquint_Operation2 = new Action_SquintStruggle[1];
-        Global_GrievanceSquint_Operation2[0] = new Action_SquintStruggle(MainAWT.FishRoe.Grievance_Squint);
+        Global_GrievanceSquint_Operation2[0] = new Action_SquintStruggle(MainAWT.robot.Grievance_Squint);
         Global_GrievanceSquint_Operation2[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_GrievanceSquint_Operation2[0].Time_EndTime = Global_ActionDuration_Struggle;
 
-        Global_ShakeEar_Struggle_Operation3 = new Action_ShakeEar_Struggle[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEar_Struggle_Operation3[0] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEar_Struggle_Operation3[1] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEar_Struggle_Operation3[2] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEar_Struggle_Operation3[3] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEar_Struggle_Operation3 = new Action_ShakeEar_Struggle[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEar_Struggle_Operation3[0] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEar_Struggle_Operation3[1] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEar_Struggle_Operation3[2] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEar_Struggle_Operation3[3] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEar_Struggle_Operation3[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_ShakeEar_Struggle_Operation3[i].Time_EndTime = Global_ActionDuration_Struggle;
         }
         //Squint2
 
         Global_SadEyesFollow_Operation = new Action_EyesFollow[1];
-        Global_SadEyesFollow_Operation[0] = new Action_EyesFollow(MainAWT.FishRoe.Grievance_Sad);//申请ActionPicture
+        Global_SadEyesFollow_Operation[0] = new Action_EyesFollow(MainAWT.robot.Grievance_Sad);//申请ActionPicture
         Global_SadEyesFollow_Operation[0].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
         Global_SadEyesFollow_Operation[0].Time_EndTime = -1L;//结束时间设置
 
-        Global_SadEar_Operation2 = new Action_SadEar[MainAWT.FishRoe.PictureNum_Shake];
-        Global_SadEar_Operation2[0] = new Action_SadEar(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_SadEar_Operation2[1] = new Action_SadEar(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_SadEar_Operation2[2] = new Action_SadEar(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_SadEar_Operation2[3] = new Action_SadEar(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_SadEar_Operation2 = new Action_SadEar[MainAWT.robot.PictureNum_Shake];
+        Global_SadEar_Operation2[0] = new Action_SadEar(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_SadEar_Operation2[1] = new Action_SadEar(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_SadEar_Operation2[2] = new Action_SadEar(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_SadEar_Operation2[3] = new Action_SadEar(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_SadEar_Operation2[i].ImmediatelyEndCondition = ActionTool.Global_Lock_FoodEaten;
             Global_SadEar_Operation2[i].Time_EndTime = -1L;
         }
@@ -4658,16 +4631,16 @@ public class Robot {
 
         Global_LoveEye_Operation = new Action_StarEyes[2];
         for (int i = 0; i < 2; i++) {
-            Global_LoveEye_Operation[i] = new Action_StarEyes(MainAWT.FishRoe.LoveEyes1[i]);
+            Global_LoveEye_Operation[i] = new Action_StarEyes(MainAWT.robot.LoveEyes1[i]);
             Global_LoveEye_Operation[i].ImmediatelyEndCondition = false;//不需要退出
             Global_LoveEye_Operation[i].Time_EndTime = Global_ActionDuration_StarHappy;//结束时间设置
         }
-        Global_ShakeEarHappy_Operation2 = new Action_ShakeEar_Happy[MainAWT.FishRoe.PictureNum_Shake];
-        Global_ShakeEarHappy_Operation2[0] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_ShakeEarHappy_Operation2[1] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_ShakeEarHappy_Operation2[2] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_ShakeEarHappy_Operation2[3] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_ShakeEarHappy_Operation2 = new Action_ShakeEar_Happy[MainAWT.robot.PictureNum_Shake];
+        Global_ShakeEarHappy_Operation2[0] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_ShakeEarHappy_Operation2[1] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_ShakeEarHappy_Operation2[2] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_ShakeEarHappy_Operation2[3] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_ShakeEarHappy_Operation2[i].ImmediatelyEndCondition = false;
             Global_ShakeEarHappy_Operation2[i].Time_EndTime = Global_ActionDuration_StarHappy;//结束时间设置
         }//结束条件+定时结束
@@ -4675,7 +4648,7 @@ public class Robot {
         //------------------LoveEye------------------
 
         Global_EatenHappy_Operation = new Action_EatenHappy[1];
-        Global_EatenHappy_Operation[0] = new Action_EatenHappy(MainAWT.FishRoe.HappyEye);
+        Global_EatenHappy_Operation[0] = new Action_EatenHappy(MainAWT.robot.HappyEye);
         Global_EatenHappy_Operation[0].ImmediatelyEndCondition = false;//不需要退出
 
         //------------------EatenHappy------------------
@@ -4690,7 +4663,7 @@ public class Robot {
         //------------------FoodFollow------------------
 
         Global_TriggerHappy_Operation = new Action_Angry[1];
-        Global_TriggerHappy_Operation[0] = new Action_Angry(MainAWT.FishRoe.HappyEye);
+        Global_TriggerHappy_Operation[0] = new Action_Angry(MainAWT.robot.HappyEye);
         Global_TriggerHappy_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerHappy_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerHappy_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4698,7 +4671,7 @@ public class Robot {
         //------------------TriggerHappy------------------
 
         Global_TriggerSad_Operation = new Action_Angry[1];
-        Global_TriggerSad_Operation[0] = new Action_Angry(MainAWT.FishRoe.SadEye);
+        Global_TriggerSad_Operation[0] = new Action_Angry(MainAWT.robot.SadEye);
         Global_TriggerSad_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerSad_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerSad_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4706,7 +4679,7 @@ public class Robot {
         //------------------TriggerSad------------------
 
         Global_TriggerAngry_Operation = new Action_Angry[1];
-        Global_TriggerAngry_Operation[0] = new Action_Angry(MainAWT.FishRoe.AngryEye);
+        Global_TriggerAngry_Operation[0] = new Action_Angry(MainAWT.robot.AngryEye);
         Global_TriggerAngry_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerAngry_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerAngry_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4714,7 +4687,7 @@ public class Robot {
         //------------------TriggerAngry------------------
 
         Global_TriggerXX_Operation = new Action_Angry[1];
-        Global_TriggerXX_Operation[0] = new Action_Angry(MainAWT.FishRoe.XX);
+        Global_TriggerXX_Operation[0] = new Action_Angry(MainAWT.robot.XX);
         Global_TriggerXX_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerXX_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerXX_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4722,14 +4695,14 @@ public class Robot {
         //------------------TriggerXX------------------
 
         Global_TriggerDoubt_Operation = new Action_Doubt[1];
-        Global_TriggerDoubt_Operation[0] = new Action_Doubt(MainAWT.FishRoe.Doubt);
+        Global_TriggerDoubt_Operation[0] = new Action_Doubt(MainAWT.robot.Doubt);
         Global_TriggerDoubt_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerDoubt_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
 
         //------------------TriggerDoubt------------------
 
         Global_TriggerSquintStruggle_Operation = new Action_SquintStruggle[1];
-        Global_TriggerSquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.FishRoe.Squint);
+        Global_TriggerSquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.robot.Squint);
         Global_TriggerSquintStruggle_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerSquintStruggle_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_TriggerSquintStruggle_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
@@ -4737,7 +4710,7 @@ public class Robot {
         //------------------TriggerSquintStruggle------------------
 
         Global_TriggerGrievanceSquintStruggle_Operation = new Action_SquintStruggle[1];
-        Global_TriggerGrievanceSquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.FishRoe.Grievance_Squint);
+        Global_TriggerGrievanceSquintStruggle_Operation[0] = new Action_SquintStruggle(MainAWT.robot.Grievance_Squint);
         Global_TriggerGrievanceSquintStruggle_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerGrievanceSquintStruggle_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_TriggerGrievanceSquintStruggle_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
@@ -4745,7 +4718,7 @@ public class Robot {
         //------------------TriggerGrievanceSquintStruggle------------------
 
         Global_TriggerGrievanceAngry_Operation = new Action_Angry[1];
-        Global_TriggerGrievanceAngry_Operation[0] = new Action_Angry(MainAWT.FishRoe.Grievance_Angry);
+        Global_TriggerGrievanceAngry_Operation[0] = new Action_Angry(MainAWT.robot.Grievance_Angry);
         Global_TriggerGrievanceAngry_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerGrievanceAngry_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerGrievanceAngry_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4753,7 +4726,7 @@ public class Robot {
         //------------------TriggerGrievanceAngry------------------
 
         Global_TriggerGrievanceSad_Operation = new Action_Angry[1];
-        Global_TriggerGrievanceSad_Operation[0] = new Action_Angry(MainAWT.FishRoe.Grievance_Sad);
+        Global_TriggerGrievanceSad_Operation[0] = new Action_Angry(MainAWT.robot.Grievance_Sad);
         Global_TriggerGrievanceSad_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_TriggerGrievanceSad_Operation[0].Time_EndTime = Global_ActionDuration_Angry;
         Global_TriggerGrievanceSad_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4761,17 +4734,17 @@ public class Robot {
         //------------------TriggerGrievanceSad------------------
 
         Global_BasicBodyMove_Operation = new Action_BasicBodyMove[1];
-        Global_BasicBodyMove_Operation[0] = new Action_BasicBodyMove(MainAWT.FishRoe.BasicBody);
+        Global_BasicBodyMove_Operation[0] = new Action_BasicBodyMove(MainAWT.robot.BasicBody);
         Global_BasicBodyMove_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
 
         //------------------BasicBodyMove------------------
 
-        Global_TriggerGrievanceSadEar_Operation = new Action_SadEar[MainAWT.FishRoe.PictureNum_Shake];
-        Global_TriggerGrievanceSadEar_Operation[0] = new Action_SadEar(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_TriggerGrievanceSadEar_Operation[1] = new Action_SadEar(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_TriggerGrievanceSadEar_Operation[2] = new Action_SadEar(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_TriggerGrievanceSadEar_Operation[3] = new Action_SadEar(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_TriggerGrievanceSadEar_Operation = new Action_SadEar[MainAWT.robot.PictureNum_Shake];
+        Global_TriggerGrievanceSadEar_Operation[0] = new Action_SadEar(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_TriggerGrievanceSadEar_Operation[1] = new Action_SadEar(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_TriggerGrievanceSadEar_Operation[2] = new Action_SadEar(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_TriggerGrievanceSadEar_Operation[3] = new Action_SadEar(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_TriggerGrievanceSadEar_Operation[i].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
             Global_TriggerGrievanceSadEar_Operation[i].Time_EndTime = Global_ActionDuration_TriggerGrievanceSadEar;
             Global_TriggerGrievanceSadEar_Operation[i].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4779,24 +4752,24 @@ public class Robot {
 
         //------------------TriggerGrievanceSadEar------------------
 
-        Global_HappyShakeEar_Simple_Operation = new Action_ShakeEar_Happy[MainAWT.FishRoe.PictureNum_Shake];
-        Global_HappyShakeEar_Simple_Operation[0] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_HappyShakeEar_Simple_Operation[1] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_HappyShakeEar_Simple_Operation[2] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_HappyShakeEar_Simple_Operation[3] = new Action_ShakeEar_Happy(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_HappyShakeEar_Simple_Operation = new Action_ShakeEar_Happy[MainAWT.robot.PictureNum_Shake];
+        Global_HappyShakeEar_Simple_Operation[0] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_HappyShakeEar_Simple_Operation[1] = new Action_ShakeEar_Happy(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_HappyShakeEar_Simple_Operation[2] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_HappyShakeEar_Simple_Operation[3] = new Action_ShakeEar_Happy(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_HappyShakeEar_Simple_Operation[i].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
             Global_HappyShakeEar_Simple_Operation[i].Time_EndTime = Global_ActionDuration_HappyShakeEar_Simple;
         }
 
         //------------------HappyShakeEar_Simple------------------
 
-        Global_StruggleShakeEar_Simple_Operation = new Action_ShakeEar_Struggle[MainAWT.FishRoe.PictureNum_Shake];
-        Global_StruggleShakeEar_Simple_Operation[0] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        Global_StruggleShakeEar_Simple_Operation[1] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        Global_StruggleShakeEar_Simple_Operation[2] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        Global_StruggleShakeEar_Simple_Operation[3] = new Action_ShakeEar_Struggle(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
-        for (int i = 0; i < MainAWT.FishRoe.PictureNum_Shake; i++) {
+        Global_StruggleShakeEar_Simple_Operation = new Action_ShakeEar_Struggle[MainAWT.robot.PictureNum_Shake];
+        Global_StruggleShakeEar_Simple_Operation[0] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[0], Direction.Left_Up);
+        Global_StruggleShakeEar_Simple_Operation[1] = new Action_ShakeEar_Struggle(MainAWT.robot.Ears[1], Direction.Right_Up);
+        Global_StruggleShakeEar_Simple_Operation[2] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[0], Direction.Left_Down);
+        Global_StruggleShakeEar_Simple_Operation[3] = new Action_ShakeEar_Struggle(MainAWT.robot.Foots[1], Direction.Right_Down);
+        for (int i = 0; i < MainAWT.robot.PictureNum_Shake; i++) {
             Global_StruggleShakeEar_Simple_Operation[i].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
             Global_StruggleShakeEar_Simple_Operation[i].Time_EndTime = Global_ActionDuration_HappyShakeEar_Simple;
         }
@@ -4804,31 +4777,31 @@ public class Robot {
         //------------------HappyShakeEar_Simple------------------
         Global_LookingForScreen_Operation = new Action_LookingForScreen[1];
         ;
-        Global_LookingForScreen_Operation[0] = new Action_LookingForScreen(MainAWT.FishRoe.BasicEyes);
+        Global_LookingForScreen_Operation[0] = new Action_LookingForScreen(MainAWT.robot.BasicEyes);
         Global_LookingForScreen_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_LookingForScreen_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow2;
         Global_LookingForScreen_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_LookingForScreen_Sad_Operation = new Action_LookingForScreen[1];
         ;
-        Global_LookingForScreen_Sad_Operation[0] = new Action_LookingForScreen(MainAWT.FishRoe.SadEye);
+        Global_LookingForScreen_Sad_Operation[0] = new Action_LookingForScreen(MainAWT.robot.SadEye);
         Global_LookingForScreen_Sad_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_LookingForScreen_Sad_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow2;
         Global_LookingForScreen_Sad_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_LookingForScreen_Angry_Operation = new Action_LookingForScreen[1];
         ;
-        Global_LookingForScreen_Angry_Operation[0] = new Action_LookingForScreen(MainAWT.FishRoe.AngryEye);
+        Global_LookingForScreen_Angry_Operation[0] = new Action_LookingForScreen(MainAWT.robot.AngryEye);
         Global_LookingForScreen_Angry_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_LookingForScreen_Angry_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow2;
         Global_LookingForScreen_Angry_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_LookingForScreen_GrievanceSad_Operation = new Action_LookingForScreen[1];
         ;
-        Global_LookingForScreen_GrievanceSad_Operation[0] = new Action_LookingForScreen(MainAWT.FishRoe.Grievance_Sad);
+        Global_LookingForScreen_GrievanceSad_Operation[0] = new Action_LookingForScreen(MainAWT.robot.Grievance_Sad);
         Global_LookingForScreen_GrievanceSad_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_LookingForScreen_GrievanceSad_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow2;
         Global_LookingForScreen_GrievanceSad_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
         Global_LookingForScreen_GrievanceAngry_Operation = new Action_LookingForScreen[1];
         ;
-        Global_LookingForScreen_GrievanceAngry_Operation[0] = new Action_LookingForScreen(MainAWT.FishRoe.Grievance_Angry);
+        Global_LookingForScreen_GrievanceAngry_Operation[0] = new Action_LookingForScreen(MainAWT.robot.Grievance_Angry);
         Global_LookingForScreen_GrievanceAngry_Operation[0].ImmediatelyEndCondition = (ActionTool.Global_Lock_FoodEaten || ActionTool.Global_Lock_FoodAppeared);
         Global_LookingForScreen_GrievanceAngry_Operation[0].Time_EndTime = Global_ActionDuration_EyesFollow2;
         Global_LookingForScreen_GrievanceAngry_Operation[0].ListType = ActionObject_Operation.ListType_Buffer;
@@ -4845,26 +4818,26 @@ public class Robot {
     public static MouseDragged Global_mouseDragged_BasicBody;
 
     public static void Global_Init_EventListen() {
-        Global_mouseDragged_BasicBody = new MouseDragged(MainAWT.FishRoe.BasicBody.Dst);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.BasicEyes);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.HighLight);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Squint);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Doubt);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.LoveEyes1[0]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.LoveEyes1[1]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.StarEyes[0]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.StarEyes[1]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Surprised);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.AngryEye);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.SadEye);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Grievance_Angry);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Grievance_Squint);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Grievance_Sad);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.BasicHatch[1]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.HappyEye);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Dizzy[0]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.Dizzy[1]);
-        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.FishRoe.XX);
+        Global_mouseDragged_BasicBody = new MouseDragged(MainAWT.robot.BasicBody.Dst);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.BasicEyes);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.HighLight);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Squint);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Doubt);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.LoveEyes1[0]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.LoveEyes1[1]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.StarEyes[0]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.StarEyes[1]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Surprised);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.AngryEye);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.SadEye);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Grievance_Angry);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Grievance_Squint);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Grievance_Sad);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.BasicHatch[1]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.HappyEye);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Dizzy[0]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.Dizzy[1]);
+        Global_mouseDragged_BasicBody.Lock_AddLockPicture(MainAWT.robot.XX);
         //FishRoe的
         Global_mouseDragged_BasicBody.Lock_AddLockPicture(Interface_Button.Global_SetUpSwitch);
         Global_mouseDragged_BasicBody.Lock_AddLockPicture(Interface_Button.Global_SetUpButton);
@@ -4876,60 +4849,60 @@ public class Robot {
         ;
         //添加一个相对本体静止的图片对象
 
-        MainAWT.FishRoe.BasicBody.EventAdd_MousePress(Global_mouseDragged_BasicBody::Pressed_GetPoint);
-        MainAWT.FishRoe.BasicBody.EventAdd_MousePress(Global_Dizzy.dizzy::Event_Dizzy_PressedMouse);
-        MainAWT.FishRoe.BasicBody.EventAdd_MouseDragged(Global_mouseDragged_BasicBody::DraggedPicture_ForBasicBody);
-        MainAWT.FishRoe.BasicBody.EventAdd_MouseRelease(Global_Dizzy.dizzy::Event_Dizzy_ReleasedMouse);
-        MainAWT.FishRoe.BasicBody.EventAdd_MouseClick(Robot::MouseClick_BeginBodyMove);
-        MainAWT.FishRoe.BasicBody.EventAdd_MousePress(Robot::MouseClick_BeginBodyMove);
+        MainAWT.robot.BasicBody.EventAdd_MousePress(Global_mouseDragged_BasicBody::Pressed_GetPoint);
+        MainAWT.robot.BasicBody.EventAdd_MousePress(Global_Dizzy.dizzy::Event_Dizzy_PressedMouse);
+        MainAWT.robot.BasicBody.EventAdd_MouseDragged(Global_mouseDragged_BasicBody::DraggedPicture_ForBasicBody);
+        MainAWT.robot.BasicBody.EventAdd_MouseRelease(Global_Dizzy.dizzy::Event_Dizzy_ReleasedMouse);
+        MainAWT.robot.BasicBody.EventAdd_MouseClick(Robot::MouseClick_BeginBodyMove);
+        MainAWT.robot.BasicBody.EventAdd_MousePress(Robot::MouseClick_BeginBodyMove);
 
         //------------------Body------------------
 
-        MouseDragged mouseDragged_ear1 = new MouseDragged(MainAWT.FishRoe.Ears[0], Direction.Left_Up);
-        MouseDragged mouseDragged_ear2 = new MouseDragged(MainAWT.FishRoe.Ears[1], Direction.Right_Up);
-        MouseDragged mouseDragged_Foot1 = new MouseDragged(MainAWT.FishRoe.Foots[0], Direction.Left_Down);
-        MouseDragged mouseDragged_Foot2 = new MouseDragged(MainAWT.FishRoe.Foots[1], Direction.Right_Down);
+        MouseDragged mouseDragged_ear1 = new MouseDragged(MainAWT.robot.Ears[0], Direction.Left_Up);
+        MouseDragged mouseDragged_ear2 = new MouseDragged(MainAWT.robot.Ears[1], Direction.Right_Up);
+        MouseDragged mouseDragged_Foot1 = new MouseDragged(MainAWT.robot.Foots[0], Direction.Left_Down);
+        MouseDragged mouseDragged_Foot2 = new MouseDragged(MainAWT.robot.Foots[1], Direction.Right_Down);
         //创建拖拽管控对象
 
-        MainAWT.FishRoe.Ears[0].EventAdd_MousePress(mouseDragged_ear1::Pressed_LockAngleFollow);
-        MainAWT.FishRoe.Ears[1].EventAdd_MousePress(mouseDragged_ear2::Pressed_LockAngleFollow);
-        MainAWT.FishRoe.Foots[0].EventAdd_MousePress(mouseDragged_Foot1::Pressed_LockAngleFollow);
-        MainAWT.FishRoe.Foots[1].EventAdd_MousePress(mouseDragged_Foot2::Pressed_LockAngleFollow);
+        MainAWT.robot.Ears[0].EventAdd_MousePress(mouseDragged_ear1::Pressed_LockAngleFollow);
+        MainAWT.robot.Ears[1].EventAdd_MousePress(mouseDragged_ear2::Pressed_LockAngleFollow);
+        MainAWT.robot.Foots[0].EventAdd_MousePress(mouseDragged_Foot1::Pressed_LockAngleFollow);
+        MainAWT.robot.Foots[1].EventAdd_MousePress(mouseDragged_Foot2::Pressed_LockAngleFollow);
 
-        MainAWT.FishRoe.Ears[0].EventAdd_MouseDragged(mouseDragged_ear1::DraggedPicture_ForEarsFoots);
-        MainAWT.FishRoe.Ears[1].EventAdd_MouseDragged(mouseDragged_ear2::DraggedPicture_ForEarsFoots);
-        MainAWT.FishRoe.Foots[0].EventAdd_MouseDragged(mouseDragged_Foot1::DraggedPicture_ForEarsFoots);
-        MainAWT.FishRoe.Foots[1].EventAdd_MouseDragged(mouseDragged_Foot2::DraggedPicture_ForEarsFoots);
+        MainAWT.robot.Ears[0].EventAdd_MouseDragged(mouseDragged_ear1::DraggedPicture_ForEarsFoots);
+        MainAWT.robot.Ears[1].EventAdd_MouseDragged(mouseDragged_ear2::DraggedPicture_ForEarsFoots);
+        MainAWT.robot.Foots[0].EventAdd_MouseDragged(mouseDragged_Foot1::DraggedPicture_ForEarsFoots);
+        MainAWT.robot.Foots[1].EventAdd_MouseDragged(mouseDragged_Foot2::DraggedPicture_ForEarsFoots);
 
         MouseClick Click_Ear1 = new MouseClick(Global_Shake_Operation[0]);
         MouseClick Click_Ear2 = new MouseClick(Global_Shake_Operation[1]);
         MouseClick Click_Foot1 = new MouseClick(Global_Shake_Operation[2]);
         MouseClick Click_Foot2 = new MouseClick(Global_Shake_Operation[3]);
-        MainAWT.FishRoe.Ears[0].EventAdd_MouseClick(Click_Ear1::Clicked);
-        MainAWT.FishRoe.Ears[1].EventAdd_MouseClick(Click_Ear2::Clicked);
-        MainAWT.FishRoe.Foots[0].EventAdd_MouseClick(Click_Foot1::Clicked);
-        MainAWT.FishRoe.Foots[1].EventAdd_MouseClick(Click_Foot2::Clicked);
+        MainAWT.robot.Ears[0].EventAdd_MouseClick(Click_Ear1::Clicked);
+        MainAWT.robot.Ears[1].EventAdd_MouseClick(Click_Ear2::Clicked);
+        MainAWT.robot.Foots[0].EventAdd_MouseClick(Click_Foot1::Clicked);
+        MainAWT.robot.Foots[1].EventAdd_MouseClick(Click_Foot2::Clicked);
         //抖耳
 
         MouseClick Click_Ear3 = new MouseClick(Global_Doubt_Operation[0]);
         MouseClick Click_Ear4 = new MouseClick(Global_Doubt_Operation[0]);
         MouseClick Click_Foot3 = new MouseClick(Global_Doubt_Operation[0]);
         MouseClick Click_Foot4 = new MouseClick(Global_Doubt_Operation[0]);
-        MainAWT.FishRoe.Ears[0].EventAdd_MouseClick(Click_Ear3::Clicked);
-        MainAWT.FishRoe.Ears[1].EventAdd_MouseClick(Click_Ear4::Clicked);
-        MainAWT.FishRoe.Foots[0].EventAdd_MouseClick(Click_Foot3::Clicked);
-        MainAWT.FishRoe.Foots[1].EventAdd_MouseClick(Click_Foot4::Clicked);
+        MainAWT.robot.Ears[0].EventAdd_MouseClick(Click_Ear3::Clicked);
+        MainAWT.robot.Ears[1].EventAdd_MouseClick(Click_Ear4::Clicked);
+        MainAWT.robot.Foots[0].EventAdd_MouseClick(Click_Foot3::Clicked);
+        MainAWT.robot.Foots[1].EventAdd_MouseClick(Click_Foot4::Clicked);
         //疑惑
         ;
         //------------------EarsFoots------------------
 
 
         MouseClick Click_Eyes = new MouseClick(Global_Blink_Operation[0]);
-        MainAWT.FishRoe.BasicEyes.EventAdd_MouseClick(Click_Eyes::Clicked);
+        MainAWT.robot.BasicEyes.EventAdd_MouseClick(Click_Eyes::Clicked);
         MouseClick Click_Eyes1 = new MouseClick(Global_BlinkSad_Operation[0]);
-        MainAWT.FishRoe.SadEye.EventAdd_MouseClick(Click_Eyes1::Clicked);
+        MainAWT.robot.SadEye.EventAdd_MouseClick(Click_Eyes1::Clicked);
         MouseClick Click_Eyes2 = new MouseClick(Global_BlinkGrievanceSad_Operation[0]);
-        MainAWT.FishRoe.Grievance_Sad.EventAdd_MouseClick(Click_Eyes2::Clicked);
+        MainAWT.robot.Grievance_Sad.EventAdd_MouseClick(Click_Eyes2::Clicked);
 
         //------------------Eyes------------------
 
@@ -4938,13 +4911,6 @@ public class Robot {
         //------------------Button+Interface------------------
         ;
         //Exp
-    }
-
-    //事件申请
-    public static void Exp_(MouseEvent e) {
-        for (ActionObject_Operation o : Robot.Global_TriggerGrievanceSadEar_Operation) {
-            o.Begin();
-        }
     }
 
     public static void Global_Init_SetTimer() {
@@ -5004,7 +4970,7 @@ public class Robot {
         //线程初始化
         Global_FishRoeAction_Tool = new ActionTool();//申请ActionTool
         //初始化动作对象管理工具
-        MainAWT.FishRoe = new Robot();
+        MainAWT.robot = new Robot();
         //鱼籽对象初始化
         Interface_Button.Global_Interface_Button_Data_Init();
         //界面，按钮对象初始化

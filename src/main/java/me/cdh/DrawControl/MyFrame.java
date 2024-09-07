@@ -1,5 +1,6 @@
 package me.cdh.DrawControl;
 
+import me.cdh.CustomMouseEvent;
 import me.cdh.Draw.Picture;
 import me.cdh.Main.MainAWT;
 
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 
 //封装：可读，可重用，可扩展
 
-public class NewFrame extends JFrame {
+public class MyFrame extends JFrame {
 
-    public NewFrame() {
+    public MyFrame() {
         super();
         Init();
     }
@@ -68,7 +69,7 @@ public class NewFrame extends JFrame {
 
 
         //用于提供选择的常量
-        public static void SetNewFrame(NewFrame frame, String Title,//窗口+标题
+        public static void SetNewFrame(MyFrame frame, String Title,//窗口+标题
                                        int width, int height, int Location_x, int Location_y,//窗口大小和起始位置
                                        boolean Resizable, boolean AlwaysOnTop, boolean Visible, boolean Undecorated,//窗口的一些布尔选项
                                        final int EXIT_OPTION,
@@ -99,44 +100,11 @@ public class NewFrame extends JFrame {
             frame.setVisible(Visible);//窗口是否可见
         }
 
-        public static void SetNewJFrame(NewJFrame frame, String Title,//窗口+标题
-                                        int width, int height, int Location_x, int Location_y,//窗口大小和起始位置
-                                        boolean Resizable, boolean AlwaysOnTop, boolean Visible, boolean Undecorated,//窗口的一些布尔选项
-                                        int DefaultCloseOperation,//设置常量选项
-                                        ColorRBGA Background) {
-            frame.setTitle(Title);
-            //创建+标题
-
-            frame.setSize(width, height);
-            frame.setLocation(Location_x, Location_y);
-            //大小和位置
-
-            frame.setResizable(Resizable);//是否可变大小
-            frame.setAlwaysOnTop(AlwaysOnTop);//是否总是在最前面
-
-            frame.setDefaultCloseOperation(DefaultCloseOperation);
-            //设置默认的关闭方法
-            frame.setUndecorated(Undecorated);
-            if (Undecorated) {
-                frame.setBackground(Background);//设置透明必须需要Undecorated
-            } else {
-                frame.setBackground(new Color(Background.r, Background.g, Background.b));
-                //设置透明必须需要Undecorated
-            }
-            //设定没有边框才能使用透明A
-
-            frame.setVisible(Visible);//窗口是否可见
-        }
         //重写，提供更多参数
 
     }
     //创建工具类，单纯为了收紧代码
 
-    public static class NewJFrame extends JFrame {
-        public NewJFrame() {
-            super();
-        }
-    }
     //继承JFrame的嵌套类(类本身继承的Frame，让嵌套类继承JFrame)
 
     public void Init(){
@@ -190,7 +158,7 @@ public class NewFrame extends JFrame {
         }
         if(this.List_MouseReleasedEvent_FramePicture != null){
             while (!this.List_MouseReleasedEvent_FramePicture.isEmpty()){
-                this.List_MouseReleasedEvent_FramePicture.remove(0);
+                this.List_MouseReleasedEvent_FramePicture.removeFirst();
             }
             //清空刷新队列
         }
@@ -198,11 +166,11 @@ public class NewFrame extends JFrame {
     }
     //刷新图片事件
 
-    public void FrameMain_EventListener(EventListen.MouseEventListener.FunPoint_MouseEvent FunPoint_Click,
-                                        EventListen.MouseEventListener.FunPoint_MouseEvent FunPoint_Press,
-                                        EventListen.MouseEventListener.FunPoint_MouseEvent FunPoint_Release,
-                                        EventListen.MouseEventListener.FunPoint_MouseEvent FunPoint_Dragged,
-                                        EventListen.MouseEventListener.FunPoint_MouseEvent FunPoint_Moved){
+    public void FrameMain_EventListener(CustomMouseEvent FunPoint_Click,
+                                        CustomMouseEvent FunPoint_Press,
+                                        CustomMouseEvent FunPoint_Release,
+                                        CustomMouseEvent FunPoint_Dragged,
+                                        CustomMouseEvent FunPoint_Moved){
         this.addMouseListener(EventListen.MouseEventListener.AddMouseClick(
                 FunPoint_Click
         ));
@@ -243,7 +211,7 @@ public class NewFrame extends JFrame {
     public static void MainFrame_EventListener_MouseReleased(MouseEvent e){
         Check_MouseEvent(e,MainAWT.MainFrame.List_MouseReleasedEvent_FramePicture,CHOOSE_Check_MouseEvent_Release);
         //检查其他应该要执行的方法
-        MainAWT.FishRoe.MouseReleased_AllUnlock();
+        MainAWT.robot.MouseReleased_AllUnlock();
         //必须执行的方法
     }
     //MainFrame处理MouseMoved的方法
@@ -264,7 +232,7 @@ public class NewFrame extends JFrame {
                 Picture CurrentTemp = List_Picture.get(Num - 1);//倒叙之后必须从Num - 1开始
                 if (CurrentTemp.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {//现在改为了JudgeRect：判断区域自己给予
 
-                    ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> Temp_List_FunPoint;
+                    ArrayList<CustomMouseEvent> Temp_List_FunPoint;
                     if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Click) {
                         if(CurrentTemp.eventLock.isMouse_Click()){
                             return;
@@ -317,8 +285,8 @@ public class NewFrame extends JFrame {
                             //给其他拖拽上锁
                         }
                         //给其他拖拽上锁
-                        for (EventListen.MouseEventListener.FunPoint_MouseEvent f : Temp_List_FunPoint) {
-                            f.Objective_Fun(e);
+                        for (CustomMouseEvent f : Temp_List_FunPoint) {
+                            f.event(e);
                         }
                         //循环执行完毕集合中的方法
                         return;

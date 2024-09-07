@@ -9,7 +9,7 @@ package me.cdh.Draw;
  * 5.线程实现Timer计时器
  * */
 
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
 import me.cdh.Main.MainAWT;
 
 import javax.imageio.ImageIO;
@@ -25,6 +25,10 @@ public class Display {
     }
 
     public static class Rect {
+        //属性
+        public int x, y, width, height;
+        public float xf, yf, wf, hf;
+
         public Rect(int x, int y, int width, int height) {
             this.x = x;
             this.y = y;
@@ -39,33 +43,14 @@ public class Display {
             this.hf = h;
         }
 
-        public int x, y, width, height;
-        public float xf, yf, wf, hf;
-        //属性
 
         public boolean Judge_PointInRect(int x, int y) {
-            boolean Judge = false;
-            if (x >= this.x && x <= this.x + this.width) {
-                if (y >= this.y && y <= this.y + this.height) {
-                    Judge = true;
-                }
-            }
-            return Judge;
+            return x >= this.x
+                    && x <= this.x + this.width
+                    && y >= this.y
+                    && y <= this.y + this.height;
         }
-        //判断点和矩形的关系
 
-        public void DisplayRect(Graphics2D g) {
-            g.setColor(Color.WHITE);
-            g.drawRect(this.x, this.y, this.width, this.height);
-        }
-        //绘制矩形区域
-
-        public boolean Judge_RectEqual(Rect rect) {
-            if (rect.x == this.x && rect.y == this.y && rect.width == this.width && rect.height == this.height) {
-                return true;
-            }
-            return false;
-        }
     }
     //嵌套类：矩形区域Rect
 
@@ -74,23 +59,16 @@ public class Display {
         public static BufferedImage LoadImage(String RelativePath) {
             File ImageFile = new File("target/classes/me/cdh/" + RelativePath);
             //从路劲获取文件对象
-
-            BufferedImage img;
             try {
-                img = ImageIO.read(ImageFile);
                 //加载图片
+                return ImageIO.read(ImageFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
                 //抛出异常
             }
-            //加载图片
-            return img;
         }
-        //加载图片
 
-        //加载指定区域的图片
     }
-    //加载图片
 
     public static class Text {
         public Text(int Size, String Content) {
@@ -333,7 +311,7 @@ public class Display {
 
         public static void Draw_ChooseSrcDegree_DrawDst(Picture p, int Degree,
                                                         Rect Src, Rect Dst,
-                                                        final int ScaleMethod, Graphics2D g, NewFrame frame) {
+                                                        final int ScaleMethod, Graphics2D g, MyFrame frame) {
             p.DrawAddEvent(frame);
             //绘制添加事件
             int Centre_x = (int) (p.Dst.x + p.SrcCentre.x * p.Dst.width / (float) p.Src.width);
@@ -360,7 +338,7 @@ public class Display {
             return Dst;
         }
         //给后来的图片设置相对于MainBody的位置
-        ;
+
         //--------------------------------功能绘制函数--------------------------------------
 
         @Override
@@ -369,8 +347,7 @@ public class Display {
             //刷新事件函数
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            //g2.rotate(Math.toRadians(180),NewFrame.GetScreenWH()[0]/2.0,NewFrame.GetScreenWH()[1]/2.0);
-            MainAWT.FishRoe.Display_Main(g2);
+            MainAWT.robot.Display_Main(g2);
         }
         //总绘制函数
 
@@ -380,14 +357,5 @@ public class Display {
         }
         //重新绘图函数：重绘之后要刷新事件列表
 
-        //MainFrame绘制数据初始化
-
-        //--------------------------------总绘制函数--------------------------------------
-
-        //Experiment.Exp
-
-        //鼠标按下
-
     }
-    //绘画+总绘制函数
 }

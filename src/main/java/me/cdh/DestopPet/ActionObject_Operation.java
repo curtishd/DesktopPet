@@ -2,6 +2,7 @@ package me.cdh.DestopPet;
 
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
+import me.cdh.EmptyArgument;
 import me.cdh.Main.MainAWT;
 
 public abstract class ActionObject_Operation {
@@ -275,7 +276,7 @@ public abstract class ActionObject_Operation {
         public long CurrentTime;//当前时间
         public long OperationTime;//目标时间：-1L为休眠(解除休眠：Set_OperationTime；设置休眠：Judge_OperationTimeUp)
 
-        public ActionObject.FunPoint_Empty_Argument funPoint_Operation;
+        public EmptyArgument funPoint_Operation;
         //函数指针
 
         public void Init() {
@@ -312,7 +313,7 @@ public abstract class ActionObject_Operation {
         //放在主函数中用来控制随机时间
     }
     public static class Timer_Timing extends Timer{
-        public Timer_Timing(long LowerBound, long UpperBound,ActionObject.FunPoint_Empty_Argument funPoint_Operation) {
+        public Timer_Timing(long LowerBound, long UpperBound, EmptyArgument funPoint_Operation) {
             super();
             this.Init(LowerBound, UpperBound);
             this.funPoint_Operation = funPoint_Operation;
@@ -344,7 +345,7 @@ public abstract class ActionObject_Operation {
             //设置随机时间
 
             if (this.Judge_OperationTimeUp()) {
-                this.funPoint_Operation.object();
+                this.funPoint_Operation.empty();
                 //申请开始操作
             }
             //时间到达判断
@@ -354,7 +355,7 @@ public abstract class ActionObject_Operation {
 
     //延时计时器
     public static class Timer_Counter extends Timer{
-        public Timer_Counter(long SetBeginTimeGap,int TotalCount,long CountTimeGap,int Type_TimeArrive,ActionObject.FunPoint_Empty_Argument funPoint_Operation){
+        public Timer_Counter(long SetBeginTimeGap, int TotalCount, long CountTimeGap, int Type_TimeArrive, EmptyArgument funPoint_Operation){
             super();
             this.Init(SetBeginTimeGap,TotalCount,CountTimeGap);
             this.funPoint_Operation = funPoint_Operation;
@@ -423,14 +424,14 @@ public abstract class ActionObject_Operation {
             if(this.CurrentCount >= this.TotalCount &&
                     this.CurrentTime <= this.OperationTime){
                 this.Reset();
-                this.funPoint_Operation.object();
+                this.funPoint_Operation.empty();
                 return;
             }
             //数量到达且时间未到
 
             if (this.Judge_OperationTimeUp()) {
                 if(this.CurrentCount >= this.TotalCount){
-                    this.funPoint_Operation.object();
+                    this.funPoint_Operation.empty();
                     //申请开始操作
                 }
             }
@@ -439,7 +440,7 @@ public abstract class ActionObject_Operation {
         //放在主函数中用来控制随机时间
     }
     //规定时间内计次器：延时，满足条件触发
-    public void Set_Timing(long LowerBound, long UpperBound,ActionObject.FunPoint_Empty_Argument funPoint_Operation) {
+    public void Set_Timing(long LowerBound, long UpperBound, EmptyArgument funPoint_Operation) {
         this.timer_Timing = new Timer_Timing(LowerBound, UpperBound,funPoint_Operation);
     }
     //--------------------------------时间管理系统--------------------------------------

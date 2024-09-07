@@ -2,7 +2,8 @@ package me.cdh.DestopPet;
 
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
+import me.cdh.EmptyArgument;
 import me.cdh.Main.MainAWT;
 
 import java.awt.*;
@@ -21,9 +22,6 @@ public class ActionObject {
 
     //动作对象执行的指定方法
 
-    public interface FunPoint_Empty_Argument {
-        void object();
-    }
     //无参函数指针
 
     public ActionObject_Operation[] Array_SinglePictureOperation;//单个图片操作+图像
@@ -118,8 +116,8 @@ public class ActionObject {
         }//松开鼠标开始检查眩晕
 
         public void DirectionChange() {
-            Current_x = MainAWT.FishRoe.BasicBody.Dst.x;
-            Current_y = MainAWT.FishRoe.BasicBody.Dst.y;
+            Current_x = MainAWT.robot.BasicBody.Dst.x;
+            Current_y = MainAWT.robot.BasicBody.Dst.y;
             if (Current_x - Before_x > 0) {
                 Direction_x = Left;
             } else if (Current_x - Before_x < 0) {
@@ -199,7 +197,7 @@ public class ActionObject {
     //--------------------------------特殊动作--------------------------------------
 
     public void CheckApplication() {
-        if (Array_SinglePictureOperation != null && Array_SinglePictureOperation.length > 0) {
+        if (Array_SinglePictureOperation != null) {
             for (ActionObject_Operation o : Array_SinglePictureOperation) {
                 if (o.CurrentState == ActionObject_Operation.State_Applying && !o.ObjectLock) {//申请且未上锁
                     if (this.CurrentState != State_Running) {
@@ -235,12 +233,6 @@ public class ActionObject {
 
     //--------------------------------检查队列，运行维护，刷新--------------------------------------
 
-    public void Lock_all() {
-        for (ActionObject_Operation a : Array_SinglePictureOperation) {
-            a.Lock();
-        }
-    }
-
     //全部上锁
     public void Unlock_all() {
         for (ActionObject_Operation a : Array_SinglePictureOperation) {
@@ -251,29 +243,19 @@ public class ActionObject {
     //--------------------------------Lock--------------------------------------
 
     public class FrameRateTool {
-
-        public FrameRateTool(int ToolType, int PictureNum, int SwitchFPS,
-                             FunPoint_Empty_Argument lock,
-                             FunPoint_Empty_Argument unlock) {
-            this.Tool_Type = ToolType;
-            this.Init(PictureNum, SwitchFPS, lock, unlock);
-        }
-
-        ;
-
         //绘制多张图片的工具构造器
         public FrameRateTool(int ToolType) {
             this.Tool_Type = ToolType;
             this.Init();
         }
         //绘制单个图片动作的构造器
-        ;
+
         //--------------------------------构造方法--------------------------------------
 
-        public FunPoint_Empty_Argument FunPoint_Lock;//：上锁在：Display
-        public FunPoint_Empty_Argument FunPoint_Unlock;//：解锁在：Display
+        public EmptyArgument FunPoint_Lock;//：上锁在：Display
+        public EmptyArgument FunPoint_Unlock;//：解锁在：Display
         //上锁和解锁函数：一个行为在初始加载好之后就不会再变了(特供多图切换)
-        ;
+
         //--------------------------------函数指针--------------------------------------
 
         public final static int State_Sleep = 0, State_Running = 1, State_Exiting = 2;
@@ -290,8 +272,6 @@ public class ActionObject {
         public int TotalFPS;
         //总共的帧数：通过Num和Switch计算出来
         public int SwitchFPS;
-        //多少帧切换一次图片
-        public int PictureNum;
         //图片的数量
         public int CurrentPicture;
         //当前图像
@@ -307,29 +287,9 @@ public class ActionObject {
         public ArrayList<Picture>[] Array_PictureList;
         //Array中的元素：每一帧中的图像
 
-        public void Set_PictureArray(int PictureNum) {
-            for (int i = 0; i < PictureNum; i++) {
-                Array_PictureList[i] = new ArrayList<Picture>();
-            }
-        }
         //设置Array的大小
 
         //--------------------------------List--------------------------------------
-
-        public void Init(int PictureNum, int SwitchFPS,
-                         FunPoint_Empty_Argument Lock,
-                         FunPoint_Empty_Argument UnLock) {
-            this.CurrentFPS = 0;
-            this.PictureNum = PictureNum;
-            this.TotalFPS = PictureNum * SwitchFPS;
-            this.SwitchFPS = SwitchFPS;
-            this.CurrentState = State_Sleep;
-            this.ThisAction = This;
-            this.FunPoint_Lock = Lock;
-            this.FunPoint_Unlock = UnLock;
-            this.Array_PictureList = new ArrayList[PictureNum];
-            this.Set_PictureArray(PictureNum);
-        }
 
         //初始化：多个图片
         public void Init() {
@@ -339,25 +299,22 @@ public class ActionObject {
         }
         //初始化：单个图片数据变化
 
-        private void Init_PictureGet() {
-
-        }
         //图片初始化
         ;
         //--------------------------------初始化--------------------------------------
 
         public void DataProgress_PictureSwitch() {
-            if ((this.CurrentFPS + 1) % this.SwitchFPS == 0) {
+            if ((CurrentFPS + 1) % this.SwitchFPS == 0) {
                 //余数为整数的时候切换;排除CurrentFPS为0的情况，否则上来就切换
-                this.CurrentPicture++;
+                CurrentPicture++;
                 //切换图片:换为下一个
             }
-            this.CurrentFPS++;
+            CurrentFPS++;
             //最后自加
-            if (this.CurrentFPS >= this.TotalFPS) {//达到目标了
-                this.CurrentFPS = 0;
-                this.CurrentPicture = 0;
-                this.CurrentState = State_Exiting;
+            if (CurrentFPS >= TotalFPS) {//达到目标了
+                CurrentFPS = 0;
+                CurrentPicture = 0;
+                CurrentState = State_Exiting;
                 //正在退出，在Display真正画完之后真正退出
             }
             //自加后结束判断
@@ -365,7 +322,7 @@ public class ActionObject {
         //自加+切换信号(注意，数据处理放在Robot::Display中，因为线程的帧率跟Display的帧率不一样)
 
         public void DataProgress_SinglePicture() {
-            for (ActionObject_Operation a : this.ThisAction.Array_SinglePictureOperation) {
+            for (var a : this.ThisAction.Array_SinglePictureOperation) {
                 if (a.ObjectLock) {//运行之后上锁
                     a.Operation();
                 }
@@ -376,7 +333,7 @@ public class ActionObject {
 
         public boolean Judge_OperationExit_Reset() {
             boolean exit = true;
-            for (ActionObject_Operation o : This.Array_SinglePictureOperation) {
+            for (var o : This.Array_SinglePictureOperation) {
                 if (o.CurrentState == ActionObject_Operation.State_Exit) {
                     o.Reset();
                     //重置
@@ -394,7 +351,7 @@ public class ActionObject {
         ;
         //--------------------------------数据处理--------------------------------------
 
-        public void Display(Graphics2D g, NewFrame frame) {
+        public void Display(Graphics2D g, MyFrame frame) {
             if (this.CurrentState == State_Running) {
                 if (Tool_Type == Type_MultipleSwitch) {
                     Lock_ToolDisplayAndLockMainDisplay(FunPoint_Lock);
@@ -403,9 +360,9 @@ public class ActionObject {
                     Display_PaintCurrentFPS_Picture(g, this.CurrentPicture, frame);
                     //绘制当前帧
 
-                    if (this.CurrentState == State_Exiting) {
-                        this.CurrentState = State_Sleep;//工具沉睡
-                        this.ThisAction.CurrentState = ActionObject.State_Sleep;//行为沉睡
+                    if (CurrentState == State_Exiting) {
+                        CurrentState = State_Sleep;//工具沉睡
+                        ThisAction.CurrentState = ActionObject.State_Sleep;//行为沉睡
                         Unlock_ByType();//给行为管理对象解锁：只有表情是图片切换型
                         Unlock_UnlockMainDisplay(FunPoint_Unlock);
                         //解锁，被上锁的图像能够绘制了
@@ -414,22 +371,20 @@ public class ActionObject {
                 } else if (Tool_Type == Type_SingleDataProgress) {
                     //上锁：单图上锁在：Running
 
-                    if (this.Judge_OperationExit_Reset()) {
-                        this.CurrentState = State_Exiting;//FPS_Tool退出
+                    if (Judge_OperationExit_Reset()) {
+                        CurrentState = State_Exiting;//FPS_Tool退出
                     }
                     //操作结束，退出绘制
 
 
-                    if (this.CurrentState == State_Exiting) {
+                    if (CurrentState == State_Exiting) {
                         ActionTool.Check_FoodAppeared_Switch(this.ThisAction);//食物特殊检查
-                        this.CurrentState = State_Sleep;//工具沉睡
+                        CurrentState = State_Sleep;//工具沉睡
                         Reset();//重置Object的数据
                         Unlock_ByType();//给行为管理对象解锁
                         return;
                     }
                     //最后一帧：退出
-
-
                     Display_SinglePictureDataProgress(g, frame);
                     //数据处理+绘制
                 }
@@ -437,7 +392,7 @@ public class ActionObject {
         }
         //工具绘制函数：多个图像/单个图像，数据变换
 
-        public void Display_PaintCurrentFPS_Picture(Graphics2D g, int currentPicture, NewFrame frame) {
+        public void Display_PaintCurrentFPS_Picture(Graphics2D g, int currentPicture, MyFrame frame) {
             for (int i = 0; i < Array_PictureList[currentPicture].size(); i++) {
                 Picture p = Array_PictureList[currentPicture].get(i);
                 p.Draw_SinglePictureRotate(g, frame, Image.SCALE_SMOOTH, p.CurrentDegree);
@@ -447,7 +402,7 @@ public class ActionObject {
         }
         //多图切换：绘制当前帧
 
-        public void Display_SinglePictureDataProgress(Graphics2D g, NewFrame frame) {
+        public void Display_SinglePictureDataProgress(Graphics2D g, MyFrame frame) {
             for (ActionObject_Operation o : This.Array_SinglePictureOperation) {
                 if (o.ObjectLock) {//上锁再绘制
                     Picture p = o.picture;
@@ -464,23 +419,21 @@ public class ActionObject {
         ;
         //--------------------------------图像绘制--------------------------------------
 
-        public void Lock_ToolDisplayAndLockMainDisplay(FunPoint_Empty_Argument lock) {
-            lock.object();
+        public void Lock_ToolDisplayAndLockMainDisplay(EmptyArgument lock) {
+            lock.empty();
         }
         //多图切换：锁上主函数中的绘制：上锁在：Display
 
-        public void Unlock_UnlockMainDisplay(FunPoint_Empty_Argument unlock) {
-            unlock.object();
+        public void Unlock_UnlockMainDisplay(EmptyArgument unlock) {
+            unlock.empty();
         }
         //多图切换：对主绘制事件进行解锁：解锁在：Display
 
         public void Unlock_ByType() {
-            if (This.ActionType == ActionType_FaceEmoji) {
-                ActionTool.Global_Lock_FaceEmoji = false;
-            } else if (This.ActionType == ActionType_Move) {
-                ActionTool.Global_Lock_Move = false;
-            } else if (This.ActionType == ActionType_EarFootsShake) {
-                ActionTool.Global_Lock_EarFootsShake = false;
+            switch(This.ActionType){
+                case ActionType_FaceEmoji -> ActionTool.Global_Lock_FaceEmoji = false;
+                case ActionType_Move ->  ActionTool.Global_Lock_Move = false;
+                case ActionType_EarFootsShake -> ActionTool.Global_Lock_EarFootsShake = false;
             }
         }
         //根据Action类型不同进行不同的解锁

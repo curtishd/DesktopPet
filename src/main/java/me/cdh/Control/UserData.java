@@ -9,13 +9,13 @@ import java.io.*;
 
 public class UserData {
 
-    public UserData(SetUp.RobotSize SetSize, int MoodValue, String DataPath) {
+    public UserData(RobotSize SetSize, int MoodValue, String DataPath) {
         this.Init(SetSize, MoodValue, DataPath);
     }
 
     //--------------------------------构造器--------------------------------
 
-    private void Init(SetUp.RobotSize SetSize, int MoodValue, String DataPath) {
+    private void Init(RobotSize SetSize, int MoodValue, String DataPath) {
         this.setUp = new SetUp(SetSize);
         this.moodSystem = new Mood(MoodValue);
         this.DataPath = DataPath;
@@ -26,7 +26,7 @@ public class UserData {
     //初始化
 
     public void BasicInit() {
-        this.setUp = new SetUp(SetUp.RobotSize.SIZE_200);
+        this.setUp = new SetUp(RobotSize.SIZE_200);
         this.moodSystem = new Mood(100);
         this.clothes = new Clothes();
     }
@@ -78,10 +78,6 @@ public class UserData {
         }
         //----------------构造器----------------
 
-        public enum RobotSize {
-            SIZE_25, SIZE_50, SIZE_75, SIZE_100, SIZE_150, SIZE_200, SIZE_250, SIZE_300, SIZE_350, SIZE_400, SIZE_450, SIZE_500
-        }
-
         public RobotSize robotSize;
         //设置大小
         public int TempOrder;
@@ -100,8 +96,6 @@ public class UserData {
                 size = 100;
             } else if (robotSize == RobotSize.SIZE_150) {
                 size = 150;
-            } else if (robotSize == RobotSize.SIZE_200) {
-                size = 200;
             } else if (robotSize == RobotSize.SIZE_250) {
                 size = 250;
             } else if (robotSize == RobotSize.SIZE_300) {
@@ -270,20 +264,20 @@ public class UserData {
         public void EarAngleProgress() {
             int BasicGap = 10, BasicGap1 = 20;
             if (CurrentMood == CurrentMood_Sad) {
-                MainAWT.FishRoe.Ears[0].TargetDegree = -MainAWT.FishRoe.Ears_StartTargetDegree - BasicGap;
-                MainAWT.FishRoe.Ears[1].TargetDegree = MainAWT.FishRoe.Ears_StartTargetDegree + BasicGap;
-                MainAWT.FishRoe.Foots[0].TargetDegree = MainAWT.FishRoe.Foots_StartTargetDegree - BasicGap;
-                MainAWT.FishRoe.Foots[1].TargetDegree = -MainAWT.FishRoe.Foots_StartTargetDegree + BasicGap;
+                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree - BasicGap;
+                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree + BasicGap;
+                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree - BasicGap;
+                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree + BasicGap;
             } else if (CurrentMood == CurrentMood_Range) {
-                MainAWT.FishRoe.Ears[0].TargetDegree = -MainAWT.FishRoe.Ears_StartTargetDegree - BasicGap1;
-                MainAWT.FishRoe.Ears[1].TargetDegree = MainAWT.FishRoe.Ears_StartTargetDegree + BasicGap1;
-                MainAWT.FishRoe.Foots[0].TargetDegree = MainAWT.FishRoe.Foots_StartTargetDegree - BasicGap1;
-                MainAWT.FishRoe.Foots[1].TargetDegree = -MainAWT.FishRoe.Foots_StartTargetDegree + BasicGap1;
+                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree - BasicGap1;
+                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree + BasicGap1;
+                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree - BasicGap1;
+                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree + BasicGap1;
             } else {
-                MainAWT.FishRoe.Ears[0].TargetDegree = -MainAWT.FishRoe.Ears_StartTargetDegree;
-                MainAWT.FishRoe.Ears[1].TargetDegree = MainAWT.FishRoe.Ears_StartTargetDegree;
-                MainAWT.FishRoe.Foots[0].TargetDegree = MainAWT.FishRoe.Foots_StartTargetDegree;
-                MainAWT.FishRoe.Foots[1].TargetDegree = -MainAWT.FishRoe.Foots_StartTargetDegree;
+                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree;
+                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree;
+                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree;
+                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree;
             }
         }
 

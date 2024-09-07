@@ -1,7 +1,7 @@
 package me.cdh.DestopPet;
 
 import me.cdh.Control.UserData;
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
 import me.cdh.Main.MainAWT;
 
 import java.awt.*;
@@ -632,13 +632,13 @@ public class ActionTool {
         //检查食物：高优先级
         CheckDizzyBegin();
         //特殊动作检查
-        if(!MainAWT.FishRoe.BasicEyes.eventLock.isOnce_Display()){
+        if(!MainAWT.robot.BasicEyes.eventLock.isOnce_Display()){
             CheckApplication_Common(List_Action_FaceEmoji);
         }
         CheckApplication_Common(List_Action_EarFootsShake);
         CheckApplication_Common(List_Action_Move);
         //ActionObject的申请检查
-        if(!Global_Lock_FaceEmoji && !MainAWT.FishRoe.BasicEyes.eventLock.isOnce_Display()){//没上锁
+        if(!Global_Lock_FaceEmoji && !MainAWT.robot.BasicEyes.eventLock.isOnce_Display()){//没上锁
             for (ActionObject current : List_Action_FaceEmoji) {
                 if (current.CurrentState == ActionObject.State_Applying) {
                     current.CurrentState = ActionObject.State_Running;
@@ -765,7 +765,7 @@ public class ActionTool {
     }
     //运行：数据处理：启动FPS_Tool
 
-    public void Display_ObjectRunning(Graphics2D g, NewFrame frame){
+    public void Display_ObjectRunning(Graphics2D g, MyFrame frame){
         if(!Global_Lock_FoodAppeared && !Global_Lock_FoodEaten){
             Display_Common(g,frame,List_Action_FaceEmoji);
             Display_Common(g,frame,List_Action_EarFootsShake);
@@ -820,7 +820,7 @@ public class ActionTool {
     }
     //查询FPS状况：立刻退出操作
 
-    public void Display_Common(Graphics2D g, NewFrame frame, ArrayList<ActionObject> list){
+    public void Display_Common(Graphics2D g, MyFrame frame, ArrayList<ActionObject> list){
         if(list != null && !list.isEmpty()){
             if(list != List_Action_Move){
                 for (ActionObject o : list) {

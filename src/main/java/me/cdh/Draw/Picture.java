@@ -11,8 +11,9 @@ package me.cdh.Draw;
 */
 
 
+import me.cdh.CustomMouseEvent;
 import me.cdh.DrawControl.EventListen;
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
 
 
 import java.awt.*;
@@ -39,11 +40,11 @@ public class Picture {
     public Display.Rect EventJudgeRect = new Display.Rect(0, 0, 0, 0);
     //裁剪区域+绘制区域+事件判断区域
 
-    public ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> List_FunPoint_MouseClick = new ArrayList<>();
-    public ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> List_FunPoint_MousePress = new ArrayList<>();
-    public ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> List_FunPoint_MouseDragged = new ArrayList<>();
-    public ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> List_FunPoint_MouseMoved = new ArrayList<>();
-    public ArrayList<EventListen.MouseEventListener.FunPoint_MouseEvent> List_FunPoint_MouseRelease = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> List_FunPoint_MouseClick = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> List_FunPoint_MousePress = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> List_FunPoint_MouseDragged = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> List_FunPoint_MouseMoved = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> List_FunPoint_MouseRelease = new ArrayList<>();
     //存储触发事件后调用的方法
 
     public int CurrentDegree;//当前角度
@@ -69,7 +70,7 @@ public class Picture {
 
     //--------------------------------初始化--------------------------------------
 
-    public void Draw(Graphics2D g, NewFrame frame, final int ScaleMethod) {
+    public void Draw(Graphics2D g, MyFrame frame, final int ScaleMethod) {
         this.DrawAddEvent(frame);
         //绘制了就要检查事件队列并加上
 
@@ -86,7 +87,7 @@ public class Picture {
     }
     //绘制函数+添加事件队列函数
 
-    public void DrawAddEvent(NewFrame frame) {
+    public void DrawAddEvent(MyFrame frame) {
         if (!this.List_FunPoint_MouseClick.isEmpty()) {
             frame.List_MouseClickEvent_FramePicture.add(this);
         }
@@ -112,7 +113,7 @@ public class Picture {
     }
     //获得指定的Dst
 
-    public void Draw_SinglePictureRotate(Graphics2D g, NewFrame frame, final int ScaleMethod, int Degree) {
+    public void Draw_SinglePictureRotate(Graphics2D g, MyFrame frame, final int ScaleMethod, int Degree) {
         int Centre_x = (int) (this.Dst.x + this.SrcCentre.x * this.Dst.width / (float) this.Src.width);
         int Centre_y = (int) (this.Dst.y + this.SrcCentre.y * this.Dst.height / (float) this.Src.height);
         g.rotate(Math.toRadians(Degree), Centre_x, Centre_y);
@@ -141,7 +142,7 @@ public class Picture {
 
     //--------------------------------绘制--------------------------------------
 
-    public void EventAdd_MouseClick(EventListen.MouseEventListener.FunPoint_MouseEvent Mouse_FunPoint) {
+    public void EventAdd_MouseClick(CustomMouseEvent Mouse_FunPoint) {
         if (this.List_FunPoint_MouseClick != null) {//已经被Init函数初始化了才能添加
             List_FunPoint_MouseClick.add(Mouse_FunPoint);
         }
@@ -151,7 +152,7 @@ public class Picture {
 
     //删除鼠标点击
 
-    public void EventAdd_MouseRelease(EventListen.MouseEventListener.FunPoint_MouseEvent Mouse_FunPoint) {
+    public void EventAdd_MouseRelease(CustomMouseEvent Mouse_FunPoint) {
         if (this.List_FunPoint_MouseRelease != null) {//已经被Init函数初始化了才能添加
             List_FunPoint_MouseRelease.add(Mouse_FunPoint);
         }
@@ -161,7 +162,7 @@ public class Picture {
 
     //删除鼠标松开
 
-    public void EventAdd_MousePress(EventListen.MouseEventListener.FunPoint_MouseEvent Mouse_FunPoint) {
+    public void EventAdd_MousePress(CustomMouseEvent Mouse_FunPoint) {
         if (this.List_FunPoint_MousePress != null) {//已经被Init函数初始化了才能添加
             List_FunPoint_MousePress.add(Mouse_FunPoint);
         }
@@ -171,24 +172,13 @@ public class Picture {
 
     //删除鼠标按下
 
-    public void EventAdd_MouseDragged(EventListen.MouseEventListener.FunPoint_MouseEvent Mouse_FunPoint) {
+    public void EventAdd_MouseDragged(CustomMouseEvent Mouse_FunPoint) {
         if (this.List_FunPoint_MouseDragged != null) {//已经被Init函数初始化了才能添加
             List_FunPoint_MouseDragged.add(Mouse_FunPoint);
         }
         //功能记录
-        else {
-            return;
-        }
+
     }
-    //添加鼠标拖拽
-
-    //删除鼠标拖拽
-
-    //添加鼠标移动
-
-    //删除鼠标移动
-
-    //--------------------------------事件--------------------------------------
 
     public Point Get_DstCentre(Point SrcCentre) {
         int x = (int) (Dst.x + SrcCentre.x * Dst.width / (double) Src.width);

@@ -6,18 +6,18 @@ import me.cdh.DestopPet.Robot;
 import me.cdh.Draw.Display;
 
 import me.cdh.DrawControl.EventListen;
-import me.cdh.DrawControl.NewFrame;
+import me.cdh.DrawControl.MyFrame;
 
 public class MainAWT {
 
     public static void main(String[] args) {
 
-        MainFrame = new NewFrame();
-        NewFrame.SetTool.SetNewFrame(MainFrame,"window",
-                (int)NewFrame.GetScreenWH()[0],(int)NewFrame.GetScreenWH()[1],0,0,
+        MainFrame = new MyFrame();
+        MyFrame.SetTool.SetNewFrame(MainFrame,"window",
+                (int) MyFrame.GetScreenWH()[0],(int) MyFrame.GetScreenWH()[1],0,0,
                 false,true,false,true,
                 EventListen.WindowEventListener.EXIT_CLOSE,
-                new NewFrame.ColorRBGA(0,0,0,0));
+                new MyFrame.ColorRBGA(0,0,0,0));
 
         //--------------------------------窗口初始化--------------------------------------
 
@@ -31,11 +31,11 @@ public class MainAWT {
 
         //--------------------------------绘制图像工具初始化--------------------------------------
 
-        MainFrame.FrameMain_EventListener(NewFrame::MainFrame_EventListener_MouseClick,
-                NewFrame::MainFrame_EventListener_MousePress,
-                NewFrame::MainFrame_EventListener_MouseReleased,
-                NewFrame::MainFrame_EventListener_MouseDragged,
-                NewFrame::MainFrame_EventListener_MouseMoved);
+        MainFrame.FrameMain_EventListener(MyFrame::MainFrame_EventListener_MouseClick,
+                MyFrame::MainFrame_EventListener_MousePress,
+                MyFrame::MainFrame_EventListener_MouseReleased,
+                MyFrame::MainFrame_EventListener_MouseDragged,
+                MyFrame::MainFrame_EventListener_MouseMoved);
 
         //--------------------------------事件监听--------------------------------------
         threadControl = new ThreadControl(ThreadControl::MainLoop_ForMainFrame);
@@ -50,7 +50,7 @@ public class MainAWT {
         //--------------------------------Experiment--------------------------------------
     }
 
-    public static NewFrame MainFrame;//作为一个属性方便其他class文件调用
+    public static MyFrame MainFrame;//作为一个属性方便其他class文件调用
     //主窗口
 
     public static Display.Paint PaintTool_MainFrame;
@@ -59,7 +59,7 @@ public class MainAWT {
     public static ThreadControl threadControl;
     //循环线程
 
-    public static Robot FishRoe;
+    public static Robot robot;
     //鱼籽
 
     public static UserData userData;

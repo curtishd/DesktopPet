@@ -5,17 +5,18 @@ import me.cdh.Control.RobotSize;
 import me.cdh.Control.ThreadControl;
 import me.cdh.Control.UserData;
 import me.cdh.Draw.Display;
+import me.cdh.Draw.Load;
 import me.cdh.Draw.Picture;
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Interface_Button extends Picture {
-    public Interface_Button(int State) {
+public class InterfaceButton extends Picture {
+    public InterfaceButton(int State) {
         super();
         this.State = State;
         this.Zoom = 1.0;
@@ -55,19 +56,19 @@ public class Interface_Button extends Picture {
     //--------------------------------List--------------------------------------
 
     public void Reset_Dst(Point Dst_Point, Point Dst_xy) {
-        this.Dst = Display.Paint.Get_PictureRelativeLocation_OfChoseDst(this.Src, this.SrcCentre, Dst_Point,
+        this.Dst = Display.Paint.getPictureRelativeLocationOfChoseDst(this.Src, this.SrcCentre, Dst_Point,
                 (int) (this.Src.width * this.Zoom), (int) (this.Src.height * this.Zoom),
                 Dst_xy);
     }
 
     public void Reset_Dst_WithWH(Point Dst_Point, Point Dst_xy, int w, int h) {
-        this.Dst = Display.Paint.Get_PictureRelativeLocation_OfChoseDst(this.Src, this.SrcCentre, Dst_Point,
+        this.Dst = Display.Paint.getPictureRelativeLocationOfChoseDst(this.Src, this.SrcCentre, Dst_Point,
                 w, h,
                 Dst_xy);
     }
 
     public static void Refresh_SetUpButtonState() {
-        int Order = MainAWT.userData.setUp.TempOrder;
+        int Order = Main.userData.setUp.TempOrder;
         for (int i = 0; i < 12; i++) {
             if (i != Order) {
                 Global_SetUp_Button[i].State = Button.State_NotChose;
@@ -79,11 +80,11 @@ public class Interface_Button extends Picture {
     //刷新设置状态
 
     public static void Reset_resetBasicSize() {
-        RobotSize robotSize1 = UserData.SetUp.OrderToEnum(MainAWT.userData.setUp.TempOrder);
-        if (MainAWT.userData.setUp.robotSize != robotSize1) {
-            MainAWT.userData.setUp.robotSize = robotSize1;
+        RobotSize robotSize1 = UserData.SetUp.OrderToEnum(Main.userData.setUp.TempOrder);
+        if (Main.userData.setUp.robotSize != robotSize1) {
+            Main.userData.setUp.robotSize = robotSize1;
             //临时数据变为真实数据
-            MainAWT.userData.WriteData();
+            Main.userData.writeData();
             //写出数据
             Robot.Global_ResetAfterSetUp();
             //数据刷新
@@ -92,10 +93,10 @@ public class Interface_Button extends Picture {
 
     //重置基础大小
     public static void Reset_SwitchClothes() {
-        if (MainAWT.userData.clothes.ClothesType != Clothes_CurrentOrder) {
-            MainAWT.userData.clothes.ClothesType = Clothes_CurrentOrder;
+        if (Main.userData.clothes.ClothesType != Clothes_CurrentOrder) {
+            Main.userData.clothes.ClothesType = Clothes_CurrentOrder;
             //临时数据变为真实数据
-            MainAWT.userData.WriteData();
+            Main.userData.writeData();
             //写出数据
             Robot.Global_ResetAfterSetUp();
             //数据刷新
@@ -107,15 +108,15 @@ public class Interface_Button extends Picture {
 
     public static BufferedImage Interface_Image;
 
-    public static Interface_Button Global_SetUp_Interface;
+    public static InterfaceButton Global_SetUp_Interface;
     //设置界面
-    public static Interface_Button Global_MoodSystem_Interface;
+    public static InterfaceButton Global_MoodSystem_Interface;
     //心情系统
-    public static Interface_Button Global_FoodSystem_Interface;
+    public static InterfaceButton Global_FoodSystem_Interface;
     //喂食系统
-    public static Interface_Button Global_Exit_Interface;
+    public static InterfaceButton Global_Exit_Interface;
     //退出系统
-    public static Interface_Button Global_Clothes_Interface;
+    public static InterfaceButton Global_Clothes_Interface;
     //皮肤系统
     ;
 
@@ -145,7 +146,7 @@ public class Interface_Button extends Picture {
         //---------------初始化--------------------
 
         public void Reset_Dst(Point Dst_Point, Point Dst_xy) {
-            this.Dst = Display.Paint.Get_PictureRelativeLocation_OfChoseDst(this.Src, this.SrcCentre, Dst_Point,
+            this.Dst = Display.Paint.getPictureRelativeLocationOfChoseDst(this.Src, this.SrcCentre, Dst_Point,
                     (int) (this.Src.width * this.Zoom), (int) (this.Src.height * this.Zoom),
                     Dst_xy);
         }
@@ -166,52 +167,52 @@ public class Interface_Button extends Picture {
 
         public static void Global_Init_Button_Interface() {
 
-            Button_NotChose = Display.Load.LoadImage("Picture/Frame/Button_NotChose.png");
-            Button_Chose = Display.Load.LoadImage("Picture/Frame/Button_Chose.png");
+            Button_NotChose = Load.loadImage("Picture/Frame/Button_NotChose.png");
+            Button_Chose = Load.loadImage("Picture/Frame/Button_Chose.png");
             //按钮
-            if (MainAWT.userData.clothes.ClothesType != UserData.Clothes.ClothesType_Sakura &&
-                    MainAWT.userData.clothes.ClothesType != UserData.Clothes.ClothesType_SakuraNull) {
-                Switch_Off = Display.Load.LoadImage("Picture/Switch1.png");
+            if (Main.userData.clothes.ClothesType != UserData.Clothes.ClothesType_Sakura &&
+                    Main.userData.clothes.ClothesType != UserData.Clothes.ClothesType_SakuraNull) {
+                Switch_Off = Load.loadImage("Picture/Switch1.png");
             }
-            Switch_On = Display.Load.LoadImage("Picture/Switch2.png");
+            Switch_On = Load.loadImage("Picture/Switch2.png");
             //开关
-            SetUp_NotChose = Display.Load.LoadImage("Picture/Frame/SetUp_NotChose.png");
-            SetUp_Chose = Display.Load.LoadImage("Picture/Frame/SetUp_Chose.png");
+            SetUp_NotChose = Load.loadImage("Picture/Frame/SetUp_NotChose.png");
+            SetUp_Chose = Load.loadImage("Picture/Frame/SetUp_Chose.png");
             //设置
-            Love_NotChose = Display.Load.LoadImage("Picture/Frame/Love_NotChose.png");
-            Love_Chose = Display.Load.LoadImage("Picture/Frame/Love_Chose.png");
+            Love_NotChose = Load.loadImage("Picture/Frame/Love_NotChose.png");
+            Love_Chose = Load.loadImage("Picture/Frame/Love_Chose.png");
             //心情
-            Battery_NotChose = Display.Load.LoadImage("Picture/Frame/Battery_NotChose.png");
-            Battery_Chose = Display.Load.LoadImage("Picture/Frame/Battery_Chose.png");
+            Battery_NotChose = Load.loadImage("Picture/Frame/Battery_NotChose.png");
+            Battery_Chose = Load.loadImage("Picture/Frame/Battery_Chose.png");
             //电池
-            MoodBar_Empty = Display.Load.LoadImage("Picture/Frame/MoodBar_Empty.png");
-            MoodBar_Filled = Display.Load.LoadImage("Picture/Frame/MoodBar_Filled.png");
+            MoodBar_Empty = Load.loadImage("Picture/Frame/MoodBar_Empty.png");
+            MoodBar_Filled = Load.loadImage("Picture/Frame/MoodBar_Filled.png");
             //心情条
-            SelectBox_Chose = Display.Load.LoadImage("Picture/Frame/SelectBox_Chose.png");
-            SelectBox_NotChose = Display.Load.LoadImage("Picture/Frame/SelectBox_NotChose.png");
+            SelectBox_Chose = Load.loadImage("Picture/Frame/SelectBox_Chose.png");
+            SelectBox_NotChose = Load.loadImage("Picture/Frame/SelectBox_NotChose.png");
             //选择框框
-            Food_Arrow = Display.Load.LoadImage("Picture/Food/Arrow.png");
-            Food_Battery = Display.Load.LoadImage("Picture/Food/Battery.png");
-            Food_Slug = Display.Load.LoadImage("Picture/Food/Slug.png");
+            Food_Arrow = Load.loadImage("Picture/Food/Arrow.png");
+            Food_Battery = Load.loadImage("Picture/Food/Battery.png");
+            Food_Slug = Load.loadImage("Picture/Food/Slug.png");
             //食物
-            Exit_Chose = Display.Load.LoadImage("Picture/Frame/Exit_Chose.png");
-            Exit_NotChose = Display.Load.LoadImage("Picture/Frame/Exit_NotChose.png");
+            Exit_Chose = Load.loadImage("Picture/Frame/Exit_Chose.png");
+            Exit_NotChose = Load.loadImage("Picture/Frame/Exit_NotChose.png");
             //退出
-            Clothes_Chose = Display.Load.LoadImage("Picture/Frame/Clothes_Chose.png");
-            Clothes_NotChose = Display.Load.LoadImage("Picture/Frame/Clothes_NotChose.png");
+            Clothes_Chose = Load.loadImage("Picture/Frame/Clothes_Chose.png");
+            Clothes_NotChose = Load.loadImage("Picture/Frame/Clothes_NotChose.png");
             //皮肤
             Clothes_ObjectPicture = new BufferedImage[Clothes_Num];
-            Clothes_ObjectPicture[0] = Display.Load.LoadImage("Picture/Clothes/Basic.png");
-            Clothes_ObjectPicture[1] = Display.Load.LoadImage("Picture/Clothes/Fat.png");
-            Clothes_ObjectPicture[2] = Display.Load.LoadImage("Picture/Clothes/Null.png");
-            Clothes_ObjectPicture[3] = Display.Load.LoadImage("Picture/Clothes/Sakura.png");
-            Clothes_ObjectPicture[4] = Display.Load.LoadImage("Picture/Clothes/SakuraNull.png");
+            Clothes_ObjectPicture[0] = Load.loadImage("Picture/Clothes/Basic.png");
+            Clothes_ObjectPicture[1] = Load.loadImage("Picture/Clothes/Fat.png");
+            Clothes_ObjectPicture[2] = Load.loadImage("Picture/Clothes/Null.png");
+            Clothes_ObjectPicture[3] = Load.loadImage("Picture/Clothes/Sakura.png");
+            Clothes_ObjectPicture[4] = Load.loadImage("Picture/Clothes/SakuraNull.png");
             //皮肤对象
             ;
             //选择框框
             ;
             //按钮
-            Interface_Button.Interface_Image = Display.Load.LoadImage("Picture/Frame/Interface.png");
+            InterfaceButton.Interface_Image = Load.loadImage("Picture/Frame/Interface.png");
             //界面
             ;
             //加载图片
@@ -248,9 +249,9 @@ public class Interface_Button extends Picture {
             Global_ExitButton.State = Button.State_NotDisplay;
             Global_ClothesButton.State = Button.State_NotDisplay;
             //关闭按钮
-            Interface_Button.Global_SetUp_Interface.State = Button.State_NotDisplay;
-            Interface_Button.Global_MoodSystem_Interface.State = Button.State_NotDisplay;
-            Interface_Button.Global_FoodSystem_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_SetUp_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_MoodSystem_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_FoodSystem_Interface.State = Button.State_NotDisplay;
             Global_Exit_Interface.State = Button.State_NotDisplay;
             Global_Clothes_Interface.State = Button.State_NotDisplay;
             //关闭界面
@@ -264,12 +265,12 @@ public class Interface_Button extends Picture {
         Event_ButtonTwoImageSwitch(Global_SetUpButton);
         //点击切换状态
         if (Global_SetUpButton.State == Button.State_NotChose) {
-            Interface_Button.Global_SetUp_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_SetUp_Interface.State = Button.State_NotDisplay;
             //关闭界面
         } else if (Global_SetUpButton.State == Button.State_Chose) {
-            Interface_Button.Global_SetUp_Interface.State = Button.State_Chose;
+            InterfaceButton.Global_SetUp_Interface.State = Button.State_Chose;
         }
-        MainAWT.userData.setUp.TempOrder = UserData.SetUp.EnumToOrder(MainAWT.userData.setUp.robotSize);
+        Main.userData.setUp.TempOrder = UserData.SetUp.EnumToOrder(Main.userData.setUp.robotSize);
         Refresh_SetUpButtonState();
         //更新TempOrder
     }
@@ -280,10 +281,10 @@ public class Interface_Button extends Picture {
         Event_ButtonTwoImageSwitch(Global_BatteryButton);
         //点击切换状态
         if (Global_BatteryButton.State == Button.State_NotChose) {
-            Interface_Button.Global_FoodSystem_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_FoodSystem_Interface.State = Button.State_NotDisplay;
             //关闭界面
         } else if (Global_BatteryButton.State == Button.State_Chose) {
-            Interface_Button.Global_FoodSystem_Interface.State = Button.State_Chose;
+            InterfaceButton.Global_FoodSystem_Interface.State = Button.State_Chose;
         }
     }
 
@@ -293,10 +294,10 @@ public class Interface_Button extends Picture {
         Event_ButtonTwoImageSwitch(Global_LoveButton);
         //点击切换状态
         if (Global_LoveButton.State == Button.State_NotChose) {
-            Interface_Button.Global_MoodSystem_Interface.State = Button.State_NotDisplay;
+            InterfaceButton.Global_MoodSystem_Interface.State = Button.State_NotDisplay;
             //关闭界面
         } else if (Global_LoveButton.State == Button.State_Chose) {
-            Interface_Button.Global_MoodSystem_Interface.State = Button.State_Chose;
+            InterfaceButton.Global_MoodSystem_Interface.State = Button.State_Chose;
         }
     }
 
@@ -333,11 +334,11 @@ public class Interface_Button extends Picture {
             Button ClickedButton;
             for (int i = 0; i < 12; i++) {
                 Button button = Global_SetUp_Button[i];
-                if (button.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {
+                if (button.EventJudgeRect.judgePointInRect(e.getX(), e.getY())) {
                     ClickedButton = button;
                     ClickedButton.State = Button.State_Chose;
                     //开启
-                    MainAWT.userData.setUp.TempOrder = i;
+                    Main.userData.setUp.TempOrder = i;
                     //Temp变量改变
                     for (int j = 0; j < 12; j++) {
                         Button button1 = Global_SetUp_Button[j];
@@ -358,10 +359,10 @@ public class Interface_Button extends Picture {
         if (Global_Exit_Button != null) {
             for (int i = 0; i < 2; i++) {
                 Button button = Global_Exit_Button[i];
-                if (button.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {
+                if (button.EventJudgeRect.judgePointInRect(e.getX(), e.getY())) {
                     //开启
                     if (i == 0) {
-                        MainAWT.threadControl.CurrentOperation = ThreadControl.CurrentOperation_Exit;
+                        Main.threadControl.CurrentOperation = ThreadControl.CurrentOperation_Exit;
                     } else {
                         Global_Exit_Interface.State = Button.State_NotDisplay;
                         Global_ExitButton.State = Button.State_NotChose;
@@ -379,11 +380,11 @@ public class Interface_Button extends Picture {
             Button ClickedButton;
             for (int i = 0; i < Food_Picture_Num; i++) {
                 Button button = Global_Food_SelectButton[i];
-                if (button.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {
+                if (button.EventJudgeRect.judgePointInRect(e.getX(), e.getY())) {
                     ClickedButton = button;
                     ClickedButton.State = Button.State_Chose;
                     //开启
-                    MainAWT.userData.setUp.TempOrder = i;
+                    Main.userData.setUp.TempOrder = i;
                     Food_CurrentOrder = i;
                     //顺序记录
                     ;
@@ -408,11 +409,11 @@ public class Interface_Button extends Picture {
             Button ClickedButton;
             for (int i = 0; i < Clothes_Num; i++) {
                 Button button = Global_Clothes_SelectButton[i];
-                if (button.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {
+                if (button.EventJudgeRect.judgePointInRect(e.getX(), e.getY())) {
                     ClickedButton = button;
                     ClickedButton.State = Button.State_Chose;
                     //开启
-                    MainAWT.userData.setUp.TempOrder = i;
+                    Main.userData.setUp.TempOrder = i;
                     Clothes_CurrentOrder = i;
                     //顺序记录
                     //Temp变量改变
@@ -463,8 +464,8 @@ public class Interface_Button extends Picture {
                     }
                 }
                 //想吃事件开始
-                Robot.Global_EyesFollow_Operation[0].FollowedObject = Interface_Button.Global_Food[Food_CurrentOrder].picture;
-                Robot.Global_SadEyesFollow_Operation[0].FollowedObject = Interface_Button.Global_Food[Food_CurrentOrder].picture;
+                Robot.Global_EyesFollow_Operation[0].FollowedObject = InterfaceButton.Global_Food[Food_CurrentOrder].picture;
+                Robot.Global_SadEyesFollow_Operation[0].FollowedObject = InterfaceButton.Global_Food[Food_CurrentOrder].picture;
                 //指定跟随的食物
             }
         }
@@ -502,7 +503,7 @@ public class Interface_Button extends Picture {
     }
 
     //绘制按钮
-    public static void Display_Interface(Interface_Button face, Graphics2D g, MyFrame frame) {
+    public static void Display_Interface(InterfaceButton face, Graphics2D g, MyFrame frame) {
         if (face.State == Button.State_Chose) {
             face.Draw(g, frame, Image.SCALE_SMOOTH);
             if (face.List_Button != null && !face.List_Button.isEmpty()) {
@@ -514,7 +515,7 @@ public class Interface_Button extends Picture {
     }
 
     //绘制界面
-    public static void Display_Texts(Interface_Button face, Graphics2D g) {
+    public static void Display_Texts(InterfaceButton face, Graphics2D g) {
         if (face.State == Button.State_Chose) {
             if (face.List_Texts != null && !face.List_Texts.isEmpty()) {
                 for (Display.Text text : face.List_Texts) {
@@ -552,7 +553,7 @@ public class Interface_Button extends Picture {
             if (Global_Food[i].Judge_DisplayPicture &&
                     !Global_Food[i].picture.eventLock.isOnce_Display() &&
                     !Global_Food[i].picture.eventLock.isDisplay_Conventional()) {
-                Global_Food[i].picture.Draw(g, MainAWT.MainFrame, Image.SCALE_SMOOTH);
+                Global_Food[i].picture.Draw(g, Main.MainFrame, Image.SCALE_SMOOTH);
             }
         }
     }
@@ -689,7 +690,7 @@ public class Interface_Button extends Picture {
                 Global_SetUp_Button[i].State = Button.State_Chose;
             }
         }
-        Global_SetUp_Button[UserData.SetUp.EnumToOrder(MainAWT.userData.setUp.robotSize)].State = Button.State_Chose;//读取原来的设置
+        Global_SetUp_Button[UserData.SetUp.EnumToOrder(Main.userData.setUp.robotSize)].State = Button.State_Chose;//读取原来的设置
         //13是完成
         Global_MoodBar = new Button[2];
         for (int i = 0; i < 2; i++) {
@@ -762,81 +763,81 @@ public class Interface_Button extends Picture {
         ;
         //---------------Button--------------------
 
-        Global_SetUp_Interface = new Interface_Button(Button.State_NotDisplay);
-        Global_SetUp_Interface.Image_B = Interface_Button.Interface_Image;
-        Global_MoodSystem_Interface = new Interface_Button(Button.State_NotDisplay);
-        Global_MoodSystem_Interface.Image_B = Interface_Button.Interface_Image;
-        Global_FoodSystem_Interface = new Interface_Button(Button.State_NotDisplay);
-        Global_FoodSystem_Interface.Image_B = Interface_Button.Interface_Image;
-        Global_Exit_Interface = new Interface_Button(Button.State_NotDisplay);
-        Global_Exit_Interface.Image_B = Interface_Button.Interface_Image;
-        Global_Clothes_Interface = new Interface_Button(Button.State_NotDisplay);
-        Global_Clothes_Interface.Image_B = Interface_Button.Interface_Image;
+        Global_SetUp_Interface = new InterfaceButton(Button.State_NotDisplay);
+        Global_SetUp_Interface.Image_B = InterfaceButton.Interface_Image;
+        Global_MoodSystem_Interface = new InterfaceButton(Button.State_NotDisplay);
+        Global_MoodSystem_Interface.Image_B = InterfaceButton.Interface_Image;
+        Global_FoodSystem_Interface = new InterfaceButton(Button.State_NotDisplay);
+        Global_FoodSystem_Interface.Image_B = InterfaceButton.Interface_Image;
+        Global_Exit_Interface = new InterfaceButton(Button.State_NotDisplay);
+        Global_Exit_Interface.Image_B = InterfaceButton.Interface_Image;
+        Global_Clothes_Interface = new InterfaceButton(Button.State_NotDisplay);
+        Global_Clothes_Interface.Image_B = InterfaceButton.Interface_Image;
 
         //---------------Interface--------------------
     }
 
     //图片
     public static void Global_Interface_Button_LocationData_Init() {
-        double BasicZoom = MainAWT.robot.BasicSize / MainAWT.robot.BasicBody.Image_B.getHeight();
+        double BasicZoom = Main.robot.BasicSize / Main.robot.BasicBody.Image_B.getHeight();
         Food_CurrentOrder = -1;//-1为未选择
         Clothes_CurrentOrder = -1;//-1为未选择
 
         Global_SetUpSwitch.Src = new Display.Rect(0, 0, Global_SetUpSwitch.Image_B.getWidth(), Global_SetUpSwitch.Image_B.getHeight());
         Global_SetUpSwitch.SrcCentre = new Point(Global_SetUpSwitch.Src.width / 2, Global_SetUpSwitch.Src.height / 2);
-        Global_SetUpSwitch.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_SetUpSwitch.Src,
+        Global_SetUpSwitch.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_SetUpSwitch.Src,
                 Global_SetUpSwitch.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width / 2, (int) (Button.Switch_Relative_Y * BasicZoom)),
+                new Point(Main.robot.BasicBody.Dst.width / 2, (int) (Button.Switch_Relative_Y * BasicZoom)),
                 (int) (Global_SetUpSwitch.Src.width * BasicZoom),
                 (int) (Global_SetUpSwitch.Src.height * BasicZoom));
         Global_SetUpSwitch.CurrentDegree = 0;
         //开关
         Global_SetUpButton.Src = new Display.Rect(0, 0, Global_SetUpButton.Image_B.getWidth(), Global_SetUpButton.Image_B.getHeight());
         Global_SetUpButton.SrcCentre = new Point(Global_SetUpButton.Src.width / 2, Global_SetUpButton.Src.height / 2);
-        Global_SetUpButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_SetUpButton.Src,
+        Global_SetUpButton.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_SetUpButton.Src,
                 Global_SetUpButton.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width + SetUpButton_X,
-                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
+                new Point(Main.robot.BasicBody.Dst.width + SetUpButton_X,
+                        (int) (Main.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Global_SetUpButton.Src.width * Zoom_Buttons),
                 (int) (Global_SetUpButton.Src.height * Zoom_Buttons));
         Global_SetUpButton.CurrentDegree = 0;
         //按钮
         Global_BatteryButton.Src = new Display.Rect(0, 0, Global_BatteryButton.Image_B.getWidth(), Global_BatteryButton.Image_B.getHeight());
         Global_BatteryButton.SrcCentre = new Point(Global_BatteryButton.Src.width / 2, Global_BatteryButton.Src.height / 2);
-        Global_BatteryButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_BatteryButton.Src,
+        Global_BatteryButton.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_BatteryButton.Src,
                 Global_BatteryButton.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width + BatteryButton_X,
-                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
+                new Point(Main.robot.BasicBody.Dst.width + BatteryButton_X,
+                        (int) (Main.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Global_BatteryButton.Src.width * Zoom_Buttons),
                 (int) (Global_BatteryButton.Src.height * Zoom_Buttons));
         Global_BatteryButton.CurrentDegree = 0;
         //电池
         Global_LoveButton.Src = new Display.Rect(0, 0, Global_LoveButton.Image_B.getWidth(), Global_LoveButton.Image_B.getHeight());
         Global_LoveButton.SrcCentre = new Point(Global_LoveButton.Src.width / 2, Global_LoveButton.Src.height / 2);
-        Global_LoveButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_LoveButton.Src,
+        Global_LoveButton.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_LoveButton.Src,
                 Global_LoveButton.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width + LoveButton_X,
-                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
+                new Point(Main.robot.BasicBody.Dst.width + LoveButton_X,
+                        (int) (Main.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Global_LoveButton.Src.width * Zoom_Buttons),
                 (int) (Global_LoveButton.Src.height * Zoom_Buttons));
         Global_LoveButton.CurrentDegree = 0;
         //Love
         Global_ExitButton.Src = new Display.Rect(0, 0, Global_ExitButton.Image_B.getWidth(), Global_ExitButton.Image_B.getHeight());
         Global_ExitButton.SrcCentre = new Point(Global_ExitButton.Src.width / 2, Global_ExitButton.Src.height / 2);
-        Global_ExitButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_ExitButton.Src,
+        Global_ExitButton.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_ExitButton.Src,
                 Global_ExitButton.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width + ExitButton_X,
-                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
+                new Point(Main.robot.BasicBody.Dst.width + ExitButton_X,
+                        (int) (Main.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Global_ExitButton.Src.width * Zoom_Buttons),
                 (int) (Global_ExitButton.Src.height * Zoom_Buttons));
         Global_ExitButton.CurrentDegree = 0;
         //Exit
         Global_ClothesButton.Src = new Display.Rect(0, 0, Global_ClothesButton.Image_B.getWidth(), Global_ClothesButton.Image_B.getHeight());
         Global_ClothesButton.SrcCentre = new Point(Global_ClothesButton.Src.width / 2, Global_ClothesButton.Src.height / 2);
-        Global_ClothesButton.Dst = MainAWT.robot.Get_PictureRelativeLocation_OfBasicBody(Global_ClothesButton.Src,
+        Global_ClothesButton.Dst = Main.robot.Get_PictureRelativeLocation_OfBasicBody(Global_ClothesButton.Src,
                 Global_ClothesButton.SrcCentre,
-                new Point(MainAWT.robot.BasicBody.Dst.width + ClothesButton_X,
-                        (int) (MainAWT.robot.BasicBody.Dst.height / 2.0)),
+                new Point(Main.robot.BasicBody.Dst.width + ClothesButton_X,
+                        (int) (Main.robot.BasicBody.Dst.height / 2.0)),
                 (int) (Global_ClothesButton.Src.width * Zoom_Buttons),
                 (int) (Global_ClothesButton.Src.height * Zoom_Buttons));
         Global_ClothesButton.CurrentDegree = 0;
@@ -937,7 +938,7 @@ public class Interface_Button extends Picture {
             Global_Food[i].picture.Src = new Display.Rect(0, 0, Global_Food[i].picture.Image_B.getWidth(), Global_Food[i].picture.Image_B.getHeight());
             Global_Food[i].picture.SrcCentre = new Point(Global_Food[i].picture.Src.width / 2, Global_Food[i].picture.Src.height / 2);
             double basicZoom = 0.8;
-            double finalZoom = MainAWT.robot.Basic_Zoom * basicZoom;
+            double finalZoom = Main.robot.Basic_Zoom * basicZoom;
             Global_Food[i].picture.Reset_Dst(new Point(0, 0),
                     new Point(Global_Food_SelectButton[Food_Picture_Num].Dst.x, Global_Food_SelectButton[Food_Picture_Num].Dst.y), finalZoom);
             Global_Food[i].picture.CurrentDegree = 0;
@@ -1058,7 +1059,7 @@ public class Interface_Button extends Picture {
                 (int) (Global_SetUp_Button[SetUp_Button_Num - 1].Dst.y + Button_start_y * FinalButtonZoom / ButtonZoom));
         Global_SetUp_Button[SetUp_Button_Num - 1].text = Final_Button_Text;
 
-        int moodValue = MainAWT.userData.moodSystem.getMoodValue();
+        int moodValue = Main.userData.moodSystem.getMoodValue();
         String stringValue = Integer.toString(moodValue);
         String stringMoodContent = "当前心情:" + stringValue;
         Display.Text moodValue_Text = new Display.Text(18, stringMoodContent);
@@ -1129,12 +1130,12 @@ public class Interface_Button extends Picture {
 
     //文本
     public static void Global_Interface_Button_Event_Init() {
-        Global_SetUpSwitch.EventAdd_MouseClick(Interface_Button::Event_SetUpSwitch_Click);
-        Global_SetUpButton.EventAdd_MouseClick(Interface_Button::Event_SetUpButton_Click);
-        Global_BatteryButton.EventAdd_MouseClick(Interface_Button::Event_BatteryButton_Click);
-        Global_LoveButton.EventAdd_MouseClick(Interface_Button::Event_LoveButton_Click);
-        Global_ExitButton.EventAdd_MouseClick(Interface_Button::Event_ExitButton_Click);
-        Global_ClothesButton.EventAdd_MouseClick(Interface_Button::Event_ClothesButton_Click);
+        Global_SetUpSwitch.EventAdd_MouseClick(InterfaceButton::Event_SetUpSwitch_Click);
+        Global_SetUpButton.EventAdd_MouseClick(InterfaceButton::Event_SetUpButton_Click);
+        Global_BatteryButton.EventAdd_MouseClick(InterfaceButton::Event_BatteryButton_Click);
+        Global_LoveButton.EventAdd_MouseClick(InterfaceButton::Event_LoveButton_Click);
+        Global_ExitButton.EventAdd_MouseClick(InterfaceButton::Event_ExitButton_Click);
+        Global_ClothesButton.EventAdd_MouseClick(InterfaceButton::Event_ClothesButton_Click);
         Robot.MouseDragged[] mouseDragged_Food = new Robot.MouseDragged[Food_Picture_Num];
         for (int i = 0; i < Food_Picture_Num; i++) {
             Global_Food[i].Judge_EventRectChange = false;
@@ -1146,61 +1147,61 @@ public class Interface_Button extends Picture {
         }
         //Button
 
-        Robot.MouseDragged mouseDragged_SetUp_Interface = new Robot.MouseDragged(Interface_Button.Global_SetUp_Interface.Dst);
+        Robot.MouseDragged mouseDragged_SetUp_Interface = new Robot.MouseDragged(InterfaceButton.Global_SetUp_Interface.Dst);
         mouseDragged_SetUp_Interface.List_LockedTexts = new ArrayList<>();
-        Robot.MouseDragged mouseDragged_MoodSystem_Interface = new Robot.MouseDragged(Interface_Button.Global_MoodSystem_Interface.Dst);
+        Robot.MouseDragged mouseDragged_MoodSystem_Interface = new Robot.MouseDragged(InterfaceButton.Global_MoodSystem_Interface.Dst);
         mouseDragged_MoodSystem_Interface.List_LockedTexts = new ArrayList<>();
-        Robot.MouseDragged mouseDragged_FoodSystem_Interface = new Robot.MouseDragged(Interface_Button.Global_FoodSystem_Interface.Dst);
+        Robot.MouseDragged mouseDragged_FoodSystem_Interface = new Robot.MouseDragged(InterfaceButton.Global_FoodSystem_Interface.Dst);
         mouseDragged_FoodSystem_Interface.List_LockedTexts = new ArrayList<>();
-        Robot.MouseDragged mouseDragged_Exit_Interface = new Robot.MouseDragged(Interface_Button.Global_Exit_Interface.Dst);
+        Robot.MouseDragged mouseDragged_Exit_Interface = new Robot.MouseDragged(InterfaceButton.Global_Exit_Interface.Dst);
         mouseDragged_Exit_Interface.List_LockedTexts = new ArrayList<>();
-        Robot.MouseDragged mouseDragged_Clothes_Interface = new Robot.MouseDragged(Interface_Button.Global_Clothes_Interface.Dst);
+        Robot.MouseDragged mouseDragged_Clothes_Interface = new Robot.MouseDragged(InterfaceButton.Global_Clothes_Interface.Dst);
         mouseDragged_Clothes_Interface.List_LockedTexts = new ArrayList<>();
         //管理对象申请
-        Interface_Button.Global_SetUp_Interface.EventAdd_MousePress(mouseDragged_SetUp_Interface::Pressed_GetPoint);
-        Interface_Button.Global_SetUp_Interface.EventAdd_MouseDragged(mouseDragged_SetUp_Interface::DraggedPicture_ForInterface);
-        Interface_Button.Global_MoodSystem_Interface.EventAdd_MousePress(mouseDragged_MoodSystem_Interface::Pressed_GetPoint);
-        Interface_Button.Global_MoodSystem_Interface.EventAdd_MouseDragged(mouseDragged_MoodSystem_Interface::DraggedPicture_ForInterface);
-        Interface_Button.Global_FoodSystem_Interface.EventAdd_MousePress(mouseDragged_FoodSystem_Interface::Pressed_GetPoint);
-        Interface_Button.Global_FoodSystem_Interface.EventAdd_MouseDragged(mouseDragged_FoodSystem_Interface::DraggedPicture_ForInterface);
-        Interface_Button.Global_Exit_Interface.EventAdd_MousePress(mouseDragged_Exit_Interface::Pressed_GetPoint);
-        Interface_Button.Global_Exit_Interface.EventAdd_MouseDragged(mouseDragged_Exit_Interface::DraggedPicture_ForInterface);
-        Interface_Button.Global_Clothes_Interface.EventAdd_MousePress(mouseDragged_Clothes_Interface::Pressed_GetPoint);
-        Interface_Button.Global_Clothes_Interface.EventAdd_MouseDragged(mouseDragged_Clothes_Interface::DraggedPicture_ForInterface);
-        if (Interface_Button.Global_SetUp_Interface.List_Button != null && Interface_Button.Global_SetUp_Interface.List_Button.size() > 0) {
-            for (Button button : Interface_Button.Global_SetUp_Interface.List_Button) {
+        InterfaceButton.Global_SetUp_Interface.EventAdd_MousePress(mouseDragged_SetUp_Interface::Pressed_GetPoint);
+        InterfaceButton.Global_SetUp_Interface.EventAdd_MouseDragged(mouseDragged_SetUp_Interface::DraggedPicture_ForInterface);
+        InterfaceButton.Global_MoodSystem_Interface.EventAdd_MousePress(mouseDragged_MoodSystem_Interface::Pressed_GetPoint);
+        InterfaceButton.Global_MoodSystem_Interface.EventAdd_MouseDragged(mouseDragged_MoodSystem_Interface::DraggedPicture_ForInterface);
+        InterfaceButton.Global_FoodSystem_Interface.EventAdd_MousePress(mouseDragged_FoodSystem_Interface::Pressed_GetPoint);
+        InterfaceButton.Global_FoodSystem_Interface.EventAdd_MouseDragged(mouseDragged_FoodSystem_Interface::DraggedPicture_ForInterface);
+        InterfaceButton.Global_Exit_Interface.EventAdd_MousePress(mouseDragged_Exit_Interface::Pressed_GetPoint);
+        InterfaceButton.Global_Exit_Interface.EventAdd_MouseDragged(mouseDragged_Exit_Interface::DraggedPicture_ForInterface);
+        InterfaceButton.Global_Clothes_Interface.EventAdd_MousePress(mouseDragged_Clothes_Interface::Pressed_GetPoint);
+        InterfaceButton.Global_Clothes_Interface.EventAdd_MouseDragged(mouseDragged_Clothes_Interface::DraggedPicture_ForInterface);
+        if (InterfaceButton.Global_SetUp_Interface.List_Button != null && !InterfaceButton.Global_SetUp_Interface.List_Button.isEmpty()) {
+            for (Button button : InterfaceButton.Global_SetUp_Interface.List_Button) {
                 mouseDragged_SetUp_Interface.Lock_AddLockPicture(button);
                 if (button.text != null) {
                     mouseDragged_SetUp_Interface.Lock_AddLockText(button.text);
                 }
             }
         }
-        if (Interface_Button.Global_MoodSystem_Interface.List_Button != null && Interface_Button.Global_MoodSystem_Interface.List_Button.size() > 0) {
-            for (Button button : Interface_Button.Global_MoodSystem_Interface.List_Button) {
+        if (InterfaceButton.Global_MoodSystem_Interface.List_Button != null && InterfaceButton.Global_MoodSystem_Interface.List_Button.size() > 0) {
+            for (Button button : InterfaceButton.Global_MoodSystem_Interface.List_Button) {
                 mouseDragged_MoodSystem_Interface.Lock_AddLockPicture(button);
                 if (button.text != null) {
                     mouseDragged_MoodSystem_Interface.Lock_AddLockText(button.text);
                 }
             }
         }
-        if (Interface_Button.Global_FoodSystem_Interface.List_Button != null && Interface_Button.Global_FoodSystem_Interface.List_Button.size() > 0) {
-            for (Button button : Interface_Button.Global_FoodSystem_Interface.List_Button) {
+        if (InterfaceButton.Global_FoodSystem_Interface.List_Button != null && InterfaceButton.Global_FoodSystem_Interface.List_Button.size() > 0) {
+            for (Button button : InterfaceButton.Global_FoodSystem_Interface.List_Button) {
                 mouseDragged_FoodSystem_Interface.Lock_AddLockPicture(button);
                 if (button.text != null) {
                     mouseDragged_FoodSystem_Interface.Lock_AddLockText(button.text);
                 }
             }
         }
-        if (Interface_Button.Global_Exit_Interface.List_Button != null && !Interface_Button.Global_Exit_Interface.List_Button.isEmpty()) {
-            for (Button button : Interface_Button.Global_Exit_Interface.List_Button) {
+        if (InterfaceButton.Global_Exit_Interface.List_Button != null && !InterfaceButton.Global_Exit_Interface.List_Button.isEmpty()) {
+            for (Button button : InterfaceButton.Global_Exit_Interface.List_Button) {
                 mouseDragged_Exit_Interface.Lock_AddLockPicture(button);
                 if (button.text != null) {
                     mouseDragged_Exit_Interface.Lock_AddLockText(button.text);
                 }
             }
         }
-        if (Interface_Button.Global_Clothes_Interface.List_Button != null && !Interface_Button.Global_Clothes_Interface.List_Button.isEmpty()) {
-            for (Button button : Interface_Button.Global_Clothes_Interface.List_Button) {
+        if (InterfaceButton.Global_Clothes_Interface.List_Button != null && !InterfaceButton.Global_Clothes_Interface.List_Button.isEmpty()) {
+            for (Button button : InterfaceButton.Global_Clothes_Interface.List_Button) {
                 mouseDragged_Clothes_Interface.Lock_AddLockPicture(button);
                 if (button.text != null) {
                     mouseDragged_Clothes_Interface.Lock_AddLockText(button.text);
@@ -1208,28 +1209,28 @@ public class Interface_Button extends Picture {
             }
         }
         //添加锁定Button+Text
-        if (Interface_Button.Global_SetUp_Interface.List_Texts != null && !Interface_Button.Global_SetUp_Interface.List_Texts.isEmpty()) {
-            for (Display.Text text : Interface_Button.Global_SetUp_Interface.List_Texts) {
+        if (InterfaceButton.Global_SetUp_Interface.List_Texts != null && !InterfaceButton.Global_SetUp_Interface.List_Texts.isEmpty()) {
+            for (Display.Text text : InterfaceButton.Global_SetUp_Interface.List_Texts) {
                 mouseDragged_SetUp_Interface.Lock_AddLockText(text);
             }
         }
-        if (Interface_Button.Global_MoodSystem_Interface.List_Texts != null && !Interface_Button.Global_MoodSystem_Interface.List_Texts.isEmpty()) {
-            for (Display.Text text : Interface_Button.Global_MoodSystem_Interface.List_Texts) {
+        if (InterfaceButton.Global_MoodSystem_Interface.List_Texts != null && !InterfaceButton.Global_MoodSystem_Interface.List_Texts.isEmpty()) {
+            for (Display.Text text : InterfaceButton.Global_MoodSystem_Interface.List_Texts) {
                 mouseDragged_MoodSystem_Interface.Lock_AddLockText(text);
             }
         }
-        if (Interface_Button.Global_FoodSystem_Interface.List_Texts != null && !Interface_Button.Global_FoodSystem_Interface.List_Texts.isEmpty()) {
-            for (Display.Text text : Interface_Button.Global_FoodSystem_Interface.List_Texts) {
+        if (InterfaceButton.Global_FoodSystem_Interface.List_Texts != null && !InterfaceButton.Global_FoodSystem_Interface.List_Texts.isEmpty()) {
+            for (Display.Text text : InterfaceButton.Global_FoodSystem_Interface.List_Texts) {
                 mouseDragged_FoodSystem_Interface.Lock_AddLockText(text);
             }
         }
-        if (Interface_Button.Global_Exit_Interface.List_Texts != null && !Interface_Button.Global_Exit_Interface.List_Texts.isEmpty()) {
-            for (Display.Text text : Interface_Button.Global_Exit_Interface.List_Texts) {
+        if (InterfaceButton.Global_Exit_Interface.List_Texts != null && !InterfaceButton.Global_Exit_Interface.List_Texts.isEmpty()) {
+            for (Display.Text text : InterfaceButton.Global_Exit_Interface.List_Texts) {
                 mouseDragged_Exit_Interface.Lock_AddLockText(text);
             }
         }
-        if (Interface_Button.Global_Clothes_Interface.List_Texts != null && !Interface_Button.Global_Clothes_Interface.List_Texts.isEmpty()) {
-            for (Display.Text text : Interface_Button.Global_Clothes_Interface.List_Texts) {
+        if (InterfaceButton.Global_Clothes_Interface.List_Texts != null && !InterfaceButton.Global_Clothes_Interface.List_Texts.isEmpty()) {
+            for (Display.Text text : InterfaceButton.Global_Clothes_Interface.List_Texts) {
                 mouseDragged_Clothes_Interface.Lock_AddLockText(text);
             }
         }
@@ -1239,29 +1240,29 @@ public class Interface_Button extends Picture {
         if (Global_SetUp_Button != null) {
             for (int i = 0; i < 12; i++) {
                 Button button = Global_SetUp_Button[i];
-                button.EventAdd_MouseClick(Interface_Button::Event_SetSize_Click);
+                button.EventAdd_MouseClick(InterfaceButton::Event_SetSize_Click);
             }
-            Global_SetUp_Button[SetUp_Button_Num - 1].EventAdd_MouseClick(Interface_Button::Event_SetFinal_SetUp_Click);
+            Global_SetUp_Button[SetUp_Button_Num - 1].EventAdd_MouseClick(InterfaceButton::Event_SetFinal_SetUp_Click);
         }
         //设置
         if (Global_Food_SelectButton != null) {
             for (int i = 0; i < Food_Picture_Num; i++) {
-                Global_Food_SelectButton[i].EventAdd_MouseClick(Interface_Button::Event_FoodSelectBoxSwitch);
+                Global_Food_SelectButton[i].EventAdd_MouseClick(InterfaceButton::Event_FoodSelectBoxSwitch);
             }
-            Global_Food_SelectButton[Food_Picture_Num].EventAdd_MouseClick(Interface_Button::Event_SetFinal_ChooseFood_Click);
+            Global_Food_SelectButton[Food_Picture_Num].EventAdd_MouseClick(InterfaceButton::Event_SetFinal_ChooseFood_Click);
         }
         //食物
         if (Global_Clothes_SelectButton != null) {
             for (int i = 0; i < Clothes_Num; i++) {
-                Global_Clothes_SelectButton[i].EventAdd_MouseClick(Interface_Button::Event_ClothesSelectBoxSwitch);
+                Global_Clothes_SelectButton[i].EventAdd_MouseClick(InterfaceButton::Event_ClothesSelectBoxSwitch);
             }
-            Global_Clothes_SelectButton[Clothes_Num].EventAdd_MouseClick(Interface_Button::Event_SetFinal_ChooseClothes_Click);
+            Global_Clothes_SelectButton[Clothes_Num].EventAdd_MouseClick(InterfaceButton::Event_SetFinal_ChooseClothes_Click);
         }
         //皮肤
         if (Global_Exit_Button != null) {
             for (int i = 0; i < 2; i++) {
                 Button button = Global_Exit_Button[i];
-                button.EventAdd_MouseClick(Interface_Button::Event_Exit_Click);
+                button.EventAdd_MouseClick(InterfaceButton::Event_Exit_Click);
             }
         }
         //退出

@@ -3,8 +3,8 @@ package me.cdh.DestopPet;
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.EmptyArgument;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
+import me.cdh.Runner;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -116,8 +116,8 @@ public class ActionObject {
         }//松开鼠标开始检查眩晕
 
         public void DirectionChange() {
-            Current_x = MainAWT.robot.BasicBody.Dst.x;
-            Current_y = MainAWT.robot.BasicBody.Dst.y;
+            Current_x = Main.robot.BasicBody.Dst.x;
+            Current_y = Main.robot.BasicBody.Dst.y;
             if (Current_x - Before_x > 0) {
                 Direction_x = Left;
             } else if (Current_x - Before_x < 0) {
@@ -163,7 +163,7 @@ public class ActionObject {
             this.RecordDizzy();
             this.CheckDizzy();
             if (this.Dizzied && Robot.Global_Squint.CurrentState == State_Sleep) {
-                for (ActionObject_Operation o : Robot.Global_Dizzy_Operation) {
+                for (var o : Robot.Global_Dizzy_Operation) {
                     o.Begin();
                 }
                 this.Dizzied = false;
@@ -252,8 +252,8 @@ public class ActionObject {
 
         //--------------------------------构造方法--------------------------------------
 
-        public EmptyArgument FunPoint_Lock;//：上锁在：Display
-        public EmptyArgument FunPoint_Unlock;//：解锁在：Display
+        public Runner FunPoint_Lock;//：上锁在：Display
+        public Runner FunPoint_Unlock;//：解锁在：Display
         //上锁和解锁函数：一个行为在初始加载好之后就不会再变了(特供多图切换)
 
         //--------------------------------函数指针--------------------------------------
@@ -419,13 +419,13 @@ public class ActionObject {
         ;
         //--------------------------------图像绘制--------------------------------------
 
-        public void Lock_ToolDisplayAndLockMainDisplay(EmptyArgument lock) {
-            lock.empty();
+        public void Lock_ToolDisplayAndLockMainDisplay(Runner lock) {
+            lock.run();
         }
         //多图切换：锁上主函数中的绘制：上锁在：Display
 
-        public void Unlock_UnlockMainDisplay(EmptyArgument unlock) {
-            unlock.empty();
+        public void Unlock_UnlockMainDisplay(Runner unlock) {
+            unlock.run();
         }
         //多图切换：对主绘制事件进行解锁：解锁在：Display
 

@@ -27,7 +27,7 @@ public class Picture {
     }
 
     public Picture(String Path) {
-        Image_B = Display.Load.LoadImage(Path);
+        Image_B = Load.loadImage(Path);
     }
 
     //--------------------------------构造函数--------------------------------------
@@ -40,11 +40,11 @@ public class Picture {
     public Display.Rect EventJudgeRect = new Display.Rect(0, 0, 0, 0);
     //裁剪区域+绘制区域+事件判断区域
 
-    public ArrayList<CustomMouseEvent> List_FunPoint_MouseClick = new ArrayList<>();
-    public ArrayList<CustomMouseEvent> List_FunPoint_MousePress = new ArrayList<>();
-    public ArrayList<CustomMouseEvent> List_FunPoint_MouseDragged = new ArrayList<>();
-    public ArrayList<CustomMouseEvent> List_FunPoint_MouseMoved = new ArrayList<>();
-    public ArrayList<CustomMouseEvent> List_FunPoint_MouseRelease = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> mouseClick = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> mousePress = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> mouseDragged = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> mouseMoved = new ArrayList<>();
+    public ArrayList<CustomMouseEvent> mouseRelease = new ArrayList<>();
     //存储触发事件后调用的方法
 
     public int CurrentDegree;//当前角度
@@ -62,12 +62,6 @@ public class Picture {
 
     //--------------------------------属性--------------------------------------
 
-    //全部初始化
-
-    //初始化链表
-
-    //初始化事件锁
-
     //--------------------------------初始化--------------------------------------
 
     public void Draw(Graphics2D g, MyFrame frame, final int ScaleMethod) {
@@ -75,11 +69,11 @@ public class Picture {
         //绘制了就要检查事件队列并加上
 
         if (this.Dst != null && this.Src != null) {
-            Display.Paint.Draw_ChooseSrc_DrawDst(Image_B, Src, Dst, ScaleMethod, g);
+            Display.Paint.drawChooseSrcDrawDst(Image_B, Src, Dst, ScaleMethod, g);
             //绘制
         } else if (this.Src == null && this.Dst != null) {
             this.Src = new Display.Rect(0, 0, this.Image_B.getWidth(), this.Image_B.getWidth());
-            Display.Paint.Draw_ChooseSrc_DrawDst(Image_B, Src, Dst, ScaleMethod, g);
+            Display.Paint.drawChooseSrcDrawDst(Image_B, Src, Dst, ScaleMethod, g);
         } else {
             System.out.println("Picture_Object Draw Error Dst Is Null!!");
         }
@@ -88,26 +82,26 @@ public class Picture {
     //绘制函数+添加事件队列函数
 
     public void DrawAddEvent(MyFrame frame) {
-        if (!this.List_FunPoint_MouseClick.isEmpty()) {
-            frame.List_MouseClickEvent_FramePicture.add(this);
+        if (!this.mouseClick.isEmpty()) {
+            frame.MouseClickEvent.add(this);
         }
-        if (!this.List_FunPoint_MouseDragged.isEmpty()) {
-            frame.List_MouseDraggedEvent_FramePicture.add(this);
+        if (!this.mouseDragged.isEmpty()) {
+            frame.MouseDraggedEvent.add(this);
         }
-        if (!this.List_FunPoint_MouseMoved.isEmpty()) {
-            frame.List_MouseMovedEvent_FramePicture.add(this);
+        if (!this.mouseMoved.isEmpty()) {
+            frame.MouseMovedEvent.add(this);
         }
-        if (!this.List_FunPoint_MousePress.isEmpty()) {
-            frame.List_MousePressEvent_FramePicture.add(this);
+        if (!this.mousePress.isEmpty()) {
+            frame.MousePressEvent.add(this);
         }
-        if (!this.List_FunPoint_MouseRelease.isEmpty()) {
-            frame.List_MouseReleasedEvent_FramePicture.add(this);
+        if (!this.mouseRelease.isEmpty()) {
+            frame.MouseReleasedEvent.add(this);
         }
     }
     //绘制添加事件
 
     public void Reset_Dst(Point Dst_Point, Point Dst_xy, double Zoom) {
-        this.Dst = Display.Paint.Get_PictureRelativeLocation_OfChoseDst(this.Src, this.SrcCentre, Dst_Point,
+        this.Dst = Display.Paint.getPictureRelativeLocationOfChoseDst(this.Src, this.SrcCentre, Dst_Point,
                 (int) (this.Src.width * Zoom), (int) (this.Src.height * Zoom),
                 Dst_xy);
     }
@@ -143,8 +137,8 @@ public class Picture {
     //--------------------------------绘制--------------------------------------
 
     public void EventAdd_MouseClick(CustomMouseEvent Mouse_FunPoint) {
-        if (this.List_FunPoint_MouseClick != null) {//已经被Init函数初始化了才能添加
-            List_FunPoint_MouseClick.add(Mouse_FunPoint);
+        if (this.mouseClick != null) {//已经被Init函数初始化了才能添加
+            mouseClick.add(Mouse_FunPoint);
         }
         //功能记录
     }
@@ -153,8 +147,8 @@ public class Picture {
     //删除鼠标点击
 
     public void EventAdd_MouseRelease(CustomMouseEvent Mouse_FunPoint) {
-        if (this.List_FunPoint_MouseRelease != null) {//已经被Init函数初始化了才能添加
-            List_FunPoint_MouseRelease.add(Mouse_FunPoint);
+        if (this.mouseRelease != null) {//已经被Init函数初始化了才能添加
+            mouseRelease.add(Mouse_FunPoint);
         }
         //功能记录
     }
@@ -163,8 +157,8 @@ public class Picture {
     //删除鼠标松开
 
     public void EventAdd_MousePress(CustomMouseEvent Mouse_FunPoint) {
-        if (this.List_FunPoint_MousePress != null) {//已经被Init函数初始化了才能添加
-            List_FunPoint_MousePress.add(Mouse_FunPoint);
+        if (this.mousePress != null) {//已经被Init函数初始化了才能添加
+            mousePress.add(Mouse_FunPoint);
         }
         //功能记录
     }
@@ -173,8 +167,8 @@ public class Picture {
     //删除鼠标按下
 
     public void EventAdd_MouseDragged(CustomMouseEvent Mouse_FunPoint) {
-        if (this.List_FunPoint_MouseDragged != null) {//已经被Init函数初始化了才能添加
-            List_FunPoint_MouseDragged.add(Mouse_FunPoint);
+        if (this.mouseDragged != null) {//已经被Init函数初始化了才能添加
+            mouseDragged.add(Mouse_FunPoint);
         }
         //功能记录
 

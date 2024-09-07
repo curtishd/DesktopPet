@@ -1,9 +1,9 @@
 package me.cdh.Control;
 
 import me.cdh.DestopPet.ActionTool;
-import me.cdh.DestopPet.Interface_Button;
+import me.cdh.DestopPet.InterfaceButton;
 import me.cdh.Draw.Display;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
 
 import java.io.*;
 
@@ -19,7 +19,7 @@ public class UserData {
         this.setUp = new SetUp(SetSize);
         this.moodSystem = new Mood(MoodValue);
         this.DataPath = DataPath;
-        this.foods = Interface_Button.Global_Food;
+        this.foods = InterfaceButton.Global_Food;
         this.clothes = new Clothes();
         //记录数据
     }
@@ -53,8 +53,8 @@ public class UserData {
         this.moodSystem.MoodValue = data[1];
         for (int i = 2; i < this.foods.length + 2; i++) {
             this.foods[i - 2].FoodNumber = data[i];
-            if (Interface_Button.Global_Food != null) {
-                Interface_Button.Global_Food[i - 2].FoodNumber = data[i];
+            if (InterfaceButton.Global_Food != null) {
+                InterfaceButton.Global_Food[i - 2].FoodNumber = data[i];
             }
         }
         this.clothes.ClothesType = data[(2 + this.foods.length + 1) - 1];
@@ -66,7 +66,7 @@ public class UserData {
     public SetUp setUp;//设置
     public Mood moodSystem;//心情系统
     public String DataPath;//文件路径 = "UserData/SetUp.txt"
-    public Interface_Button.Food[] foods = new Interface_Button.Food[Interface_Button.Food_Picture_Num];//食物数据
+    public InterfaceButton.Food[] foods = new InterfaceButton.Food[InterfaceButton.Food_Picture_Num];//食物数据
     public Clothes clothes;
     public static int InitialQuantity_Food = 10;
 
@@ -91,123 +91,71 @@ public class UserData {
         //----------------初始化----------------
 
         public static int EnumToNum(RobotSize robotSize) {
-            int size = 200;
-            if (robotSize == RobotSize.SIZE_100) {
-                size = 100;
-            } else if (robotSize == RobotSize.SIZE_150) {
-                size = 150;
-            } else if (robotSize == RobotSize.SIZE_250) {
-                size = 250;
-            } else if (robotSize == RobotSize.SIZE_300) {
-                size = 300;
-            } else if (robotSize == RobotSize.SIZE_350) {
-                size = 350;
-            } else if (robotSize == RobotSize.SIZE_400) {
-                size = 400;
-            } else if (robotSize == RobotSize.SIZE_450) {
-                size = 450;
-            } else if (robotSize == RobotSize.SIZE_500) {
-                size = 500;
-            } else if (robotSize == RobotSize.SIZE_25) {
-                size = 25;
-            } else if (robotSize == RobotSize.SIZE_50) {
-                size = 50;
-            } else if (robotSize == RobotSize.SIZE_75) {
-                size = 75;
-            }
-
-            return size;
+            return switch (robotSize) {
+                case SIZE_25 -> 25;
+                case SIZE_50 -> 50;
+                case SIZE_75 -> 75;
+                case SIZE_100 -> 100;
+                case SIZE_150 -> 150;
+                case SIZE_200 -> 200;
+                case SIZE_250 -> 250;
+                case SIZE_300 -> 300;
+                case SIZE_350 -> 350;
+                case SIZE_400 -> 400;
+                case SIZE_450 -> 450;
+                case SIZE_500 -> 500;
+            };
         }
 
         public static RobotSize NumToEnum(int size) {
-            RobotSize robotSize1 = RobotSize.SIZE_200;
-            if (size == 100) {
-                robotSize1 = RobotSize.SIZE_100;
-            } else if (size == 150) {
-                robotSize1 = RobotSize.SIZE_150;
-            } else if (size == 200) {
-                robotSize1 = RobotSize.SIZE_200;
-            } else if (size == 250) {
-                robotSize1 = RobotSize.SIZE_250;
-            } else if (size == 300) {
-                robotSize1 = RobotSize.SIZE_300;
-            } else if (size == 350) {
-                robotSize1 = RobotSize.SIZE_350;
-            } else if (size == 400) {
-                robotSize1 = RobotSize.SIZE_400;
-            } else if (size == 450) {
-                robotSize1 = RobotSize.SIZE_450;
-            } else if (size == 500) {
-                robotSize1 = RobotSize.SIZE_500;
-            } else if (size == 25) {
-                robotSize1 = RobotSize.SIZE_25;
-            } else if (size == 50) {
-                robotSize1 = RobotSize.SIZE_50;
-            } else if (size == 75) {
-                robotSize1 = RobotSize.SIZE_75;
-            }
-            return robotSize1;
+            return switch (size) {
+                case 25 -> RobotSize.SIZE_25;
+                case 50 -> RobotSize.SIZE_50;
+                case 75 -> RobotSize.SIZE_75;
+                case 100 -> RobotSize.SIZE_100;
+                case 150 -> RobotSize.SIZE_150;
+                case 250 -> RobotSize.SIZE_250;
+                case 300 -> RobotSize.SIZE_300;
+                case 350 -> RobotSize.SIZE_350;
+                case 400 -> RobotSize.SIZE_400;
+                case 450 -> RobotSize.SIZE_450;
+                case 500 -> RobotSize.SIZE_500;
+                default -> RobotSize.SIZE_200;
+            };
         }
 
         public static int EnumToOrder(RobotSize robotSize) {
-            int size = 5;
-            if (robotSize == RobotSize.SIZE_100) {
-                size = 3;
-            } else if (robotSize == RobotSize.SIZE_150) {
-                size = 4;
-            } else if (robotSize == RobotSize.SIZE_200) {
-                size = 5;
-            } else if (robotSize == RobotSize.SIZE_250) {
-                size = 6;
-            } else if (robotSize == RobotSize.SIZE_300) {
-                size = 7;
-            } else if (robotSize == RobotSize.SIZE_350) {
-                size = 8;
-            } else if (robotSize == RobotSize.SIZE_400) {
-                size = 9;
-            } else if (robotSize == RobotSize.SIZE_450) {
-                size = 10;
-            } else if (robotSize == RobotSize.SIZE_500) {
-                size = 11;
-            } else if (robotSize == RobotSize.SIZE_25) {
-                size = 0;
-            } else if (robotSize == RobotSize.SIZE_50) {
-                size = 1;
-            } else if (robotSize == RobotSize.SIZE_75) {
-                size = 2;
-            }
-
-            return size;
+            return switch (robotSize) {
+                case SIZE_25 -> 0;
+                case SIZE_50 -> 1;
+                case SIZE_75 -> 2;
+                case SIZE_100 -> 3;
+                case SIZE_150 -> 4;
+                case SIZE_200 -> 5;
+                case SIZE_250 -> 6;
+                case SIZE_300 -> 7;
+                case SIZE_350 -> 8;
+                case SIZE_400 -> 9;
+                case SIZE_450 -> 10;
+                case SIZE_500 -> 11;
+            };
         }
 
         public static RobotSize OrderToEnum(int order) {
-            RobotSize robotSize1 = RobotSize.SIZE_200;
-            if (order == 3) {
-                robotSize1 = RobotSize.SIZE_100;
-            } else if (order == 4) {
-                robotSize1 = RobotSize.SIZE_150;
-            } else if (order == 5) {
-                robotSize1 = RobotSize.SIZE_200;
-            } else if (order == 6) {
-                robotSize1 = RobotSize.SIZE_250;
-            } else if (order == 7) {
-                robotSize1 = RobotSize.SIZE_300;
-            } else if (order == 8) {
-                robotSize1 = RobotSize.SIZE_350;
-            } else if (order == 9) {
-                robotSize1 = RobotSize.SIZE_400;
-            } else if (order == 10) {
-                robotSize1 = RobotSize.SIZE_450;
-            } else if (order == 11) {
-                robotSize1 = RobotSize.SIZE_500;
-            } else if (order == 0) {
-                robotSize1 = RobotSize.SIZE_25;
-            } else if (order == 1) {
-                robotSize1 = RobotSize.SIZE_50;
-            } else if (order == 2) {
-                robotSize1 = RobotSize.SIZE_75;
-            }
-            return robotSize1;
+            return switch (order) {
+                case 0 -> RobotSize.SIZE_25;
+                case 1 -> RobotSize.SIZE_50;
+                case 2 -> RobotSize.SIZE_75;
+                case 3 -> RobotSize.SIZE_100;
+                case 4 -> RobotSize.SIZE_150;
+                case 6 -> RobotSize.SIZE_250;
+                case 7 -> RobotSize.SIZE_300;
+                case 8 -> RobotSize.SIZE_350;
+                case 9 -> RobotSize.SIZE_400;
+                case 10 -> RobotSize.SIZE_450;
+                case 11 -> RobotSize.SIZE_500;
+                default -> RobotSize.SIZE_200;
+            };
         }
 
         //----------------关系转换----------------
@@ -243,8 +191,8 @@ public class UserData {
             } else {
                 this.MoodValue = 100;
             }
-            if (MainAWT.userData != null) {
-                MainAWT.userData.WriteData();
+            if (Main.userData != null) {
+                Main.userData.writeData();
             }
         }
         //设置数据0~100
@@ -264,27 +212,27 @@ public class UserData {
         public void EarAngleProgress() {
             int BasicGap = 10, BasicGap1 = 20;
             if (CurrentMood == CurrentMood_Sad) {
-                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree - BasicGap;
-                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree + BasicGap;
-                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree - BasicGap;
-                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree + BasicGap;
+                Main.robot.Ears[0].TargetDegree = -Main.robot.Ears_StartTargetDegree - BasicGap;
+                Main.robot.Ears[1].TargetDegree = Main.robot.Ears_StartTargetDegree + BasicGap;
+                Main.robot.Foots[0].TargetDegree = Main.robot.Foots_StartTargetDegree - BasicGap;
+                Main.robot.Foots[1].TargetDegree = -Main.robot.Foots_StartTargetDegree + BasicGap;
             } else if (CurrentMood == CurrentMood_Range) {
-                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree - BasicGap1;
-                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree + BasicGap1;
-                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree - BasicGap1;
-                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree + BasicGap1;
+                Main.robot.Ears[0].TargetDegree = -Main.robot.Ears_StartTargetDegree - BasicGap1;
+                Main.robot.Ears[1].TargetDegree = Main.robot.Ears_StartTargetDegree + BasicGap1;
+                Main.robot.Foots[0].TargetDegree = Main.robot.Foots_StartTargetDegree - BasicGap1;
+                Main.robot.Foots[1].TargetDegree = -Main.robot.Foots_StartTargetDegree + BasicGap1;
             } else {
-                MainAWT.robot.Ears[0].TargetDegree = -MainAWT.robot.Ears_StartTargetDegree;
-                MainAWT.robot.Ears[1].TargetDegree = MainAWT.robot.Ears_StartTargetDegree;
-                MainAWT.robot.Foots[0].TargetDegree = MainAWT.robot.Foots_StartTargetDegree;
-                MainAWT.robot.Foots[1].TargetDegree = -MainAWT.robot.Foots_StartTargetDegree;
+                Main.robot.Ears[0].TargetDegree = -Main.robot.Ears_StartTargetDegree;
+                Main.robot.Ears[1].TargetDegree = Main.robot.Ears_StartTargetDegree;
+                Main.robot.Foots[0].TargetDegree = Main.robot.Foots_StartTargetDegree;
+                Main.robot.Foots[1].TargetDegree = -Main.robot.Foots_StartTargetDegree;
             }
         }
 
         //----------------数值处理----------------
 
-        public static void Refresh_MoodBar_Text(Interface_Button.Button Bar, Interface_Button.Button Bar_Empty, Display.Text text) {
-            int CurrentValue = MainAWT.userData.moodSystem.MoodValue;
+        public static void Refresh_MoodBar_Text(InterfaceButton.Button Bar, InterfaceButton.Button Bar_Empty, Display.Text text) {
+            int CurrentValue = Main.userData.moodSystem.MoodValue;
             double Ratio = CurrentValue / 100.0;
             int Gap_height = (int) (Bar_Empty.Src.height * (1 - Ratio));
             Bar.Src.y = Gap_height;
@@ -302,7 +250,7 @@ public class UserData {
         public static long LastAddTime = -1L;
 
         public void Cost() {
-            if (LastCostTime == -1L) {
+            if (LastCostTime == -1) {
                 LastCostTime = ThreadControl.ThreadStartTime;
             }
             //初始化
@@ -316,17 +264,17 @@ public class UserData {
         }//心情减
 
         public void FoodAdd() {
-            if (LastAddTime == -1L) {
+            if (LastAddTime == -1) {
                 LastAddTime = ThreadControl.ThreadStartTime;
             }
             //初始化
 
             if (System.currentTimeMillis() - LastAddTime >= AddTime) {
                 int Order = ActionTool.Random.Get_Int_SetRange(0, 3);
-                Interface_Button.Global_Food[Order].FoodNumber++;
-                MainAWT.userData.foods[Order].FoodNumber = Interface_Button.Global_Food[Order].FoodNumber;
+                InterfaceButton.Global_Food[Order].FoodNumber++;
+                Main.userData.foods[Order].FoodNumber = InterfaceButton.Global_Food[Order].FoodNumber;
                 LastAddTime = System.currentTimeMillis();
-                MainAWT.userData.WriteData();//存档
+                Main.userData.writeData();//存档
             }
         }//食物加
 
@@ -356,7 +304,7 @@ public class UserData {
 
     //--------------------------------皮肤类--------------------------------
 
-    public void WriteData() {
+    public void writeData() {
 //        File file = new File("target/classes/me/cdh/UserData/Setup.data");
 //        int[] data = this.Get_writeData();
 //        try (
@@ -373,28 +321,27 @@ public class UserData {
 //            throw new RuntimeException(e);
 //        }
         File f = new File(DataPath);
-        try{
-            if(!f.exists()){//不存在
+        try {
+            if (!f.exists()) {//不存在
                 f.createNewFile();
             }
             //不存在则创建
             int[] Data = this.Get_writeData();
             //获取按顺序的结构数组
-            FileWriter fw = new FileWriter(f);
-            for(int data : Data){
-                fw.write(data + "\t");
+            try (FileWriter fw = new FileWriter(f)) {
+                for (int data : Data) {
+                    fw.write(data + "\t");
+                }
+                fw.write("\r\n");
             }
-            fw.write("\r\n");
-            fw.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
             //抛出异常
         }
     }
     //存档：按照结构数组存储
 
-    public int[] ReadData() {
+    public int[] readData() {
 //        String readLine;
 //        String[] recorder;
 //        int[] data = new int[0];
@@ -418,7 +365,7 @@ public class UserData {
         if (!f.exists()) {//不存在的情况
             try {
                 f.createNewFile();
-                Data = this.CreateNewEmpty(f);
+                Data = this.createNewEmpty(f);
             } catch (IOException e) {
                 throw new RuntimeException(e);
                 //抛出异常
@@ -426,9 +373,10 @@ public class UserData {
         }
         //不存在则创建
         else {
-            try {
-                Reader r = new FileReader(f);
-                BufferedReader br = new BufferedReader(r);
+            try (
+                    Reader r = new FileReader(f);
+                    BufferedReader br = new BufferedReader(r)
+            ) {
                 String readLine;//光标
                 String[] Recorder;//存放被劈开的数组
                 while ((readLine = br.readLine()) != null) {
@@ -438,8 +386,6 @@ public class UserData {
                         Data[i] = Integer.parseInt(Recorder[i]);
                     }
                 }
-                br.close();
-                r.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
                 //抛出异常
@@ -449,23 +395,23 @@ public class UserData {
     }
     //读档：按照文章获取结构数组
 
-    private int[] CreateNewEmpty(File f) throws IOException {
+    private int[] createNewEmpty(File f) throws IOException {
         if (this.setUp.robotSize == null || this.moodSystem == null || this.foods == null || this.clothes == null) {
             this.BasicInit();
         }
-        this.foods = Interface_Button.Global_Food;
-        for (Interface_Button.Food food : this.foods) {
+        this.foods = InterfaceButton.Global_Food;
+        for (var food : this.foods) {
             food.FoodNumber = InitialQuantity_Food;
         }
         //没有数据就数据初始化
         int[] Data = this.Get_writeData();
         //获取按顺序的结构数组
-        FileWriter fw = new FileWriter(f);
-        for (int data : Data) {
-            fw.write(data + "\t");
+        try (var fw = new FileWriter(f)) {
+            for (int data : Data) {
+                fw.write(data + "\t");
+            }
+            fw.write("\r\n");
         }
-        fw.write("\r\n");
-        fw.close();
         return Data;
     }
     //创建一个空的(初次加载)

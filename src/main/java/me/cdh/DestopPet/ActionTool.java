@@ -2,7 +2,7 @@ package me.cdh.DestopPet;
 
 import me.cdh.Control.UserData;
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -297,13 +297,13 @@ public class ActionTool {
     }
 
     public void TimeCounter_ClickEars_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
             Robot.Global_TriggerHappy_Operation[0].Begin();
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             Robot.Global_TriggerSad_Operation[0].Begin();
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 Robot.Global_TriggerAngry_Operation[0].Begin();
@@ -314,7 +314,7 @@ public class ActionTool {
                 }
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 Robot.Global_TriggerXX_Operation[0].Begin();
@@ -327,7 +327,7 @@ public class ActionTool {
         }
     }
     public void TimeCounter_ClickEyes_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
             int order = Random.Get_Int_SetRange(0,10);
             if(order <= 3){
                 Robot.Global_TriggerHappy_Operation[0].Begin();
@@ -339,7 +339,7 @@ public class ActionTool {
                 Robot.Global_TriggerDoubt_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             int order = Random.Get_Int_SetRange(0,4);
             if(order == 0){
                 Robot.Global_TriggerDoubt_Operation[0].Begin();
@@ -348,7 +348,7 @@ public class ActionTool {
                 Robot.Global_TriggerSquintStruggle_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             int order = Random.Get_Int_SetRange(0,5);
             if(order == 0){
                 Robot.Global_TriggerSad_Operation[0].Begin();
@@ -363,7 +363,7 @@ public class ActionTool {
                 Robot.Global_TriggerSquintStruggle_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             int order = Random.Get_Int_SetRange(0,7);
             if(order == 0){
                 Robot.Global_TriggerGrievanceSad_Operation[0].Begin();
@@ -383,7 +383,7 @@ public class ActionTool {
         }
     }
     public void TimeCounter_DraggedEars_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 Robot.Global_TriggerHappy_Operation[0].Begin();
@@ -392,7 +392,7 @@ public class ActionTool {
                 Robot.Global_TriggerDoubt_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             int order = Random.Get_Int_SetRange(0,4);
             if(order == 0){
                 Robot.Global_TriggerDoubt_Operation[0].Begin();
@@ -401,7 +401,7 @@ public class ActionTool {
                 Robot.Global_TriggerSquintStruggle_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             int order = Random.Get_Int_SetRange(0,5);
             if(order == 0){
                 Robot.Global_TriggerSad_Operation[0].Begin();
@@ -416,7 +416,7 @@ public class ActionTool {
                 Robot.Global_TriggerSquintStruggle_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             int order = Random.Get_Int_SetRange(0,7);
             if(order == 0){
                 Robot.Global_TriggerGrievanceSad_Operation[0].Begin();
@@ -436,31 +436,31 @@ public class ActionTool {
         }
     }
     public void Timing_EyesBlink_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             Robot.Global_BlinkSad_Operation[0].Begin();
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             Robot.Global_BlinkGrievanceSad_Operation[0].Begin();
         }
     }
     public void Timing_BodyMove_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy ||
-                MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy ||
+                Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             Robot.Global_BasicBodyMove_Operation[0].Begin();
         }
     }
     public void Timing_EarShake_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
             for(ActionObject_Operation a : Robot.Global_HappyShakeEar_Simple_Operation){
                 a.Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             for(ActionObject_Operation a : Robot.Global_HappyShakeEar_Simple_Operation){
                 a.Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 for(ActionObject_Operation a : Robot.Global_StruggleShakeEar_Simple_Operation){
@@ -473,7 +473,7 @@ public class ActionTool {
                 }
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 for(ActionObject_Operation o : Robot.Global_TriggerGrievanceSadEar_Operation){
@@ -488,10 +488,10 @@ public class ActionTool {
         }
     }
     public void Timing_EyesFollow_Progress(){
-        if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
+        if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Happy){
             Robot.Global_LookingForScreen_Operation[0].Begin();
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Simple){
             int order = Random.Get_Int_SetRange(0,3);
             if(order == 0){
                 Robot.Global_LookingForScreen_Sad_Operation[0].Begin();
@@ -501,7 +501,7 @@ public class ActionTool {
             }
 
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Sad){
             int order = Random.Get_Int_SetRange(0,5);
             if(order == 0){
                 Robot.Global_LookingForScreen_Angry_Operation[0].Begin();
@@ -513,7 +513,7 @@ public class ActionTool {
                 Robot.Global_LookingForScreen_GrievanceAngry_Operation[0].Begin();
             }
         }
-        else if(MainAWT.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
+        else if(Main.userData.moodSystem.CurrentMood == UserData.Mood.CurrentMood_Range){
             int order = Random.Get_Int_SetRange(0,5);
             if(order == 0){
                 Robot.Global_LookingForScreen_Sad_Operation[0].Begin();
@@ -571,9 +571,9 @@ public class ActionTool {
     //查询出现食物系列的切换
 
     public void CheckFoodExist(){
-        if(Interface_Button.Global_Food != null){
+        if(InterfaceButton.Global_Food != null){
             boolean judge = false;
-            for(Interface_Button.Food food : Interface_Button.Global_Food){
+            for(InterfaceButton.Food food : InterfaceButton.Global_Food){
                 if(food.Judge_DisplayPicture){
                     judge = true;
                     break;
@@ -586,9 +586,9 @@ public class ActionTool {
     //检擦点开食物
 
     public void CheckEatAction(){
-        if(Interface_Button.Global_Food != null){
+        if(InterfaceButton.Global_Food != null){
             boolean judge = false;
-            for(Interface_Button.Food food : Interface_Button.Global_Food){
+            for(InterfaceButton.Food food : InterfaceButton.Global_Food){
                 if(food.Eaten){
                     judge = true;
                     break;
@@ -632,13 +632,13 @@ public class ActionTool {
         //检查食物：高优先级
         CheckDizzyBegin();
         //特殊动作检查
-        if(!MainAWT.robot.BasicEyes.eventLock.isOnce_Display()){
+        if(!Main.robot.BasicEyes.eventLock.isOnce_Display()){
             CheckApplication_Common(List_Action_FaceEmoji);
         }
         CheckApplication_Common(List_Action_EarFootsShake);
         CheckApplication_Common(List_Action_Move);
         //ActionObject的申请检查
-        if(!Global_Lock_FaceEmoji && !MainAWT.robot.BasicEyes.eventLock.isOnce_Display()){//没上锁
+        if(!Global_Lock_FaceEmoji && !Main.robot.BasicEyes.eventLock.isOnce_Display()){//没上锁
             for (ActionObject current : List_Action_FaceEmoji) {
                 if (current.CurrentState == ActionObject.State_Applying) {
                     current.CurrentState = ActionObject.State_Running;

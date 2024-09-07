@@ -10,14 +10,11 @@ package me.cdh.Draw;
  * */
 
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Display {
 
@@ -44,7 +41,7 @@ public class Display {
         }
 
 
-        public boolean Judge_PointInRect(int x, int y) {
+        public boolean judgePointInRect(int x, int y) {
             return x >= this.x
                     && x <= this.x + this.width
                     && y >= this.y
@@ -53,22 +50,6 @@ public class Display {
 
     }
     //嵌套类：矩形区域Rect
-
-    public static class Load {
-
-        public static BufferedImage LoadImage(String RelativePath) {
-            File ImageFile = new File("target/classes/me/cdh/" + RelativePath);
-            //从路劲获取文件对象
-            try {
-                //加载图片
-                return ImageIO.read(ImageFile);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-                //抛出异常
-            }
-        }
-
-    }
 
     public static class Text {
         public Text(int Size, String Content) {
@@ -113,73 +94,73 @@ public class Display {
 
         //--------------------------------函数指针--------------------------------------
 
-        public static void Draw_ChooseSrc_DrawDst(BufferedImage image,
-                                                  Rect Src, Rect Dst,
-                                                  final int ScaleMethod, Graphics2D g) {
+        public static void drawChooseSrcDrawDst(BufferedImage image,
+                                                Rect src, Rect dst,
+                                                final int scaleMethod, Graphics2D g) {
             BufferedImage Temp_image;//为了不改变原来Image的值
             Image Object_image;
-            if (Src != null) {
+            if (src != null) {
                 int Temp_x, Temp_y, Temp_width, Temp_height;
 
-                if (Src.x <= image.getWidth() && Src.x >= 0) {
-                    Temp_x = Src.x;
-                } else if (Src.x < 0) {
+                if (src.x <= image.getWidth() && src.x >= 0) {
+                    Temp_x = src.x;
+                } else if (src.x < 0) {
                     Temp_x = 0;
                 } else {
                     Temp_x = image.getWidth() - 1;
                 }
                 //x限界
 
-                if (Src.y <= image.getHeight() && Src.y >= 0) {
-                    Temp_y = Src.y;
-                } else if (Src.y < 0) {
+                if (src.y <= image.getHeight() && src.y >= 0) {
+                    Temp_y = src.y;
+                } else if (src.y < 0) {
                     Temp_y = 0;
                 } else {
                     Temp_y = image.getHeight() - 1;
                 }
                 //y限界
 
-                if (Src.width <= 0) {
+                if (src.width <= 0) {
                     return;
-                } else if (Src.x >= image.getWidth()) {
+                } else if (src.x >= image.getWidth()) {
                     return;
-                } else if (Src.width + Src.x <= 0) {
+                } else if (src.width + src.x <= 0) {
                     return;
-                } else if (Src.x < 0 &&
-                        Src.width + Src.x <= image.getWidth() &&
-                        Src.width + Src.x >= 0) {
-                    Temp_width = Src.width + Src.x;
-                } else if (Src.x >= 0 &&
-                        Src.width + Src.x <= image.getWidth() &&
-                        Src.width + Src.x >= 0) {
-                    Temp_width = Src.width;
-                } else if (Src.x >= 0 &&
-                        Src.width + Src.x >= image.getWidth() &&
-                        Src.width + Src.x >= 0) {
-                    Temp_width = image.getWidth() - Src.x;
+                } else if (src.x < 0 &&
+                        src.width + src.x <= image.getWidth() &&
+                        src.width + src.x >= 0) {
+                    Temp_width = src.width + src.x;
+                } else if (src.x >= 0 &&
+                        src.width + src.x <= image.getWidth() &&
+                        src.width + src.x >= 0) {
+                    Temp_width = src.width;
+                } else if (src.x >= 0 &&
+                        src.width + src.x >= image.getWidth() &&
+                        src.width + src.x >= 0) {
+                    Temp_width = image.getWidth() - src.x;
                 } else {
                     Temp_width = image.getWidth();
                 }
                 //width限界
 
-                if (Src.height <= 0) {
+                if (src.height <= 0) {
                     return;
-                } else if (Src.y >= image.getHeight()) {
+                } else if (src.y >= image.getHeight()) {
                     return;
-                } else if (Src.height + Src.y <= 0) {
+                } else if (src.height + src.y <= 0) {
                     return;
-                } else if (Src.y < 0 &&
-                        Src.height + Src.y <= image.getHeight() &&
-                        Src.height + Src.y >= 0) {
-                    Temp_height = Src.height + Src.y;
-                } else if (Src.y >= 0 &&
-                        Src.height + Src.y <= image.getHeight() &&
-                        Src.height + Src.y >= 0) {
-                    Temp_height = Src.height;
-                } else if (Src.y >= 0 &&
-                        Src.height + Src.y >= image.getHeight() &&
-                        Src.height + Src.y >= 0) {
-                    Temp_height = image.getHeight() - Src.y;
+                } else if (src.y < 0 &&
+                        src.height + src.y <= image.getHeight() &&
+                        src.height + src.y >= 0) {
+                    Temp_height = src.height + src.y;
+                } else if (src.y >= 0 &&
+                        src.height + src.y <= image.getHeight() &&
+                        src.height + src.y >= 0) {
+                    Temp_height = src.height;
+                } else if (src.y >= 0 &&
+                        src.height + src.y >= image.getHeight() &&
+                        src.height + src.y >= 0) {
+                    Temp_height = image.getHeight() - src.y;
                 } else {
                     Temp_height = image.getHeight();
                 }
@@ -189,13 +170,13 @@ public class Display {
             } else {
                 Temp_image = image.getSubimage(0, 0, image.getWidth(), image.getHeight());
             }
-            if (Dst != null) {
-                if (Dst.width <= 0 || Dst.height <= 0) {
+            if (dst != null) {
+                if (dst.width <= 0 || dst.height <= 0) {
                     return;
                 }
-                Object_image = Temp_image.getScaledInstance(Dst.width, Dst.height, ScaleMethod);
+                Object_image = Temp_image.getScaledInstance(dst.width, dst.height, scaleMethod);
                 //放缩一下
-                g.drawImage(Object_image, Dst.x, Dst.y, Dst.width, Dst.height, null);
+                g.drawImage(Object_image, dst.x, dst.y, dst.width, dst.height, null);
                 //绘制Dst区域
             } else {
                 g.drawImage(Temp_image, 0, 0, Temp_image.getWidth(), Temp_image.getHeight(), null);
@@ -204,105 +185,105 @@ public class Display {
         }
 
         //int
-        public static void DrawF_ChooseSrc_DrawDst(BufferedImage image,
-                                                   Rect Src, Rect Dst,
-                                                   final int ScaleMethod, Graphics2D g) {
-            BufferedImage Temp_image;//为了不改变原来Image的值
-            Image Object_image;
+        public static void drawFChooseSrcDrawDst(BufferedImage image,
+                                                 Rect src, Rect dst,
+                                                 final int scaleMethod, Graphics2D g) {
+            BufferedImage tmpImg;//为了不改变原来Image的值
+            Image objImg;
 
-            if (Src != null) {
+            if (src != null) {
                 float Temp_x, Temp_y, Temp_width, Temp_height;
 
-                if (Src.xf <= image.getWidth() && Src.xf >= 0) {
-                    Temp_x = Src.xf;
-                } else if (Src.xf < 0) {
+                if (src.xf <= image.getWidth() && src.xf >= 0) {
+                    Temp_x = src.xf;
+                } else if (src.xf < 0) {
                     Temp_x = 0;
                 } else {
                     Temp_x = image.getWidth() - 1;
                 }
                 //x限界
 
-                if (Src.yf <= image.getHeight() && Src.yf >= 0) {
-                    Temp_y = Src.yf;
-                } else if (Src.yf < 0) {
+                if (src.yf <= image.getHeight() && src.yf >= 0) {
+                    Temp_y = src.yf;
+                } else if (src.yf < 0) {
                     Temp_y = 0;
                 } else {
                     Temp_y = image.getHeight() - 1;
                 }
                 //y限界
 
-                if (Src.wf <= 0) {
+                if (src.wf <= 0) {
                     return;
-                } else if (Src.xf >= image.getWidth()) {
+                } else if (src.xf >= image.getWidth()) {
                     return;
-                } else if (Src.wf + Src.xf <= 0) {
+                } else if (src.wf + src.xf <= 0) {
                     return;
-                } else if (Src.xf < 0 &&
-                        Src.wf + Src.xf <= image.getWidth() &&
-                        Src.wf + Src.xf >= 0) {
-                    Temp_width = Src.wf + Src.xf;
-                } else if (Src.xf >= 0 &&
-                        Src.wf + Src.xf <= image.getWidth() &&
-                        Src.wf + Src.xf >= 0) {
-                    Temp_width = Src.wf;
-                } else if (Src.xf >= 0 &&
-                        Src.wf + Src.xf >= image.getWidth() &&
-                        Src.wf + Src.xf >= 0) {
-                    Temp_width = image.getWidth() - Src.xf;
+                } else if (src.xf < 0 &&
+                        src.wf + src.xf <= image.getWidth() &&
+                        src.wf + src.xf >= 0) {
+                    Temp_width = src.wf + src.xf;
+                } else if (src.xf >= 0 &&
+                        src.wf + src.xf <= image.getWidth() &&
+                        src.wf + src.xf >= 0) {
+                    Temp_width = src.wf;
+                } else if (src.xf >= 0 &&
+                        src.wf + src.xf >= image.getWidth() &&
+                        src.wf + src.xf >= 0) {
+                    Temp_width = image.getWidth() - src.xf;
                 } else {
                     Temp_width = image.getWidth();
                 }
                 //width限界
 
-                if (Src.hf <= 0) {
+                if (src.hf <= 0) {
                     return;
-                } else if (Src.yf >= image.getWidth()) {
+                } else if (src.yf >= image.getWidth()) {
                     return;
-                } else if (Src.hf + Src.yf <= 0) {
+                } else if (src.hf + src.yf <= 0) {
                     return;
-                } else if (Src.yf < 0 &&
-                        Src.hf + Src.yf <= image.getWidth() &&
-                        Src.hf + Src.yf >= 0) {
-                    Temp_height = Src.hf + Src.yf;
-                } else if (Src.yf >= 0 &&
-                        Src.hf + Src.yf <= image.getWidth() &&
-                        Src.hf + Src.yf >= 0) {
-                    Temp_height = Src.hf;
-                } else if (Src.yf >= 0 &&
-                        Src.hf + Src.yf >= image.getWidth() &&
-                        Src.hf + Src.yf >= 0) {
-                    Temp_height = image.getHeight() - Src.yf;
+                } else if (src.yf < 0 &&
+                        src.hf + src.yf <= image.getWidth() &&
+                        src.hf + src.yf >= 0) {
+                    Temp_height = src.hf + src.yf;
+                } else if (src.yf >= 0 &&
+                        src.hf + src.yf <= image.getWidth() &&
+                        src.hf + src.yf >= 0) {
+                    Temp_height = src.hf;
+                } else if (src.yf >= 0 &&
+                        src.hf + src.yf >= image.getWidth() &&
+                        src.hf + src.yf >= 0) {
+                    Temp_height = image.getHeight() - src.yf;
                 } else {
                     Temp_height = image.getWidth();
                 }
                 //height限界
 
-                Temp_image = image.getSubimage((int) Temp_x, (int) Temp_y, (int) Temp_width, (int) Temp_height);
+                tmpImg = image.getSubimage((int) Temp_x, (int) Temp_y, (int) Temp_width, (int) Temp_height);
             } else {
-                Temp_image = image.getSubimage(0, 0, image.getWidth(), image.getHeight());
+                tmpImg = image.getSubimage(0, 0, image.getWidth(), image.getHeight());
             }
-            if (Dst != null) {
-                if (Dst.wf <= 0 || Dst.hf <= 0) {
+            if (dst != null) {
+                if (dst.wf <= 0 || dst.hf <= 0) {
                     return;
                 }
                 int w, h;
-                if ((int) Dst.wf > 0) {
-                    w = (int) Dst.wf;
+                if ((int) dst.wf > 0) {
+                    w = (int) dst.wf;
                 } else {
                     w = 1;
                 }
-                if ((int) Dst.hf > 0) {
-                    h = (int) Dst.hf;
+                if ((int) dst.hf > 0) {
+                    h = (int) dst.hf;
                 } else {
                     h = 1;
                 }
                 //非0处理
-                Object_image = Temp_image.getScaledInstance(w, h, ScaleMethod);
+                objImg = tmpImg.getScaledInstance(w, h, scaleMethod);
                 //放缩一下
-                g.drawImage(Object_image, (int) Dst.xf, (int) Dst.yf, w, h, null);
+                g.drawImage(objImg, (int) dst.xf, (int) dst.yf, w, h, null);
                 //绘制Dst区域
             } else {
-                g.drawImage(Temp_image, 0, 0, Temp_image.getWidth(), Temp_image.getHeight(), null);
+                g.drawImage(tmpImg, 0, 0, tmpImg.getWidth(), tmpImg.getHeight(), null);
                 //从0，0点绘制本来大小
             }
         }
@@ -310,30 +291,30 @@ public class Display {
         //绘制图像：此处绘制图片没有加事件
 
         public static void Draw_ChooseSrcDegree_DrawDst(Picture p, int Degree,
-                                                        Rect Src, Rect Dst,
-                                                        final int ScaleMethod, Graphics2D g, MyFrame frame) {
+                                                        Rect src, Rect dst,
+                                                        final int scaleMethod, Graphics2D g, MyFrame frame) {
             p.DrawAddEvent(frame);
             //绘制添加事件
             int Centre_x = (int) (p.Dst.x + p.SrcCentre.x * p.Dst.width / (float) p.Src.width);
             int Centre_y = (int) (p.Dst.y + p.SrcCentre.y * p.Dst.height / (float) p.Src.height);
             g.rotate(Math.toRadians(Degree), Centre_x, Centre_y);
-            DrawF_ChooseSrc_DrawDst(p.Image_B, Src, Dst, ScaleMethod, g);
+            drawFChooseSrcDrawDst(p.Image_B, src, dst, scaleMethod, g);
             g.rotate(Math.toRadians(-Degree), Centre_x, Centre_y);
         }
         //绘制图像指定位置去窗口中的指定位置:先切割出Src再在Src中选择点
 
-        public static Rect Get_PictureRelativeLocation_OfChoseDst(Rect Src, Point Src_Point, Point Dst_Point,
-                                                                  int Dst_Width, int Dst_Height, Point ChoseDst_xy) {//其中Dst_Point是希望在主控件上的相对位置
+        public static Rect getPictureRelativeLocationOfChoseDst(Rect src, Point srcPoint, Point Dst_Point,
+                                                                int Dst_Width, int Dst_Height, Point ChoseDst_xy) {//其中Dst_Point是希望在主控件上的相对位置
             Rect Dst = new Rect(0, 0, 0, 0);
-            if (Src_Point.x >= Src.x && Src_Point.x <= Src.x + Src.width &&
-                    Src_Point.y >= Src.y && Src_Point.y <= Src.y + Src.height) {
-                int Distance_x = Dst_Width * Src_Point.x / Src.width;
-                int Distance_y = Dst_Height * Src_Point.y / Src.height;
+            if (srcPoint.x >= src.x && srcPoint.x <= src.x + src.width &&
+                    srcPoint.y >= src.y && srcPoint.y <= src.y + src.height) {
+                int Distance_x = Dst_Width * srcPoint.x / src.width;
+                int Distance_y = Dst_Height * srcPoint.y / src.height;
                 int Object_x = Dst_Point.x - Distance_x + ChoseDst_xy.x;
                 int Object_y = Dst_Point.y - Distance_y + ChoseDst_xy.y;
                 Dst = new Rect(Object_x, Object_y, Dst_Width, Dst_Height);
             } else {
-                System.out.println("Draw_SrcPoint_To_DstPoint Src_Point Error");
+                System.out.println("Draw_SrcPoint_To_DstPoint srcPoint Error");
             }
             return Dst;
         }
@@ -343,11 +324,11 @@ public class Display {
 
         @Override
         protected void paintComponent(Graphics g) {
-            MainAWT.MainFrame.Refresh_PictureList();
+            Main.MainFrame.Refresh_PictureList();
             //刷新事件函数
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            MainAWT.robot.Display_Main(g2);
+            Main.robot.Display_Main(g2);
         }
         //总绘制函数
 

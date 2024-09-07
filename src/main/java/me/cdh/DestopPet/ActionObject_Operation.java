@@ -2,8 +2,8 @@ package me.cdh.DestopPet;
 
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
-import me.cdh.EmptyArgument;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
+import me.cdh.Runner;
 
 public abstract class ActionObject_Operation {
     public ActionObject_Operation(Picture p) {
@@ -146,14 +146,14 @@ public abstract class ActionObject_Operation {
 
     protected void Move_Src_w() {
         if (Speed_Src_w > 0) {
-            if (this.TempSrc.xf + this.TempSrc.wf + this.Speed_Src_w < this.picture.Src.x + this.picture.Src.width) {
-                TempSrc.wf += this.Speed_Src_w;
+            if (TempSrc.xf + TempSrc.wf + Speed_Src_w < picture.Src.x + picture.Src.width) {
+                TempSrc.wf += Speed_Src_w;
             } else {
-                TempSrc.wf = this.picture.Src.x + this.picture.Src.width - (this.TempSrc.xf);
+                TempSrc.wf = picture.Src.x + picture.Src.width - (TempSrc.xf);
             }
         } else {
-            if (this.TempSrc.wf + this.Speed_Src_w > 0) {
-                TempSrc.wf += this.Speed_Src_w;
+            if (TempSrc.wf + Speed_Src_w > 0) {
+                TempSrc.wf += Speed_Src_w;
             } else {
                 TempSrc.wf = 0;
             }
@@ -162,14 +162,14 @@ public abstract class ActionObject_Operation {
 
     protected void Move_Src_h() {
         if (Speed_Src_h > 0) {
-            if (this.TempSrc.yf + this.TempSrc.hf + this.Speed_Src_h < this.picture.Src.y + this.picture.Src.height) {
-                TempSrc.hf += this.Speed_Src_h;
+            if (TempSrc.yf + TempSrc.hf + Speed_Src_h < picture.Src.y + picture.Src.height) {
+                TempSrc.hf += Speed_Src_h;
             } else {
-                TempSrc.hf = this.picture.Src.y + this.picture.Src.height - (this.TempSrc.yf);
+                TempSrc.hf = picture.Src.y + picture.Src.height - (TempSrc.yf);
             }
         } else {
-            if (this.TempSrc.hf + this.Speed_Src_h > 0) {
-                TempSrc.hf += this.Speed_Src_h;
+            if (TempSrc.hf + Speed_Src_h > 0) {
+                TempSrc.hf += Speed_Src_h;
             } else {
                 TempSrc.hf = 0;
             }
@@ -177,69 +177,69 @@ public abstract class ActionObject_Operation {
     }
 
     protected void Move_Dst_x() {
-        this.Temp_Dst_x += this.Speed_Dst_x;
-        this.TempDst.xf = this.picture.Dst.x + this.Temp_Dst_x;
+        Temp_Dst_x += Speed_Dst_x;
+        TempDst.xf = picture.Dst.x + Temp_Dst_x;
     }
 
     protected void Move_Dst_y() {
-        this.Temp_Dst_y += this.Speed_Dst_y;
-        this.TempDst.yf = this.picture.Dst.y + this.Temp_Dst_y;
+        Temp_Dst_y += Speed_Dst_y;
+        TempDst.yf = picture.Dst.y + Temp_Dst_y;
     }
 
     protected void Move_Dst_w() {
-        if (this.Speed_Dst_w > 0) {
-            this.TempDst.wf += this.Speed_Dst_w;
+        if (Speed_Dst_w > 0) {
+            TempDst.wf += Speed_Dst_w;
         } else {
-            if (this.TempDst.wf + this.Speed_Dst_w > 0) {
-                this.TempDst.wf += this.Speed_Dst_w;
+            if (TempDst.wf + Speed_Dst_w > 0) {
+                TempDst.wf += Speed_Dst_w;
             } else {
-                this.TempDst.wf = 0;
+                TempDst.wf = 0;
             }
         }
     }
 
     protected void Move_Dst_h() {
-        if (this.Speed_Dst_h > 0) {
-            this.TempDst.hf += this.Speed_Dst_h;
+        if (Speed_Dst_h > 0) {
+            TempDst.hf += Speed_Dst_h;
         } else {
-            if (this.TempDst.hf + this.Speed_Dst_h > 0) {
-                this.TempDst.hf += this.Speed_Dst_h;
+            if (TempDst.hf + Speed_Dst_h > 0) {
+                TempDst.hf += Speed_Dst_h;
             } else {
-                this.TempDst.hf = 0;
+                TempDst.hf = 0;
             }
         }
     }
     //移动分量
 
     public void Operation() {
-        this.Check_SpecialImmediatelyEnd();
+        Check_SpecialImmediatelyEnd();
     }
     //数据处理
 
     public void Check_SpecialImmediatelyEnd(){
-        if(this.ImmediatelyEndCondition){
-            this.CurrentState = State_Exit;
+        if(ImmediatelyEndCondition){
+            CurrentState = State_Exit;
         }
     }
     //特殊立即结束检查
 
     public void Set_EndTime(long Millisecond){
-        this.Time_CurrentTime += 1;
-        int FPS = MainAWT.threadControl.FPS;
-        if(this.Time_CurrentTime >= FPS*Millisecond / 1000L){
-            this.End();
+        Time_CurrentTime += 1;
+        int FPS = Main.threadControl.FPS;
+        if(Time_CurrentTime >= FPS*Millisecond / 1000L){
+            End();
         }
     }
     //设置以事件进行结束
 
     public void Refresh() {
-        this.BeforeState = this.CurrentState;
+        BeforeState = CurrentState;
     }
     //状态记录
 
     public void Refresh_State() {
-        if (this.CurrentState == State_Applying) {
-            this.CurrentState = State_Sleep;
+        if (CurrentState == State_Applying) {
+            CurrentState = State_Sleep;
         }
     }
     //没申请上就暂时别申请了
@@ -247,58 +247,55 @@ public abstract class ActionObject_Operation {
     //刷新
 
     public void Lock() {
-        this.ObjectLock = true;
+        ObjectLock = true;
     }
     //上锁：（在ActionObject::Running）
 
     public void Unlock() {
-        this.ObjectLock = false;
+        ObjectLock = false;
     }
     //解锁：（在ActionObject::Judge_OperationExit_Reset）
 
     public void Begin() {
-        if (this.CurrentState == State_Sleep) {//当前是休眠变为申请
-            this.CurrentState = State_Applying;
+        if (CurrentState == State_Sleep) {//当前是休眠变为申请
+            CurrentState = State_Applying;
         }
     }
     //开始
 
     public void End(){
-        this.CurrentState = State_Exit;
+        CurrentState = State_Exit;
     }
     //退出
 
     public abstract static class Timer {
-        public Timer() {
-
-        }
 
         public long CurrentTime;//当前时间
         public long OperationTime;//目标时间：-1L为休眠(解除休眠：Set_OperationTime；设置休眠：Judge_OperationTimeUp)
 
-        public EmptyArgument funPoint_Operation;
+        public Runner funPoint_Operation;
         //函数指针
 
         public void Init() {
-            this.CurrentTime = System.currentTimeMillis();
-            this.OperationTime = -1L;
+            CurrentTime = System.currentTimeMillis();
+            OperationTime = -1L;
         }
 
         public void Refresh_CurrentTime() {
-            this.CurrentTime = System.currentTimeMillis();
+            CurrentTime = System.currentTimeMillis();
         }
         //刷新当前的时间
 
         public void Set_OperationTime(long TimeGap) {
-            this.OperationTime = this.CurrentTime + TimeGap;
+            OperationTime = CurrentTime + TimeGap;
         }
         //设置目标时间
 
         public boolean Judge_OperationTimeUp() {
             boolean Judge = false;
             if (OperationTime != -1L) {//休眠状态
-                if (this.CurrentTime >= this.OperationTime) {//时间到了||超过了
-                    this.OperationTime = -1L;
+                if (CurrentTime >= OperationTime) {//时间到了||超过了
+                    OperationTime = -1L;
                     Judge = true;
                 }
             }
@@ -307,31 +304,31 @@ public abstract class ActionObject_Operation {
         //检查是否到达目标时间
 
         public void Main() {
-            this.Refresh_CurrentTime();
+            Refresh_CurrentTime();
             //刷新当前时间
         }
         //放在主函数中用来控制随机时间
     }
     public static class Timer_Timing extends Timer{
-        public Timer_Timing(long LowerBound, long UpperBound, EmptyArgument funPoint_Operation) {
+        public Timer_Timing(long LowerBound, long UpperBound, Runner funPoint_Operation) {
             super();
-            this.Init(LowerBound, UpperBound);
+            Init(LowerBound, UpperBound);
             this.funPoint_Operation = funPoint_Operation;
         }
         public long LowerBound, UpperBound;//随机时间：上限下限
 
         public void Init(long LowerBound, long UpperBound) {
             super.Init();
-            this.CurrentTime = System.currentTimeMillis();
-            this.OperationTime = -1L;
+            CurrentTime = System.currentTimeMillis();
+            OperationTime = -1L;
             this.LowerBound = LowerBound;
             this.UpperBound = UpperBound;
         }
         //初始化
 
         public void Set_RandomOperationTime() {
-            if (this.OperationTime == -1L) {//休眠的时候才能设置
-                this.Set_OperationTime(ActionTool.Random.Get_Long_SetRange(LowerBound, UpperBound));
+            if (OperationTime == -1L) {//休眠的时候才能设置
+                Set_OperationTime(ActionTool.Random.Get_Long_SetRange(LowerBound, UpperBound));
             }
         }
         //设定随机目标时间
@@ -341,11 +338,11 @@ public abstract class ActionObject_Operation {
             super.Main();
             //刷新当前时间
 
-            this.Set_RandomOperationTime();
+            Set_RandomOperationTime();
             //设置随机时间
 
-            if (this.Judge_OperationTimeUp()) {
-                this.funPoint_Operation.empty();
+            if (Judge_OperationTimeUp()) {
+                funPoint_Operation.run();
                 //申请开始操作
             }
             //时间到达判断
@@ -355,9 +352,9 @@ public abstract class ActionObject_Operation {
 
     //延时计时器
     public static class Timer_Counter extends Timer{
-        public Timer_Counter(long SetBeginTimeGap, int TotalCount, long CountTimeGap, int Type_TimeArrive, EmptyArgument funPoint_Operation){
+        public Timer_Counter(long SetBeginTimeGap, int TotalCount, long CountTimeGap, int Type_TimeArrive, Runner funPoint_Operation){
             super();
-            this.Init(SetBeginTimeGap,TotalCount,CountTimeGap);
+            Init(SetBeginTimeGap,TotalCount,CountTimeGap);
             this.funPoint_Operation = funPoint_Operation;
             this.Type_TimeArrive = Type_TimeArrive;
         }
@@ -370,7 +367,7 @@ public abstract class ActionObject_Operation {
 
         public void Init(long SetBeginTimeGap,int TotalCount,long CountTimeGap) {
             super.Init();
-            this.Reset();
+            Reset();
             this.SetBeginTimeGap = SetBeginTimeGap;
             this.TotalCount = Math.max(TotalCount, 1);
             this.CountTimeGap = CountTimeGap;
@@ -405,9 +402,9 @@ public abstract class ActionObject_Operation {
         public boolean Judge_OperationTimeUp() {
             boolean Judge = false;
             if (OperationTime != -1L) {//休眠状态
-                if (this.CurrentTime >= this.OperationTime) {//时间到了||超过了
-                    this.Reset();
-                    if(this.Type_TimeArrive == Type_TimeArrive_Begin){
+                if (CurrentTime >= OperationTime) {//时间到了||超过了
+                    Reset();
+                    if(Type_TimeArrive == Type_TimeArrive_Begin){
                         Judge = true;
                     }
                 }
@@ -424,14 +421,14 @@ public abstract class ActionObject_Operation {
             if(this.CurrentCount >= this.TotalCount &&
                     this.CurrentTime <= this.OperationTime){
                 this.Reset();
-                this.funPoint_Operation.empty();
+                this.funPoint_Operation.run();
                 return;
             }
             //数量到达且时间未到
 
             if (this.Judge_OperationTimeUp()) {
                 if(this.CurrentCount >= this.TotalCount){
-                    this.funPoint_Operation.empty();
+                    this.funPoint_Operation.run();
                     //申请开始操作
                 }
             }
@@ -440,7 +437,7 @@ public abstract class ActionObject_Operation {
         //放在主函数中用来控制随机时间
     }
     //规定时间内计次器：延时，满足条件触发
-    public void Set_Timing(long LowerBound, long UpperBound, EmptyArgument funPoint_Operation) {
+    public void Set_Timing(long LowerBound, long UpperBound, Runner funPoint_Operation) {
         this.timer_Timing = new Timer_Timing(LowerBound, UpperBound,funPoint_Operation);
     }
     //--------------------------------时间管理系统--------------------------------------

@@ -30,7 +30,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        me.cdh.Main.MainAWT
+                                        me.cdh.Main.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

@@ -22,10 +22,6 @@ public class EventListen {
         private WindowEventListener(){}
         //私有构造器
 
-        public static final int EXIT_CLOSE = JFrame.EXIT_ON_CLOSE;
-        public static final int EXIT_NOT_CLOSE = JFrame.DISPOSE_ON_CLOSE;
-        //窗口关闭类型选择
-
         public static void AddWindowsExit(MyFrame frame, final int EXIT_OPTION) {
             if (EXIT_OPTION != 0) {
                 frame.addWindowListener(new WindowAdapter() {
@@ -38,12 +34,12 @@ public class EventListen {
 
                     @Override
                     public void windowClosed(WindowEvent e) {   //对应窗口已关闭事件
-                        if (EXIT_OPTION == EXIT_CLOSE) {
+                        if (EXIT_OPTION == JFrame.EXIT_ON_CLOSE) {
                             //MainAWT.LoopTimer.CurrentOperation = MainAWT.LoopTimer.CurrentOperation_Exit;
                             //退出循环
                             System.exit(0);    //窗口关闭后退出当前Java程序
                         }
-                        else if (EXIT_OPTION == EXIT_NOT_CLOSE) {
+                        else if (EXIT_OPTION == JFrame.DISPOSE_ON_CLOSE) {
                             //什么也不做
                             System.out.println("Window has been closed!");
                             //当窗口成功关闭后，会执行这里重写的内容

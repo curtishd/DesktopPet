@@ -2,7 +2,7 @@ package me.cdh.DrawControl;
 
 import me.cdh.CustomMouseEvent;
 import me.cdh.Draw.Picture;
-import me.cdh.Main.MainAWT;
+import me.cdh.Main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,50 +15,28 @@ import java.util.ArrayList;
 
 public class MyFrame extends JFrame {
 
-    public MyFrame() {
-        super();
-        Init();
-    }
     //私有化构造器
 
     //--------------------------------构造函数--------------------------------------
 
-    public ArrayList<Picture> List_MouseClickEvent_FramePicture;
+    public ArrayList<Picture> MouseClickEvent = new ArrayList<>();
 
-    public ArrayList<Picture> List_MousePressEvent_FramePicture;
+    public ArrayList<Picture> MousePressEvent = new ArrayList<>();
 
-    public ArrayList<Picture> List_MouseDraggedEvent_FramePicture;
+    public ArrayList<Picture> MouseDraggedEvent = new ArrayList<>();
 
-    public ArrayList<Picture> List_MouseMovedEvent_FramePicture;
+    public ArrayList<Picture> MouseMovedEvent = new ArrayList<>();
 
-    public ArrayList<Picture> List_MouseReleasedEvent_FramePicture;
+    public ArrayList<Picture> MouseReleasedEvent = new ArrayList<>();
     //定义窗口的事件集合
 
     //--------------------------------属性--------------------------------------
-
-    public static class ColorRBGA extends Color {
-        private final int r;
-        private final int g;
-        private final int b;
-
-        public ColorRBGA(int r, int g, int b, int a) {
-            super(r, g, b, a);
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            //静态类可以创建非static属性，但是不能使用外部非static属性
-        }
-    }
-    //构建自己的颜色
 
     public static double[] GetScreenWH() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         double width = dim.getWidth();
         double height = dim.getHeight();
-        double[] WH = new double[2];
-        WH[0] = width;
-        WH[1] = height;
-        return WH;
+        return new double[]{width, height};
     }
     //获取屏幕的宽高
 
@@ -73,7 +51,7 @@ public class MyFrame extends JFrame {
                                        int width, int height, int Location_x, int Location_y,//窗口大小和起始位置
                                        boolean Resizable, boolean AlwaysOnTop, boolean Visible, boolean Undecorated,//窗口的一些布尔选项
                                        final int EXIT_OPTION,
-                                       ColorRBGA Background) {
+                                       Color Background) {
             frame.setTitle(Title);
             //创建+标题
 
@@ -87,9 +65,8 @@ public class MyFrame extends JFrame {
 
             if (Undecorated) {
                 frame.setBackground(Background);//设置透明必须需要Undecorated
-            }
-            else {
-                frame.setBackground(new Color(Background.r, Background.g, Background.b));
+            } else {
+                frame.setBackground(new Color(Background.getRed(), Background.getGreen(), Background.getBlue()));
                 //设置透明必须需要Undecorated
             }
             //设定没有边框才能使用透明A
@@ -107,58 +84,51 @@ public class MyFrame extends JFrame {
 
     //继承JFrame的嵌套类(类本身继承的Frame，让嵌套类继承JFrame)
 
-    public void Init(){
-        List_MouseClickEvent_FramePicture = new ArrayList<>();
-        List_MousePressEvent_FramePicture = new ArrayList<>();
-        List_MouseDraggedEvent_FramePicture = new ArrayList<>();
-        List_MouseMovedEvent_FramePicture = new ArrayList<>();
-        List_MouseReleasedEvent_FramePicture = new ArrayList<>();
-    }
     //初始化
 
     @Override
     protected void processWindowEvent(WindowEvent e) {
-        if (e.getID() == WindowEvent.WINDOW_CLOSING){
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             return; //直接返回，阻止默认动作，阻止窗口关闭
         }
         super.processWindowEvent(e);
     }
     //阻止关闭
-;
+    ;
     //--------------------------------工具方法，类--------------------------------------
 
-    public void Refresh_PictureList(){
+    public void Refresh_PictureList() {
         //System.out.println(List_MouseClickEvent_FramePicture.size());
-        if(this.List_MouseClickEvent_FramePicture != null){
-            while (!this.List_MouseClickEvent_FramePicture.isEmpty()){
-                this.List_MouseClickEvent_FramePicture.removeFirst();
+        if (this.MouseClickEvent != null) {
+            while (!this.MouseClickEvent.isEmpty()) {
+                this.MouseClickEvent.removeFirst();
             }
             //清空刷新队列
         }
 
-        if(this.List_MouseDraggedEvent_FramePicture != null){
-            while (!this.List_MouseDraggedEvent_FramePicture.isEmpty()){
-                this.List_MouseDraggedEvent_FramePicture.removeFirst();
+        if (this.MouseDraggedEvent != null) {
+            while (!this.MouseDraggedEvent.isEmpty()) {
+                this.MouseDraggedEvent.removeFirst();
             }
             //清空刷新队列
         }
 
-        if(this.List_MouseMovedEvent_FramePicture != null){
-            while (!this.List_MouseMovedEvent_FramePicture.isEmpty()){
-                this.List_MouseMovedEvent_FramePicture.removeFirst();
+        if (this.MouseMovedEvent != null) {
+            while (!this.MouseMovedEvent.isEmpty()) {
+                this.MouseMovedEvent.removeFirst();
             }
             //清空刷新队列
         }
 
-        if(this.List_MousePressEvent_FramePicture != null){
-            while (!this.List_MousePressEvent_FramePicture.isEmpty()){
-                this.List_MousePressEvent_FramePicture.removeFirst();
+        if (this.MousePressEvent != null) {
+            while (!this.MousePressEvent.isEmpty()) {
+                this.MousePressEvent.removeFirst();
             }
             //清空刷新队列
         }
-        if(this.List_MouseReleasedEvent_FramePicture != null){
-            while (!this.List_MouseReleasedEvent_FramePicture.isEmpty()){
-                this.List_MouseReleasedEvent_FramePicture.removeFirst();
+        if (this.MouseReleasedEvent != null) {
+            while (!this.MouseReleasedEvent.isEmpty()) {
+                this.MouseReleasedEvent.removeFirst();
             }
             //清空刷新队列
         }
@@ -170,7 +140,7 @@ public class MyFrame extends JFrame {
                                         CustomMouseEvent FunPoint_Press,
                                         CustomMouseEvent FunPoint_Release,
                                         CustomMouseEvent FunPoint_Dragged,
-                                        CustomMouseEvent FunPoint_Moved){
+                                        CustomMouseEvent FunPoint_Moved) {
         this.addMouseListener(EventListen.MouseEventListener.AddMouseClick(
                 FunPoint_Click
         ));
@@ -188,30 +158,30 @@ public class MyFrame extends JFrame {
 
     //--------------------------------事件监听--------------------------------------
 
-    public static void MainFrame_EventListener_MouseClick(MouseEvent e){
-        Check_MouseEvent(e,MainAWT.MainFrame.List_MouseClickEvent_FramePicture,CHOOSE_Check_MouseEvent_Click);
+    public static void MainFrame_EventListener_MouseClick(MouseEvent e) {
+        Check_MouseEvent(e, Main.MainFrame.MouseClickEvent, CHOOSE_Check_MouseEvent_Click);
     }
     //MainFrame处理MouseClick的方法
 
-    public static void MainFrame_EventListener_MousePress(MouseEvent e){
-        Check_MouseEvent(e,MainAWT.MainFrame.List_MousePressEvent_FramePicture,CHOOSE_Check_MouseEvent_Press);
+    public static void MainFrame_EventListener_MousePress(MouseEvent e) {
+        Check_MouseEvent(e, Main.MainFrame.MousePressEvent, CHOOSE_Check_MouseEvent_Press);
     }
     //MainFrame处理MouseClick的方法
 
-    public static void MainFrame_EventListener_MouseDragged(MouseEvent e){
-        Check_MouseEvent(e,MainAWT.MainFrame.List_MouseDraggedEvent_FramePicture,CHOOSE_Check_MouseEvent_Dragged);
+    public static void MainFrame_EventListener_MouseDragged(MouseEvent e) {
+        Check_MouseEvent(e, Main.MainFrame.MouseDraggedEvent, CHOOSE_Check_MouseEvent_Dragged);
     }
     //MainFrame处理MouseDragged的方法
 
-    public static void MainFrame_EventListener_MouseMoved(MouseEvent e){
-        Check_MouseEvent(e,MainAWT.MainFrame.List_MouseMovedEvent_FramePicture,CHOOSE_Check_MouseEvent_Moved);
+    public static void MainFrame_EventListener_MouseMoved(MouseEvent e) {
+        Check_MouseEvent(e, Main.MainFrame.MouseMovedEvent, CHOOSE_Check_MouseEvent_Moved);
     }
     //MainFrame处理MouseMoved的方法
 
-    public static void MainFrame_EventListener_MouseReleased(MouseEvent e){
-        Check_MouseEvent(e,MainAWT.MainFrame.List_MouseReleasedEvent_FramePicture,CHOOSE_Check_MouseEvent_Release);
+    public static void MainFrame_EventListener_MouseReleased(MouseEvent e) {
+        Check_MouseEvent(e, Main.MainFrame.MouseReleasedEvent, CHOOSE_Check_MouseEvent_Release);
         //检查其他应该要执行的方法
-        MainAWT.robot.MouseReleased_AllUnlock();
+        Main.robot.MouseReleased_AllUnlock();
         //必须执行的方法
     }
     //MainFrame处理MouseMoved的方法
@@ -223,54 +193,47 @@ public class MyFrame extends JFrame {
             CHOOSE_Check_MouseEvent_Release = 5;
     //给Check_MouseEvent函数判定用的
 
-    public static void Check_MouseEvent(MouseEvent e,ArrayList<Picture> List_Picture,
-    final int CHOOSE_EventFunPoint) {
+    public static void Check_MouseEvent(MouseEvent e, ArrayList<Picture> List_Picture,
+                                        final int CHOOSE_EventFunPoint) {
         if (List_Picture != null && !List_Picture.isEmpty()) {//监听集合不为空且有操作函数
             for (int Num = List_Picture.size(); Num > 0; Num--) {
                 //倒序检查，因为要先触发在图像最上面的
 
                 Picture CurrentTemp = List_Picture.get(Num - 1);//倒叙之后必须从Num - 1开始
-                if (CurrentTemp.EventJudgeRect.Judge_PointInRect(e.getX(), e.getY())) {//现在改为了JudgeRect：判断区域自己给予
+                if (CurrentTemp.EventJudgeRect.judgePointInRect(e.getX(), e.getY())) {//现在改为了JudgeRect：判断区域自己给予
 
                     ArrayList<CustomMouseEvent> Temp_List_FunPoint;
                     if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Click) {
-                        if(CurrentTemp.eventLock.isMouse_Click()){
+                        if (CurrentTemp.eventLock.isMouse_Click()) {
                             return;
-                        }else{
-                            Temp_List_FunPoint = CurrentTemp.List_FunPoint_MouseClick;
+                        } else {
+                            Temp_List_FunPoint = CurrentTemp.mouseClick;
                         }
-                    }
-                    else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Dragged) {
+                    } else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Dragged) {
                         if (CurrentTemp.eventLock.isMouse_Dragged()) {//如果已经上锁
                             return;
                         } else {
-                            Temp_List_FunPoint = CurrentTemp.List_FunPoint_MouseDragged;
+                            Temp_List_FunPoint = CurrentTemp.mouseDragged;
                         }
-                    }
-                    else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Moved) {
-                        if(CurrentTemp.eventLock.isMouse_Move()){
+                    } else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Moved) {
+                        if (CurrentTemp.eventLock.isMouse_Move()) {
                             return;
-                        }else {
-                            Temp_List_FunPoint = CurrentTemp.List_FunPoint_MouseMoved;
+                        } else {
+                            Temp_List_FunPoint = CurrentTemp.mouseMoved;
                         }
-                    }
-                    else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Press) {
-                        if(CurrentTemp.eventLock.isMouse_Pressed()){
+                    } else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Press) {
+                        if (CurrentTemp.eventLock.isMouse_Pressed()) {
                             return;
+                        } else {
+                            Temp_List_FunPoint = CurrentTemp.mousePress;
                         }
-                        else{
-                            Temp_List_FunPoint = CurrentTemp.List_FunPoint_MousePress;
-                        }
-                    }
-                    else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Release) {
-                        if(CurrentTemp.eventLock.isMouse_Released()){
+                    } else if (CHOOSE_EventFunPoint == CHOOSE_Check_MouseEvent_Release) {
+                        if (CurrentTemp.eventLock.isMouse_Released()) {
                             return;
+                        } else {
+                            Temp_List_FunPoint = CurrentTemp.mouseRelease;
                         }
-                        else{
-                            Temp_List_FunPoint = CurrentTemp.List_FunPoint_MouseRelease;
-                        }
-                    }
-                    else {
+                    } else {
                         Temp_List_FunPoint = null;
                     }
                     //给CurrentTemp附通用值

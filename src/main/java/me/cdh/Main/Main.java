@@ -4,24 +4,25 @@ import me.cdh.Control.ThreadControl;
 import me.cdh.Control.UserData;
 import me.cdh.DestopPet.Robot;
 import me.cdh.Draw.Display;
-
-import me.cdh.DrawControl.EventListen;
 import me.cdh.DrawControl.MyFrame;
 
-public class MainAWT {
+import javax.swing.*;
+import java.awt.*;
+
+public class Main {
+    public static final String RESOURCE_PATH = "target/classes/me/cdh/";
 
     public static void main(String[] args) {
-
         MainFrame = new MyFrame();
         MyFrame.SetTool.SetNewFrame(MainFrame,"window",
                 (int) MyFrame.GetScreenWH()[0],(int) MyFrame.GetScreenWH()[1],0,0,
                 false,true,false,true,
-                EventListen.WindowEventListener.EXIT_CLOSE,
-                new MyFrame.ColorRBGA(0,0,0,0));
+                JFrame.EXIT_ON_CLOSE,
+                new Color(0,0,0,0));
 
         //--------------------------------窗口初始化--------------------------------------
 
-        MainAWT.Init();
+        Main.Init();
         //全部数据初始化位置
 
         //--------------------------------全局变量初始化--------------------------------------

@@ -1,8 +1,9 @@
 package me.cdh.Draw;
 
-import me.cdh.Main.Main;
-
 import javax.imageio.ImageIO;
+
+import me.cdh.Main;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

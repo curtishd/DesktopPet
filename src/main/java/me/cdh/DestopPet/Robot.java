@@ -1,5 +1,6 @@
 package me.cdh.DestopPet;
 
+import me.cdh.Main;
 import me.cdh.Control.RobotSize;
 import me.cdh.Control.ThreadControl;
 import me.cdh.Control.UserData;
@@ -7,7 +8,6 @@ import me.cdh.Draw.Display;
 import me.cdh.Draw.Load;
 import me.cdh.Draw.Picture;
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.Main;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

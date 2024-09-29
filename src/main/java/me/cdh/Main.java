@@ -1,4 +1,4 @@
-package me.cdh.Main;
+package me.cdh;
 
 import me.cdh.Control.ThreadControl;
 import me.cdh.Control.UserData;
@@ -65,8 +65,6 @@ public class Main {
 
     public static UserData userData;
 
-//思考一个问题，对象应该放在哪里？在哪里申请？回忆之前C++的思想
-;
     //取消多线程，以后再学习优化
 
     public static void Init(){
@@ -75,5 +73,4 @@ public class Main {
         //初始化绘图的数据
         Robot.Global_Init();
     }
-    //所有在窗口中的初始化放在此处
 }

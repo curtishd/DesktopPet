@@ -1,9 +1,9 @@
 package me.cdh.Control;
 
+import me.cdh.Main;
 import me.cdh.DestopPet.ActionTool;
 import me.cdh.DestopPet.InterfaceButton;
 import me.cdh.Draw.Display;
-import me.cdh.Main.Main;
 
 import java.io.*;
 

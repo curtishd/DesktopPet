@@ -3,7 +3,7 @@ package me.cdh.Control;
 import me.cdh.DestopPet.*;
 import me.cdh.DestopPet.Robot;
 import me.cdh.Draw.Picture;
-import me.cdh.Main.Main;
+import me.cdh.Main;
 import me.cdh.Runner;
 
 import java.awt.*;

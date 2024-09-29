@@ -2,7 +2,7 @@ package me.cdh.DestopPet;
 
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
-import me.cdh.Main.Main;
+import me.cdh.Main;
 import me.cdh.Runner;
 
 public abstract class ActionObject_Operation {

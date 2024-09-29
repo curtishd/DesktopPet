@@ -1,8 +1,8 @@
 package me.cdh.DrawControl;
 
 import me.cdh.CustomMouseEvent;
+import me.cdh.Main;
 import me.cdh.Draw.Picture;
-import me.cdh.Main.Main;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,7 +3,7 @@ package me.cdh.DestopPet;
 import me.cdh.Draw.Display;
 import me.cdh.Draw.Picture;
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.Main;
+import me.cdh.Main;
 import me.cdh.Runner;
 
 import java.awt.*;

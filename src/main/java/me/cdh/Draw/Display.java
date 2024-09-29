@@ -1,6 +1,8 @@
 package me.cdh.Draw;
 
 
+import me.cdh.Main;
+
 /*
  * 1.加载图片同BufferedImage记录图片
  * 2.定义Rect类用来获取区域
@@ -10,7 +12,6 @@ package me.cdh.Draw;
  * */
 
 import me.cdh.DrawControl.MyFrame;
-import me.cdh.Main.Main;
 
 import javax.swing.*;
 import java.awt.*;
